@@ -21,7 +21,6 @@ public class UserTest {
     @Reference
     private DubboUser dubboUser;
 
-
     @Test
     public void test(){
         dubboUser.saveUser();
