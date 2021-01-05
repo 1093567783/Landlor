@@ -1,0 +1,18 @@
+
+server:
+  port: 8879
+spring:
+  dubbo:
+    application:
+      id: dubbo-customer
+      name: dubbo-customer
+      logger: slf4j
+dubbo:
+  appname: landlor-controller
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  protocol: dubbo
+  application:
+    id: dubbo-customer
+    name: dubbo-customer
+    logger: slf4j

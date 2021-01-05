@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="landlor-api" />
+        <module name="landlor-base" />
+        <module name="landlor-servise" />
+        <module name="landlor-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Landlor" target="1.7" />
+      <module name="landlor-api" target="1.7" />
+      <module name="landlor-base" target="1.7" />
+      <module name="landlor-servise" target="1.7" />
+      <module name="landlor-web" target="1.7" />
+      <module name="landlorbase" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

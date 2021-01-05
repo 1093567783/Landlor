@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/landlor-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/landlor-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/landlor-servise" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/landlor-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/landlorbase" charset="UTF-8" />
+  </component>
+</project>

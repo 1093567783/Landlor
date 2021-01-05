@@ -1,0 +1,21 @@
+server:
+  port: 8878
+dubbo:
+  appname: landlor-servise
+  registry:
+   address: zookeeper://127.0.0.1:2181
+  protocol: dubbo
+  port: 20880
+  application:
+    id: dubbo-provice
+    name: dubbo-provice
+    logger: slf4j
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/landlord?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+
+
+#mybatis:
+#  mapper-locations: classpath:dao/*.xml
