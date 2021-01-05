@@ -9,4 +9,8 @@
     <select id="selectAll" resultType="vo.UserVO">
         select * from user_inf
     </select>
+    <select id="login" resultType="vo.UserVO" parameterType="dto.UserDTO">
+        select t.user_name AS userName, t.password AS password, t.real_name AS realName FROM t_user t
+        WHERE t.user_name = #{userName} AND t.password = #{password}
+    </select>
 </mapper>

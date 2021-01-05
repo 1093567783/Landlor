@@ -17,5 +17,5 @@ spring:
     url: jdbc:mysql://localhost:3306/landlord?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
 
 
-#mybatis:
-#  mapper-locations: classpath:dao/*.xml
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

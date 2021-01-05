@@ -5,8 +5,10 @@ package com.lym.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lym.dubbo.DubboUser;
 import com.lym.manager.UserManager;
+import dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lym.service.UserService;
+import vo.UserVO;
 
 /**
  * @Author LYM
@@ -25,5 +27,10 @@ public class UserServiceImpl implements UserService{
     public void saveUser() {
         System.out.println("web成功");
         userManager.saveUser();
+    }
+
+    @Override
+    public UserVO login(UserDTO userDTO) {
+        return userManager.login(userDTO);
     }
 }

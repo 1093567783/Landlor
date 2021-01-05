@@ -2,6 +2,8 @@ package dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author LYM
  * @Description 用户实体类
@@ -9,7 +11,7 @@ import lombok.Data;
  * @Version v1.0.0
  **/
 @Data
-public class UserDTO {
+public class UserDTO implements Serializable {
     /**
      * 用户id
      */

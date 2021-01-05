@@ -2,8 +2,10 @@ package com.lym.manager;
 
 
 import com.lym.mapper.UserMapper;
+import dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import vo.UserVO;
 
 /**
  * @Author LYM
@@ -20,4 +22,8 @@ public class UserManager{
     public void saveUser(){
         System.out.println("rpc成功");
     };
+
+    public UserVO login(UserDTO userDTO) {
+       return userMapper.login(userDTO);
+    }
 }
