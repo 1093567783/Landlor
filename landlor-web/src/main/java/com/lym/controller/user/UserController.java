@@ -5,6 +5,7 @@ import com.lym.dubbo.DubboUser;
 import dto.UserDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vo.UserVO;
 
@@ -27,7 +28,8 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public UserVO login(@RequestBody UserDTO userDTO){
+    public UserVO login(@RequestParam UserDTO userDTO){
+        System.out.println(123);
         return dubboUser.login(userDTO);
     }
 }
