@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public UserVO login(@RequestParam UserDTO userDTO){
+    public UserVO login(@RequestBody UserDTO userDTO){
         System.out.println(123);
         return dubboUser.login(userDTO);
     }

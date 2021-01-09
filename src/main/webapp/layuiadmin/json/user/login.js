@@ -1,7 +1,45 @@
-{
-  "code": 0
-  ,"msg": "登入成功"
-  ,"data": {
-    "access_token": "c262e61cd13ad99fc650e6908c7e5e65b63d2f32185ecfed6b801ee3fbdd5c0a"
-  }
-}
+layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'user'], function(){
+    var $ = layui.$
+        ,setter = layui.setter
+        ,admin = layui.admin
+        ,form = layui.form
+        ,router = layui.router()
+        ,search = router.search;
+
+    form.render();
+
+    //提交
+    form.on('submit(LAY-user-login-submit)', function(obj){
+        alert(JSON.stringify(obj.field))
+        //请求登入接口
+        admin.req({
+            url:'http://192.168.137.1:8879/user/login' //实际使用请改成服务端真实接口
+            ,data: JSON.stringify(obj.field)
+            ,method:'post'
+            ,datatype:'json'
+            ,contentType:'application/json'
+            ,done: function(res){
+
+                //请求成功后，写入 access_token
+                layui.data(setter.tableName, {
+                    key: setter.request.tokenName
+                    ,value: res.data.access_token
+                });
+                return false;
+                //登入成功的提示与跳转
+                layer.msg('登入成功', {
+                    offset: '15px'
+                    ,icon: 1
+                    ,time: 1000
+                }, function(){
+                    location.href = '../../index.html'; //后台主页
+                });
+            }
+        });
+
+    });
+});
