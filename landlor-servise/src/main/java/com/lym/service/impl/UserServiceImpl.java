@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserVO login(UserDTO userDTO) {
+        System.out.println(userDTO.getPassword());
         return userManager.login(userDTO);
     }
 }
