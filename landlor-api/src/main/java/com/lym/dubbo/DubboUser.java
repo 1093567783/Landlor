@@ -1,7 +1,7 @@
 package com.lym.dubbo;
 
-import dto.UserDTO;
-import vo.UserVO;
+import com.lym.model.user.dto.UserDTO;
+import com.lym.model.user.vo.UserVO;
 
 /**
  * 用户接口

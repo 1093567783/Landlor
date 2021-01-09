@@ -1,4 +1,6 @@
-package dto;
+package com.lym.model.user.vo;
+
+
 
 import lombok.Data;
 
@@ -6,12 +8,12 @@ import java.io.Serializable;
 
 /**
  * @Author LYM
- * @Description 用户实体类
+ * @Description 用户回显实体
  * @Date 2020/12/26
  * @Version v1.0.0
  **/
 @Data
-public class UserDTO implements Serializable {
+public class UserVO implements Serializable {
     /**
      * 用户id
      */

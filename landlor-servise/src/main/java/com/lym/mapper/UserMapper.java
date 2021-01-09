@@ -1,8 +1,8 @@
 package com.lym.mapper;
 
-import dto.UserDTO;
+import com.lym.model.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
-import vo.UserVO;
+import com.lym.model.user.vo.UserVO;
 
 /**
  * 用户的dao接口

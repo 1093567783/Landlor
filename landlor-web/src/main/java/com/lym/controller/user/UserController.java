@@ -2,11 +2,11 @@ package com.lym.controller.user;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboUser;
-import dto.UserDTO;
+import com.lym.model.user.dto.UserDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vo.UserVO;
+import com.lym.model.user.vo.UserVO;
 
 /**
  * @Author LYM
