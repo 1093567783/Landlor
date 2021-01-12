@@ -3,6 +3,7 @@ package com.lym.controller.user;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboUser;
+import com.lym.model.common.Result;
 import com.lym.model.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lym.model.user.vo.UserVO;
+
+import java.io.Serializable;
 
 /**
  * @Author LYM
@@ -42,10 +45,10 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public String login(@RequestBody UserDTO userDTO){
-        System.out.println(userDTO);
+    public Result<Object> login(@RequestBody UserDTO userDTO){
+        Result<Object> result = new Result<>();
         if (StringUtils.isEmpty(userDTO.getUserName()) || StringUtils.isEmpty(userDTO.getPassword())) {
-            return "请输入用户名和密码！";
+            return result.setError("169","请输入用户名和密码！");
         }
         //用户认证信息
         Subject subject = SecurityUtils.getSubject();
@@ -53,28 +56,20 @@ public class UserController {
                 userDTO.getUserName(),
                 userDTO.getPassword()
         );
+        Serializable sessionid = subject.getSession().getId();
         try {
             //进行验证，这里可以捕获异常，然后返回对应信息
             subject.login(usernamePasswordToken);
         } catch (UnknownAccountException e) {
             log.error("用户名不存在！", e);
-            return "用户名不存在！";
+            return result.setError("169","用户名不存在！");
         } catch (AuthenticationException e) {
             log.error("账号或密码错误！", e);
-            return "账号或密码错误！";
+            return result.setError("169","账号或密码错误！");
         } catch (AuthorizationException e) {
             log.error("没有权限！", e);
-            return "没有权限";
+            return result.setError("169","没有权限");
         }
-        return "login success";
-    }
-
-    /**
-     * 获取用户
-     * @param name
-     * @return
-     */
-    public UserVO getUserByName(String name){
-        return dubboUser.getUserByName(name);
+        return result;
     }
 }

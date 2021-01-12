@@ -37,9 +37,7 @@ public class ShiroConfig {
         defaultAAP.setProxyTargetClass(true);
         return defaultAAP;
     }
-//
 
-//
     //权限管理，配置主要是Realm的管理认证
     @Bean
     public SecurityManager securityManager(CustomRealm myShiroRealm) {
@@ -47,14 +45,12 @@ public class ShiroConfig {
         securityManager.setRealm(myShiroRealm);
         return securityManager;
     }
-//
-//    //Filter工厂，设置对应的过滤条件和跳转条件
+
+    //Filter工厂，设置对应的过滤条件和跳转条件
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        //登出
-        //对所有用户认证
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
@@ -80,6 +76,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/*/*", "authc");
         filterChainDefinitionMap.put("/*/*/*", "authc");
         filterChainDefinitionMap.put("/*/*/*/**", "authc");
+        //登出
         filterChainDefinitionMap.put("/logout", "logout");
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
