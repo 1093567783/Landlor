@@ -2,9 +2,11 @@ package com.lym.model.user.vo;
 
 
 
+import com.lym.model.shiro.Role;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @Author LYM
@@ -18,6 +20,10 @@ public class UserVO implements Serializable {
      * 用户id
      */
     private Byte id;
+    /**
+     * 角色id
+     */
+    private Byte roleId;
     /**
      * 用户账户
      */
@@ -34,4 +40,8 @@ public class UserVO implements Serializable {
      * 用户头像
      */
     private String picture;
+    /**
+     * 用户对应的角色集合
+     */
+    private Set<Role> roles;
 }

@@ -511,9 +511,7 @@ public class Constant {
             map.put("8","子公司");
         }
 
-        public static String getOfficeTypeName(String type){
-            return map.getOrDefault(type,"");
-        }
+
     }
 
     /**

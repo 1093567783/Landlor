@@ -25,14 +25,18 @@ public class UserServiceImpl implements UserService{
     private UserManager userManager;
 
     @Override
-    public void saveUser() {
-        System.out.println("web成功");
-        userManager.saveUser();
+    public void saveUser(UserDTO userDTO) {
+        userManager.saveUser(userDTO);
     }
 
     @Override
     public UserVO login(UserDTO userDTO) {
         System.out.println(userDTO.getPassword());
         return userManager.login(userDTO);
+    }
+
+    @Override
+    public UserVO getUserByName(String name) {
+        return userManager.getUserByName(name);
     }
 }

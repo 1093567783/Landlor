@@ -17,7 +17,7 @@ layui.config({
         alert(JSON.stringify(obj.field))
         //请求登入接口
         admin.req({
-            url:'http://192.168.137.1:8879/user/login' //实际使用请改成服务端真实接口
+            url:'/user/login' //实际使用请改成服务端真实接口
             ,data: JSON.stringify(obj.field)
             ,method:'post'
             ,datatype:'json'

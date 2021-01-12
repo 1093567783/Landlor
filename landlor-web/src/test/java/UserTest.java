@@ -23,6 +23,6 @@ public class UserTest {
 
     @Test
     public void test(){
-        dubboUser.saveUser();
+      //  dubboUser.saveUser();
     };
 }

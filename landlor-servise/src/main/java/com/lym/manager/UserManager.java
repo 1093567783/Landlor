@@ -19,11 +19,15 @@ public class UserManager{
     @Autowired
     private UserMapper userMapper;
 
-    public void saveUser(){
+    public void saveUser(UserDTO userDTO){
         System.out.println("rpc成功");
     };
 
     public UserVO login(UserDTO userDTO) {
        return userMapper.login(userDTO);
+    }
+
+    public UserVO getUserByName(String name) {
+       return userMapper.getUserByName(name);
     }
 }

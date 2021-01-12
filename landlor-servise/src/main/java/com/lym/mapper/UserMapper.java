@@ -10,5 +10,17 @@ import com.lym.model.user.vo.UserVO;
 @Mapper
 public interface UserMapper {
 
+    /**
+     * 登录
+     * @param userDTO
+     * @return
+     */
     UserVO login(UserDTO userDTO);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param name
+     * @return
+     */
+    UserVO getUserByName(String name);
 }
