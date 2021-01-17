@@ -25,5 +25,8 @@
     from t_user tu
     where tu.user_name = #{userName}
     </select>
-    
+    <select id="findAllUser" resultMap="userVO" parameterType="com.lym.model.user.dto.UserDTO">
+      SELECT <include refid="List_VO_Column_Result"/> FROM t_user tu
+    </select>
+
 </mapper>

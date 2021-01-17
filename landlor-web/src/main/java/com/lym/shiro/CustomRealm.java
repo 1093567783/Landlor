@@ -25,9 +25,6 @@ import org.springframework.util.StringUtils;
  **/
 public class CustomRealm extends AuthorizingRealm{
 
-
-
-
     /**
      * @MethodName doGetAuthorizationInfo
      * @Description 权限配置类
@@ -38,11 +35,9 @@ public class CustomRealm extends AuthorizingRealm{
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         DubboUser dubboUser = SpringBeanFactoryUtils.getBean("dubboUser",DubboUser.class);
-
         //获取登录用户名
         String name = (String) principalCollection.getPrimaryPrincipal();
         System.out.println(name);
-
         //查询用户名称
         UserVO user = dubboUser.getUserByName(name);
         //添加角色和权限
@@ -83,4 +78,5 @@ public class CustomRealm extends AuthorizingRealm{
             return simpleAuthenticationInfo;
         }
     }
+
 }

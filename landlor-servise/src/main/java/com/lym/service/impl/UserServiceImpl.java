@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.lym.service.UserService;
 import com.lym.model.user.vo.UserVO;
 
+import java.util.List;
+
 /**
  * @Author LYM
  * @Description 用户服务实现类
@@ -29,14 +31,15 @@ public class UserServiceImpl implements UserService{
         userManager.saveUser(userDTO);
     }
 
-    @Override
-    public UserVO login(UserDTO userDTO) {
-        System.out.println(userDTO.getPassword());
-        return userManager.login(userDTO);
-    }
+
 
     @Override
     public UserVO getUserByName(String name) {
         return userManager.getUserByName(name);
+    }
+
+    @Override
+    public List<UserVO> findAllUser(UserDTO userDTO) {
+        return userManager.findAllUser(userDTO);
     }
 }

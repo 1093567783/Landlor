@@ -2,6 +2,7 @@ package com.lym.model.user.vo;
 
 
 
+import com.lym.model.common.BaseEntityDTO;
 import com.lym.model.shiro.Role;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ import java.util.Set;
  * @Version v1.0.0
  **/
 @Data
-public class UserVO implements Serializable {
+public class UserVO extends BaseEntityDTO implements Serializable {
     /**
      * 用户id
      */

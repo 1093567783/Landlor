@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.lym.model.user.vo.UserVO;
 
+import java.util.List;
+
 /**
  * @Author LYM
  * @Description 用户逻辑实现
@@ -23,11 +25,13 @@ public class UserManager{
         System.out.println("rpc成功");
     };
 
-    public UserVO login(UserDTO userDTO) {
-       return userMapper.login(userDTO);
-    }
+
 
     public UserVO getUserByName(String name) {
        return userMapper.getUserByName(name);
+    }
+
+    public List<UserVO> findAllUser(UserDTO userDTO) {
+        return userMapper.findAllUser(userDTO);
     }
 }

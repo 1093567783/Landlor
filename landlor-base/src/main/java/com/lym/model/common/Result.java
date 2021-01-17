@@ -14,7 +14,7 @@ import java.util.Map;
  **/
 @Data
 public class Result <T> implements Serializable {
-    private String code;
+    private Integer code;
     private String msg;
     private T data;
 
@@ -29,14 +29,14 @@ public class Result <T> implements Serializable {
         this.setData(data);
     }
 
-    private Result(String code, String msg) {
+    private Result(Integer code, String msg) {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
         this.setCode(code);
         this.setMsg(msg);
     }
 
-    private Result(String code, String msg, T data) {
+    private Result(Integer code, String msg, T data) {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
         this.setCode(code);
@@ -44,7 +44,7 @@ public class Result <T> implements Serializable {
         this.setData(data);
     }
 
-    public Result<T> setError(String code, String msg) {
+    public Result<T> setError(Integer code, String msg) {
         this.setCode(code);
         this.setMsg(msg);
         return this;
@@ -59,11 +59,11 @@ public class Result <T> implements Serializable {
         return new Result(data);
     }
 
-    public static <T> Result instance(String code, String msg) {
+    public static <T> Result instance(Integer code, String msg) {
         return new Result(code, msg);
     }
 
-    public static <T> Result instance(String code, String msg, T data) {
+    public static <T> Result instance(Integer code, String msg, T data) {
         return new Result(code, msg, data);
     }
 
