@@ -49,7 +49,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //登录
-        //shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
        // shiroFilterFactoryBean.setSuccessUrl("/index");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();

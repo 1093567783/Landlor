@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lym.model.user.vo.UserVO;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public Result<Object> login(@RequestBody UserDTO userDTO,HttpSession session) {
+    public Result<Object> login(@RequestBody UserDTO userDTO,HttpServletResponse response) {
         Result<Object> result = new Result<>();
         if (StringUtils.isEmpty(userDTO.getUserName()) || StringUtils.isEmpty(userDTO.getPassword())) {
             return result.setError(169, "请输入用户名和密码！");
@@ -63,10 +64,14 @@ public class UserController {
                 userDTO.getUserName(),
                 userDTO.getPassword()
         );
+        Cookie cookie = new Cookie("token","same");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
             Serializable token = subject.getSession().getId();
             Map<String, Object> remap = new HashMap<>();
-            remap.put("access_token", token);
-            session.setAttribute("access_token",token);
+            remap.put("usernamePasswordToken", usernamePasswordToken);
+
             result.setData(remap);
             try {
                 //进行验证，这里可以捕获异常，然后返回对应信息

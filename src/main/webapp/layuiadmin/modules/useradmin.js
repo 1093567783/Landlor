@@ -6,6 +6,8 @@ layui.define(["table", "form"], function(e) {
 	i.render({
 		elem: "#LAY-user-manage"
 		,url: 'http://192.168.137.1:8879/user/findAllUser'
+        ,xhrFields: {withCredentials: true}
+        ,crossDomain: true
         ,cols: [
 			[{
 				type: "checkbox",
