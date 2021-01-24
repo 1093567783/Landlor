@@ -1,5 +1,6 @@
 package com.lym.config;
 
+import com.lym.code.CORSAuthenticationFilter;
 import com.lym.shiro.CustomRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -69,14 +71,18 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/user/sendMsg", "anon");
         filterChainDefinitionMap.put("/user/login", "anon");
 
-        filterChainDefinitionMap.put("/**", "authc");
-        filterChainDefinitionMap.put("/*/*", "authc");
-        filterChainDefinitionMap.put("/*/*/*", "authc");
-        filterChainDefinitionMap.put("/*/*/*/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/*/*", "authc");
+//        filterChainDefinitionMap.put("/*/*/*", "authc");
+//        filterChainDefinitionMap.put("/*/*/*/**", "authc");
         //登出
         filterChainDefinitionMap.put("/logout", "logout");
         //错误页面，认证不通过跳转
        // shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        //自定义拦截器
+        Map<String, Filter> customFilterMap = new LinkedHashMap<>();
+        customFilterMap.put("corsAuthenticationFilter", new CORSAuthenticationFilter());
+        shiroFilterFactoryBean.setFilters(customFilterMap);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

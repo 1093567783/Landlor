@@ -64,42 +64,41 @@ public class UserController {
                 userDTO.getUserName(),
                 userDTO.getPassword()
         );
-        Cookie cookie = new Cookie("token","same");
+        Serializable authToken = subject.getSession().getId();
+        Map<String, Object> remap = new HashMap<>();
+        result.setData(remap);
+        Cookie cookie = new Cookie("JSESSIONID",authToken.toString());
         cookie.setPath("/");
         response.addCookie(cookie);
-
-            Serializable token = subject.getSession().getId();
-            Map<String, Object> remap = new HashMap<>();
-            remap.put("usernamePasswordToken", usernamePasswordToken);
-
-            result.setData(remap);
-            try {
-                //进行验证，这里可以捕获异常，然后返回对应信息
-                subject.login(usernamePasswordToken);
-            } catch (UnknownAccountException e) {
-                log.error("用户名不存在！", e);
-                return result.setError(169, "用户名不存在！");
-            } catch (AuthenticationException e) {
-                log.error("账号或密码错误！", e);
-                return result.setError(169, "账号或密码错误！");
-            } catch (AuthorizationException e) {
-                log.error("没有权限！", e);
-                return result.setError(169, "没有权限");
-            }
-            System.out.println("登录成功" + result);
-            return result;
+        try {
+            //进行验证，这里可以捕获异常，然后返回对应信息
+            subject.login(usernamePasswordToken);
+        } catch (UnknownAccountException e) {
+            log.error("用户名不存在！", e);
+            return result.setError(169, "用户名不存在！");
+        } catch (AuthenticationException e) {
+            log.error("账号或密码错误！", e);
+            return result.setError(169, "账号或密码错误！");
+        } catch (AuthorizationException e) {
+            log.error("没有权限！", e);
+            return result.setError(169, "没有权限");
         }
-
-        @RequestMapping("findAllUser")
-        public Result<Object> findAllUser (UserDTO userDTO){
-            // log.info(userName.toString());
-            Result<Object> result = new Result<>();
-            // UserDTO userDTO = new UserDTO();
-            //userDTO.setUserName(userName);
-            List<UserVO> userVOS = dubboUser.findAllUser(userDTO);
-            result.setData(userVOS);
-            log.info(userVOS.toString());
-            return result;
-        }
-
+        System.out.println("登录成功" + result);
+        return result;
     }
+
+    @RequestMapping("findAllUser")
+    public Result<Object> findAllUser (UserDTO userDTO){
+        // log.info(userName.toString());
+        Result<Object> result = new Result<>();
+        // UserDTO userDTO = new UserDTO();
+        //userDTO.setUserName(userName);
+        List<UserVO> userVOS = dubboUser.findAllUser(userDTO);
+        result.setData(userVOS);
+        log.info(userVOS.toString());
+        result.setCode(0);
+        result.setMsg("");
+        return result;
+    }
+
+}

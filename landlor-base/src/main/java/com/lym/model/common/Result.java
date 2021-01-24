@@ -15,23 +15,27 @@ import java.util.Map;
 @Data
 public class Result <T> implements Serializable {
     private Integer code;
+    private Integer count;
     private String msg;
     private T data;
 
      public Result() {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
+        this.count = UnifyStrErrorCode.SUCCESS.COUNT_CODE;
     }
 
     private Result(T data) {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
+        this.count = UnifyStrErrorCode.SUCCESS.COUNT_CODE;
         this.setData(data);
     }
 
     private Result(Integer code, String msg) {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
+        this.count = UnifyStrErrorCode.SUCCESS.COUNT_CODE;
         this.setCode(code);
         this.setMsg(msg);
     }
@@ -39,6 +43,7 @@ public class Result <T> implements Serializable {
     private Result(Integer code, String msg, T data) {
         this.code = UnifyStrErrorCode.SUCCESS.SUCCESS_CODE;
         this.msg = UnifyStrErrorCode.SUCCESS.SUCCESS_MSG;
+        this.count = UnifyStrErrorCode.SUCCESS.COUNT_CODE;
         this.setCode(code);
         this.setMsg(msg);
         this.setData(data);
@@ -81,6 +86,7 @@ public class Result <T> implements Serializable {
         map.put("data", this.data);
         map.put("msg", this.msg);
         map.put("code", this.code);
+        map.put("count",this.count);
         return map;
     }
 

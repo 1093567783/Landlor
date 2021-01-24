@@ -10,6 +10,7 @@ public class UnifyStrErrorCode {
 
     public static class SUCCESS {
         public static final Integer SUCCESS_CODE = 200;
+        public static final Integer COUNT_CODE = 10;
         public static final String SUCCESS_MSG = "成功";
     }
 }

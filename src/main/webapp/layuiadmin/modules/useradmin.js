@@ -8,6 +8,14 @@ layui.define(["table", "form"], function(e) {
 		,url: 'http://192.168.137.1:8879/user/findAllUser'
         ,xhrFields: {withCredentials: true}
         ,crossDomain: true
+		,parseData:function (res) {
+			return{
+				code:0,
+				msg:"",
+				count:10,
+				data:res.data
+			}
+        }
         ,cols: [
 			[{
 				type: "checkbox",
@@ -18,7 +26,7 @@ layui.define(["table", "form"], function(e) {
 				title: "ID",
 				sort: !0
 			}, {
-				field: "username",
+				field: "realName",
 				title: "用户名",
 				minWidth: 100
 			}, {

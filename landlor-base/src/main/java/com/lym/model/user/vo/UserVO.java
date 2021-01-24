@@ -7,6 +7,7 @@ import com.lym.model.shiro.Role;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -41,6 +42,22 @@ public class UserVO extends BaseEntityDTO implements Serializable {
      * 用户头像
      */
     private String picture;
+
+    /**电话*/
+    private String phone;
+
+    /**电子邮箱*/
+    private String email;
+
+    /**性别*/
+    private String sex;
+
+    /**创建时间*/
+    private Date joinTime;
+
+    /**创建时间*/
+    private Date updateTime;
+
     /**
      * 用户对应的角色集合
      */

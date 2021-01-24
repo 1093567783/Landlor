@@ -11,6 +11,11 @@
         <result column="password" property="password" javaType="java.lang.String" />
         <result column="picture" property="picture" javaType="java.lang.String" />
         <result column="real_name" property="realName" javaType="java.lang.String" />
+        <result column="phone" property="phone" javaType="java.lang.String" />
+        <result column="email" property="email" javaType="java.lang.String" />
+        <result column="join_time" property="joinTime" javaType="java.util.Date" />
+        <result column="update_time" property="updateTime" javaType="java.util.Date" />
+        <result column="sex" property="sex" javaType="java.lang.String" />
     </resultMap>
     <sql id="List_VO_Column_Result">
         tu.id,
@@ -18,7 +23,12 @@
         tu.user_name,
         tu.password,
         tu.picture,
-        tu.real_name
+        tu.real_name,
+        tu.phone,
+        tu.email,
+        tu.join_time,
+        tu.sex,
+        tu.update_time
     </sql>
     <select id="getUserByName" parameterType="string" resultMap="userVO">
     select <include refid="List_VO_Column_Result"/>
