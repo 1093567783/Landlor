@@ -26,6 +26,10 @@ public class UserVO extends BaseEntityDTO implements Serializable {
      * 角色id
      */
     private Byte roleId;
+    /**部门id*/
+    private Byte deptId;
+    /**部门名称*/
+    private String deptName;
     /**
      * 用户账户
      */
@@ -55,7 +59,7 @@ public class UserVO extends BaseEntityDTO implements Serializable {
     /**创建时间*/
     private Date joinTime;
 
-    /**创建时间*/
+    /**修改时间*/
     private Date updateTime;
 
     /**

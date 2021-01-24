@@ -7,6 +7,7 @@
     <resultMap id="userVO" type="com.lym.model.user.vo.UserVO">
         <result column="id" property="id" javaType="java.lang.Byte" />
         <result column="role_id" property="roleId" javaType="java.lang.Byte" />
+        <result column="dept_id" property="deptId" javaType="java.lang.Byte" />
         <result column="user_name" property="userName" javaType="java.lang.String" />
         <result column="password" property="password" javaType="java.lang.String" />
         <result column="picture" property="picture" javaType="java.lang.String" />
@@ -16,6 +17,7 @@
         <result column="join_time" property="joinTime" javaType="java.util.Date" />
         <result column="update_time" property="updateTime" javaType="java.util.Date" />
         <result column="sex" property="sex" javaType="java.lang.String" />
+        <result column="title" property="deptName" javaType="java.lang.String" />
     </resultMap>
     <sql id="List_VO_Column_Result">
         tu.id,
@@ -28,7 +30,8 @@
         tu.email,
         tu.join_time,
         tu.sex,
-        tu.update_time
+        tu.update_time,
+        tu.dept_id
     </sql>
     <select id="getUserByName" parameterType="string" resultMap="userVO">
     select <include refid="List_VO_Column_Result"/>
@@ -36,7 +39,7 @@
     where tu.user_name = #{userName}
     </select>
     <select id="findAllUser" resultMap="userVO" parameterType="com.lym.model.user.dto.UserDTO">
-      SELECT <include refid="List_VO_Column_Result"/> FROM t_user tu
+      SELECT <include refid="List_VO_Column_Result"/>,sd.title  FROM t_user tu LEFT JOIN sys_dept sd ON tu.dept_id = sd.id
     </select>
 
 </mapper>

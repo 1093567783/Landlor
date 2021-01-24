@@ -20,7 +20,6 @@ import java.util.List;
  * @Version v1.0.0
  **/
 @Service(interfaceClass = DubboUser.class, delay = -1, retries = 0)
-@org.springframework.stereotype.Service
 public class UserServiceImpl implements UserService{
 
     @Autowired
