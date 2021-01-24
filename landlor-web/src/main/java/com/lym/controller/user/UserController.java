@@ -64,10 +64,13 @@ public class UserController {
                 userDTO.getUserName(),
                 userDTO.getPassword()
         );
-        Serializable authToken = subject.getSession().getId();
-        Map<String, Object> remap = new HashMap<>();
-        result.setData(remap);
-        Cookie cookie = new Cookie("JSESSIONID",authToken.toString());
+        String authToken = subject.getSession().getId().toString();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", authToken);
+        System.err.println("TOKEN:" + authToken);
+        result.setData(map);
+        Cookie cookie = new Cookie("TOKEN",authToken);
         cookie.setPath("/");
         response.addCookie(cookie);
         try {
@@ -88,7 +91,7 @@ public class UserController {
     }
 
     @RequestMapping("findAllUser")
-    public Result<Object> findAllUser (UserDTO userDTO){
+    public Result<Object> findAllUser(UserDTO userDTO){
         // log.info(userName.toString());
         Result<Object> result = new Result<>();
         // UserDTO userDTO = new UserDTO();
@@ -100,5 +103,14 @@ public class UserController {
         result.setMsg("");
         return result;
     }
-
+    @RequestMapping("getUserById")
+    public Result<Object> getUserById(UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        UserVO userVO = dubboUser.getUserById(userDTO);
+        result.setData(userVO);
+        log.info(userVO.toString());
+        result.setCode(0);
+        result.setMsg("");
+        return result;
+    }
 }

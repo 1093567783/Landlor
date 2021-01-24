@@ -1,4 +1,4 @@
-package com.lym.mapper;
+package com.lym.mapper.user;
 
 import com.lym.model.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;

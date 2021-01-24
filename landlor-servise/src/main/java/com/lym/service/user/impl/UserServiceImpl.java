@@ -1,14 +1,14 @@
-package com.lym.service.impl;
+package com.lym.service.user.impl;
 
 
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lym.dubbo.DubboUser;
-import com.lym.manager.UserManager;
+import com.lym.manager.user.UserManager;
 
 import com.lym.model.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.lym.service.UserService;
+import com.lym.service.user.UserService;
 import com.lym.model.user.vo.UserVO;
 
 import java.util.List;
@@ -38,8 +38,23 @@ public class UserServiceImpl implements UserService{
         return userManager.getUserByName(name);
     }
 
+    /**
+     * 获取所有用户
+     * @param userDTO
+     * @return
+     */
     @Override
     public List<UserVO> findAllUser(UserDTO userDTO) {
         return userManager.findAllUser(userDTO);
+    }
+
+    /**
+     * 根据条件获取用户
+     * @param userDTO
+     * @return
+     */
+    @Override
+    public UserVO getUserById(UserDTO userDTO) {
+        return null;
     }
 }

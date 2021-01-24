@@ -26,7 +26,7 @@ layui.config({
                     //请求成功后，写入 access_token
                     layui.data(setter.tableName, {
                         key: setter.request.tokenName
-                        , value: res.data.access_token
+                        , value: res.data.TOKEN
                     });
                     //登入成功的提示与跳转
                     layer.msg('登入成功', {

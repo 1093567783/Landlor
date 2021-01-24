@@ -1,11 +1,11 @@
 /** layuiAdmin.std-v1.0.0 LPPL License By http://www.layui.com/admin/ */ ;
 layui.define(["table", "form"], function(e) {
 	var t = layui.$,
-		i = layui.table;
+		i = layui.table
 	layui.form;
 	i.render({
 		elem: "#LAY-user-manage"
-		,url: 'http://192.168.137.1:8879/user/findAllUser'
+		,url: api + 'user/findAllUser'
         ,xhrFields: {withCredentials: true}
         ,crossDomain: true
 		,parseData:function (res) {
@@ -76,7 +76,7 @@ layui.define(["table", "form"], function(e) {
 			layer.open({
 				type: 2,
 				title: "编辑用户",
-				content: "../../../views/user/user/userform.html",
+				content: "../../../landlord/user/user/userform.html",
 				maxmin: !0,
 				area: ["500px", "450px"],
 				btn: ["确定", "取消"],
@@ -84,12 +84,17 @@ layui.define(["table", "form"], function(e) {
 					var l = window["layui-layer-iframe" + e],
 						r = "LAY-user-front-submit",
 						n = t.find("iframe").contents().find("#" + r);
+
 					l.layui.form.on("submit(" + r + ")", function(t) {
 						t.field;
 						i.reload("LAY-user-front-submit"), layer.close(e)
 					}), n.trigger("click")
 				},
-				success: function(e, t) {}
+				success: function(e, t) {
+                    url = path+'user/getUserById';
+                    //装载数据表格
+                    form.val("layuiadmin-form-useradmin", data);
+				}
 			})
 		}
 	}), i.render({

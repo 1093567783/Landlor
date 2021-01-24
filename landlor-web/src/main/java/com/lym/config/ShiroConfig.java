@@ -75,7 +75,7 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/*/*", "authc");
 //        filterChainDefinitionMap.put("/*/*/*", "authc");
 //        filterChainDefinitionMap.put("/*/*/*/**", "authc");
-        //登出
+//        //登出
         filterChainDefinitionMap.put("/logout", "logout");
         //错误页面，认证不通过跳转
        // shiroFilterFactoryBean.setUnauthorizedUrl("/error");

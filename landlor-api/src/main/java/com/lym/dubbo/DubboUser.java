@@ -28,4 +28,11 @@ public interface DubboUser {
      * @return
      */
     List<UserVO> findAllUser(UserDTO userDTO);
+
+    /**
+     * 获取用户
+     * @param userDTO
+     * @return
+     */
+    UserVO getUserById(UserDTO userDTO);
 }

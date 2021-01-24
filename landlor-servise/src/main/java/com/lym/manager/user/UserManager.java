@@ -1,7 +1,7 @@
-package com.lym.manager;
+package com.lym.manager.user;
 
 
-import com.lym.mapper.UserMapper;
+import com.lym.mapper.user.UserMapper;
 import com.lym.model.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.lym.service;
+package com.lym.service.user;
 
 import com.lym.dubbo.DubboUser;
 
