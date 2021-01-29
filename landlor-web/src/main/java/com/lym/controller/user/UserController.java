@@ -12,6 +12,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpRequest;
@@ -42,16 +44,53 @@ public class UserController {
     @Reference
     private DubboUser dubboUser;
 
+
     @Bean(name = "dubboUser")
     public DubboUser getDubboUser(){
         return dubboUser;
     }
 
+    /**
+     * 添加用户
+     * @param userDTO
+     * @return
+     */
     @RequestMapping("saveUser")
-    public void SaveUser(){
-        System.out.println(1111);
+    public Result saveUser(@RequestBody UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        userDTO.setPassword("123456");
+        dubboUser.saveUser(userDTO);
+        return result;
     }
 
+    /**
+     * 修改用户
+     * @param userDTO
+     * @return
+     */
+    @RequestMapping("updateUser")
+    public Result updateUser(@RequestBody UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        dubboUser.updateUser(userDTO);
+        return result;
+    }
+    /**
+     * 修改用户
+     * @param userDTO
+     * @return
+     */
+    @RequestMapping("deleteUser")
+    public Result deleteUser( UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        dubboUser.deleteUser(userDTO);
+        return result;
+    }
+    /**
+     * 登录
+     * @param userDTO
+     * @param response
+     * @return
+     */
     @RequestMapping("login")
     public Result<Object> login(@RequestBody UserDTO userDTO,HttpServletResponse response) {
         Result<Object> result = new Result<>();
@@ -64,18 +103,17 @@ public class UserController {
                 userDTO.getUserName(),
                 userDTO.getPassword()
         );
-        String authToken = subject.getSession().getId().toString();
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("token", authToken);
-        System.err.println("TOKEN:" + authToken);
-        result.setData(map);
-        Cookie cookie = new Cookie("TOKEN",authToken);
-        cookie.setPath("/");
-        response.addCookie(cookie);
         try {
             //进行验证，这里可以捕获异常，然后返回对应信息
             subject.login(usernamePasswordToken);
+            String authToken = subject.getSession().getId().toString();
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", authToken);
+            System.err.println("TOKEN:" + authToken);
+            result.setData(map);
+            Cookie cookie = new Cookie("TOKEN",authToken);
+            cookie.setPath("/");
+            response.addCookie(cookie);
         } catch (UnknownAccountException e) {
             log.error("用户名不存在！", e);
             return result.setError(169, "用户名不存在！");
@@ -90,12 +128,14 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 获取所有用户列表
+     * @param userDTO
+     * @return
+     */
     @RequestMapping("findAllUser")
     public Result<Object> findAllUser(UserDTO userDTO){
-        // log.info(userName.toString());
         Result<Object> result = new Result<>();
-        // UserDTO userDTO = new UserDTO();
-        //userDTO.setUserName(userName);
         List<UserVO> userVOS = dubboUser.findAllUser(userDTO);
         result.setData(userVOS);
         log.info(userVOS.toString());
@@ -103,6 +143,12 @@ public class UserController {
         result.setMsg("");
         return result;
     }
+
+    /**
+     * 暂未使用
+     * @param userDTO
+     * @return
+     */
     @RequestMapping("getUserById")
     public Result<Object> getUserById(UserDTO userDTO){
         Result<Object> result = new Result<>();

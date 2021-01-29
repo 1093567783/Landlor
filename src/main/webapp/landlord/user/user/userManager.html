@@ -23,7 +23,7 @@
 							<label class="layui-form-label">所属部门</label>
 							<div class="layui-input-inline">
 								<!-- 隐藏部门ID  修改操作 -->
-								<input type="hidden" name="deptid" id="p_deptid" />
+								<input type="hidden" name="deptId" id="p_deptid" />
 								<input type="text" id="p_deptname" readonly="readonly" autocomplete="off"
 									placeholder="请选择所属部门" class="layui-input">
 							</div>
@@ -137,6 +137,13 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
+						<label class="layui-form-label">头像</label>
+						<div class="layui-input-inline">
+							<input type="text" name="avatar" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
+						</div>
+						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
+					</div>
+					<div class="layui-form-item">
 						<div class="layui-input-block" style="text-align: center;">
 							<a class="layui-btn " lay-submit="" lay-filter="doSubmit"><label
 									class="layui-icon layui-icon-release"></label>提交</a>
@@ -164,12 +171,25 @@
 	<script src="../../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
 	<script src="../../../layuiadmin/lib/common/selectLayer.js" charset="utf-8"></script>
 	<script>
-		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable'], function () {
+		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload'], function () {
 			var form = layui.form;
 			var table = layui.table;
 			var laydate = layui.laydate;
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
+            var upload = layui.upload ;
+
+            upload.render({
+                elem: '#layuiadmin-upload-useradmin'
+                ,url: api + 'file/upload'
+                ,accept: 'images'
+                ,method: 'get'
+                ,acceptMime: 'image/*'
+                ,done: function(res){
+                    $(this.item).prev("div").children("input").val(res.data.src)
+                }
+            });
+
 			laydate.render({
 				elem:'#hiredate',
 				type:'datetime'
@@ -282,12 +302,13 @@
 			table.on('tool(userTable)', function (obj) {
 				var data = obj.data;
 				if (obj.event === 'delete') {
-					layer.confirm('真的删除【' + data.name + '】这个用户吗么', function (index) {
-						$.post(api + "user/deleteUser", { id: data.id }, function (res) {
-							layer.msg(res.msg);
-							obj.del();
-							layer.close(index);
-						})
+					layer.confirm('真的删除【' + data.realName + '】这个用户吗么', function (index) {
+                        $.get(api + "user/deleteUser", { id: data.id }, function (res) {
+                            layer.msg(res.msg);
+                            obj.del();
+                            layer.close(index);
+                        })
+
 					});
 				} else if (obj.event === 'update') {
 					openUpdateUser(data);
@@ -309,13 +330,11 @@
 					content:$("#addOrUpdateDiv"),
 					area:['800px','500px'],
 					success:function(index){
-						url=api+"user/addUser";
+						url=api+"user/saveUser";
 						// 重置表单
 						$("#dataFrm")[0].reset();
 						// 查询最大排序码
-						$.get(api+"user/queryUserMaxOrderNum",function(res){
-							$("#ordernum").val(res.data);
-						})
+
 					}
 				});
 			}
@@ -337,21 +356,75 @@
 					}
 				});
 			}
-			
+            var token = $.cookie('TOKEN');
 			// 监听 添加和修改的提交
 			form.on("submit(doSubmit)", function (data) {
-				var params = $("#dataFrm").serialize();
 				// 提交数据
-				$.post(url, params, function (res) {
-					layer.msg(res.msg);
-					if (res.code == 200) {
-						tableIns.reload();
-					}
-					layer.close(mainIndex);
-				})
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: JSON.stringify(data.field),
+                    dataType: "json",
+                    contentType:'application/json;charset=UTF-8',  //设置后
+					success: function (result) {
+                        layer.msg(result.msg);
+                        if (result.code == 200) {
+                            tableIns.reload();
+                        }
+                        layer.close(mainIndex);
+                    },
+                    error: function () {
+                        alert("提交请求失败！");
+                    }
+                });
 				return false;
 			});
-			
+            // 打开分配角色窗口 roleTable
+            function openSelectRole(data_table) {
+                var table_RolesIns;
+                mainIndex = layer.open({
+                    type: 1,
+                    title: '分配【' + data_table.name + '】用户和角色',
+                    content: $("#selectRoleDiv"),
+                    area: ['800px', '600px'],
+                    btn: ['<span class="layui-icon layui-icon-ok">确认分配</span>'],
+                    btnAlign: 'c',
+                    yes: function () {
+                        // 获取选中的数据行
+                        var checkStatus = table.checkStatus('roleTable');
+                        var m = checkStatus.data;
+                        // 获取当前行点击的用户id
+                        var uid = data_table.id;
+                        var params = "uid=" + uid;
+                        $.each(m, function (x, item) {
+                            params += "&rids=" + item.id;
+                        });
+                        // alert(params);
+                        $.post(api + "user/saveUserRole", params, function (res) {
+                            layer.msg(res.msg);
+                            layer.close(mainIndex)
+                        })
+
+                    },
+                    success: function (index) {
+                        // 加载角色数据    根据用户id查询该用户拥有的角色id  喝 可用的
+                        table_RolesIns = table.render({
+                            elem: '#roleTable',
+                            url: api + 'role/loadAllAvailableRoleNoPage?userId=' + data_table.id,
+                            toolbar: false,
+                            cellMinWidth: true,
+                            cols: [[
+                                { type: "checkbox", fixed: "left" },
+                                { field: 'id', title: 'ID', align: "center" },
+                                { field: 'name', title: '角色标题', align: "center" },
+                                { field: 'remark', title: '角色备注', align: "center" }
+                            ]]
+
+                        });
+
+                    }
+                });
+            }
 	
 		});
 	</script>

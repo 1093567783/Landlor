@@ -35,4 +35,16 @@ public interface DubboUser {
      * @return
      */
     UserVO getUserById(UserDTO userDTO);
+
+    /**
+     * 修改用户
+     * @param userDTO
+     */
+    void updateUser(UserDTO userDTO);
+
+    /**
+     * 删除用户
+     * @param userDTO
+     */
+    void deleteUser(UserDTO userDTO);
 }

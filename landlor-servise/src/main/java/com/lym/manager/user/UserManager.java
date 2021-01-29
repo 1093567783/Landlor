@@ -21,17 +21,45 @@ public class UserManager{
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 保存用户
+     * @param userDTO
+     */
     public void saveUser(UserDTO userDTO){
-        System.out.println("rpc成功");
+        userMapper.saveUser(userDTO);
     };
 
-
-
+    /**
+     * 通过登录名获取用户
+     * @param name
+     * @return
+     */
     public UserVO getUserByName(String name) {
        return userMapper.getUserByName(name);
     }
 
+    /**
+     * 获取所有用户
+     * @param userDTO
+     * @return
+     */
     public List<UserVO> findAllUser(UserDTO userDTO) {
         return userMapper.findAllUser(userDTO);
+    }
+
+    /**
+     * 修改用户
+     * @param userDTO
+     */
+    public void updateUser(UserDTO userDTO) {
+        userMapper.updateUser(userDTO);
+    }
+
+    /**
+     * 删除用户
+     * @param userDTO
+     */
+    public void deleteUser(UserDTO userDTO) {
+        userMapper.deleteByPrimaryKey(userDTO.getId().intValue());
     }
 }

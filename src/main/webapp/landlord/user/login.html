@@ -72,8 +72,71 @@
   </div>
 
 </div>
-
+<script src="../../layuiadmin/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../layuiadmin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../../layuiadmin/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="../../layuiadmin/lib/common/jquery.cookie.min.js" charset="utf-8"></script>
+<script src="../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
 <script src="../../layuiadmin/layui/layui.js"></script>
-<script src="../../layuiadmin/json/user/login.js"></script>
+<script>
+
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'user'], function(){
+        var layer = layui.layer
+            ,setter = layui.setter
+            ,admin = layui.admin
+            ,form = layui.form
+            ,router = layui.router()
+            ,search = router.search;
+        form.render();
+        //提交
+        form.on('submit(LAY-user-login-submit)', function(data){
+            var btn = $(this);
+            btn.text("登 入 中...").attr("disabled", "disabled").addClass("layui-disabled");
+            $.ajax({
+                url: api + "user/login",
+                method: "post",
+                data: JSON.stringify(data.field),
+                contentType: "application/json;charset=UTF-8",
+                success: function(res) {
+                    layer.msg(res.msg);
+
+                    alert(res.data.token)
+
+                    if (res.code != 200) {
+                        btn.text("登 入").attr("disabled", false).removeClass("layui-disabled");
+                    } else {
+                        //把token写到cookie
+
+                        //登陆成功这后把token放到cookie里面
+                        $.cookie('TOKEN', res.data.token, {
+                            expires: 7
+                        });
+
+                        // localStorage.setItem("permissions", res.token.permissions);
+                        // localStorage.setItem("usertype", res.token.usertype);
+                        // localStorage.setItem("username", res.token.username);
+
+                        // 跳转页面
+                        location.href = '../';
+                    }
+                },
+                error: function() {
+                    layer.msg("登陆失败");
+                    btn.text("登 入").attr("disabled", "").removeClass("layui-disabled");
+                }
+            })
+
+            return false;
+            //请求登入接口
+
+        });
+
+
+    });
+</script>
 </body>
 </html>

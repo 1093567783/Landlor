@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="javaMapperPackage" value="com.lym.user" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/landlor-servise/src/main/java" />
+        <option name="javaModelPackage" value="com.lym.user" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/landlor-servise/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="landlor-servise" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="landlor-servise">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.lym.user" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/landlor-servise/src/main/java" />
+                  <option name="javaModelPacakge" value="com.lym.user" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/landlor-servise/src/main/java" />
+                  <option name="xmlPackage" value="mapperxml" />
+                  <option name="xmlPath" value="D:\ideaProject\Landlor\landlor-servise\src\main\resources\mapper" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="landlord:sys_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="Role" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="Role" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="TUser" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="useLomBokOnModel" value="true" />
+        <option name="xmlMapperPackage" value="mapperxml" />
+        <option name="xmlMapperPath" value="D:\ideaProject\Landlor\landlor-servise\src\main\resources\mapper" />
+      </ProjectProfile>
+    </option>
+  </component>
+</project>

@@ -27,7 +27,7 @@ public class DepartmentDTO implements Serializable{
     private String address;
     /**状态【0不可用1可用】*/
     private Integer available;
-    /**排序码【为了调事显示顺序】*/
+    /**排序码【为了调试显示顺序】*/
     private Integer ordernum;
     /**创建时间*/
     private Date createtime;

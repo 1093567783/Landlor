@@ -26,5 +26,47 @@ public interface UserMapper {
      */
     UserVO getUserByName(String name);
 
+    /**
+     * 获取所有用户
+     * @param userDTO
+     * @return
+     */
     List<UserVO> findAllUser(UserDTO userDTO);
+
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    UserVO selectByPrimaryKey(Integer id);
+
+    /**
+     * 根据id删除
+     * @param id
+     */
+    void deleteByPrimaryKey(Integer id);
+
+    /**
+     * 条件修改用户
+     * @param userDTO
+     */
+    void updateUser(UserDTO userDTO);
+
+    /**
+     * 条件保存用户
+     * @param userDTO
+     */
+    void saveUser(UserDTO userDTO);
+
+    /**
+     * 全部数据保存用户
+     * @param userDTO
+     */
+    void insert(UserDTO userDTO);
+    /**
+     * 全部数据修改用户
+     * @param userDTO
+     */
+    void updateByPrimaryKey(UserDTO userDTO);
+
 }

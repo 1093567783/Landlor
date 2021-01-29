@@ -56,4 +56,22 @@ public class UserServiceImpl implements UserService{
     public UserVO getUserById(UserDTO userDTO) {
         return null;
     }
+
+    /**
+     * 修改用户
+     * @param userDTO
+     */
+    @Override
+    public void updateUser(UserDTO userDTO) {
+        userManager.updateUser(userDTO);
+    }
+
+    /**
+     * 删除用户
+     * @param userDTO
+     */
+    @Override
+    public void deleteUser(UserDTO userDTO) {
+        userManager.deleteUser(userDTO);
+    }
 }

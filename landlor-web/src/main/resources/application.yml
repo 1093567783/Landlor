@@ -7,6 +7,29 @@ spring:
       id: dubbo-customer
       name: dubbo-customer
       logger: slf4j
+  datasource:
+    druid:
+        max-active: 10
+        min-idle: 5
+        max-wait: 5000
+        initial-size: 5
+        validation-query: select 1
+        stat-view-servlet:
+          enabled: true
+          url-pattern: "/druid/*"
+        web-stat-filter:
+          enabled: true
+          url-pattern: "/druid/**"
+          exclusions: '*.js,*.gif,*.jpg,*.jpeg,*.png,*.css,*.ico,*.jsp,/druid/*'
+          principal-session-name: ''
+          session-stat-enable: true
+          session-stat-max-count: 1000
+        filters: "stat,wall,logback"
+    thymeleaf:
+      cache: false
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss     # 配置全局时间格式  jsonformate  timefromat
+      time-zone: GMT+8
 dubbo:
   appname: landlor-controller
   registry:
@@ -37,3 +60,21 @@ redis:
       min-idle: 0
       # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
       max-wait: -1
+
+shiro:
+  hash-iterations: 2
+  hash-algorithm-name: md5
+  login-url: /index.html
+  unauthorized-url: /unauthorized.html
+  anon-urls:
+    - /api/login/doLogin*
+    - /druid/**
+    - /swagger-ui.html
+    - /webjars/**
+    - /swagger-resources/**
+    - /v2/**
+    - /api/login/captcha
+    - /api/login/checkLogin
+  logout-url: /api/login/logout*
+  authc-urls:
+    - /**
