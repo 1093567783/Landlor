@@ -28,15 +28,6 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     }
     
     //自定义响应字段
-    ,response: {
-      statusName: 'code' //数据状态的字段名称
-      ,statusCode: {
-        ok: 0 //数据状态一切正常的状态码
-        ,logout: 1001 //登录状态失效的状态码
-      }
-      ,msgName: 'msg' //状态信息的字段名称
-      ,dataName: 'data' //数据详情的字段名称
-    }
     
     //扩展的第三方模块
     ,extend: [

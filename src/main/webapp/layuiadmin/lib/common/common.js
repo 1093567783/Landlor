@@ -4,7 +4,7 @@
  * description: 前后端分离 toen存储 ,页面验证登陆,部门权限
  */
 var api = 'http://192.168.137.1:8879/';
-var baseUrl = 'http://yangbuyi.top/';
+var baseUrl = '/Landlor/upload/';
 var loginUrl = 'http://localhost:63342/Landlor/landlord/user/login.html';
 var indexUrl = 'http://localhost:63342/Landlor/landlord/';
 // 下次再发ajax请求把token带到后台 

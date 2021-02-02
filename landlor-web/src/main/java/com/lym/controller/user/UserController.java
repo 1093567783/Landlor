@@ -109,7 +109,6 @@ public class UserController {
             String authToken = subject.getSession().getId().toString();
             Map<String, Object> map = new HashMap<>();
             map.put("token", authToken);
-            System.err.println("TOKEN:" + authToken);
             result.setData(map);
             Cookie cookie = new Cookie("TOKEN",authToken);
             cookie.setPath("/");

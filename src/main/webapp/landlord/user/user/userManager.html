@@ -139,7 +139,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">头像</label>
 						<div class="layui-input-inline">
-							<input type="text" name="avatar" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
+							<input type="text" name="picture" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
 						</div>
 						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
 					</div>
@@ -186,7 +186,7 @@
                 ,method: 'get'
                 ,acceptMime: 'image/*'
                 ,done: function(res){
-                    $(this.item).prev("div").children("input").val(res.data.src)
+                    $(this.item).prev("div").children("input").val(res.data)
                 }
             });
 
@@ -218,14 +218,7 @@
 				toolbar: "#userToolBar",
 				cellMinWidth: true,
 				height: 'full-200',
-                parseData:function (res) {
-                return{
-                    code:0,
-                    msg:"",
-                    count:10,
-                    data:res.data
-                }
-            },
+
 				cols: [[
 					{ field: 'id', title: 'ID', align: "center", width: 80 },
 					{ field: 'realName', title: '用户姓名', align: "center", width: 120 },
@@ -241,7 +234,7 @@
 					{ field: 'joinTime', title: '创建时间', align: "center", width: 200 },
 					{
 						field: 'picture', title: '用户头像', align: "center", width: 100, templet: function (d) {
-							return "<img width=30 height=30 src='" + baseUrl + d.imgpath + "' />"
+							return "<img width=30 height=30 src='" + baseUrl + d.picture + "' />"
 						}
 					},
 					{ title: '操作', width: 300, templet: '#userTableBar', fixed: "right", align: "center" }
@@ -383,6 +376,7 @@
             function openSelectRole(data_table) {
                 var table_RolesIns;
                 mainIndex = layer.open({
+
                     type: 1,
                     title: '分配【' + data_table.name + '】用户和角色',
                     content: $("#selectRoleDiv"),
@@ -399,20 +393,19 @@
                         $.each(m, function (x, item) {
                             params += "&rids=" + item.id;
                         });
-                        // alert(params);
                         $.post(api + "user/saveUserRole", params, function (res) {
                             layer.msg(res.msg);
                             layer.close(mainIndex)
                         })
-
                     },
                     success: function (index) {
-                        // 加载角色数据    根据用户id查询该用户拥有的角色id  喝 可用的
+                        // 加载角色数据    根据用户id查询该用户拥有的角色id
                         table_RolesIns = table.render({
                             elem: '#roleTable',
                             url: api + 'role/loadAllAvailableRoleNoPage?userId=' + data_table.id,
                             toolbar: false,
                             cellMinWidth: true,
+
                             cols: [[
                                 { type: "checkbox", fixed: "left" },
                                 { field: 'id', title: 'ID', align: "center" },
