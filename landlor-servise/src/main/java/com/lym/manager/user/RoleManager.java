@@ -20,8 +20,15 @@ import java.util.Map;
  **/
 @Component
 public class RoleManager {
+
     @Autowired
     private RoleMapper roleMapper;
+
+    /**
+     * 获取所有角色
+     * @param roleDTO
+     * @return
+     */
     public DataGridView loadAllAvailableRoleNoPage(RoleDTO roleDTO) {
         List<RoleVO> roles = roleMapper.findAvailable(roleDTO);
         List<Integer> roleIds = roleMapper.queryRoleIdsByUserId(roleDTO.getUserId());

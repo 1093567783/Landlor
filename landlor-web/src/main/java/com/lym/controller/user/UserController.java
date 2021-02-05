@@ -12,11 +12,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpRequest;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +23,7 @@ import com.lym.model.user.vo.UserVO;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -56,9 +56,22 @@ public class UserController {
      * @return
      */
     @RequestMapping("saveUser")
-    public Result saveUser(@RequestBody UserDTO userDTO){
+    public Result saveUser(@RequestBody @Valid UserDTO userDTO,BindingResult validMsg) {
         Result<Object> result = new Result<>();
-        userDTO.setPassword("123456");
+        if(validMsg.hasErrors()){
+            for (ObjectError error : validMsg.getAllErrors()) {
+                return result.setError(120,error.getDefaultMessage());
+            }
+        }
+        if(!userDTO.getPassword().equals(userDTO.getRePass())){
+            return result.setError(110,"两次密码不一致!!!");
+        }
+        UserVO userByName = dubboUser.getUserByName(userDTO.getUserName());
+        if (userByName != null){
+            return result.setError(130,"用户名已存在!!!");
+        }
+        //用户名与电话一致
+        userDTO.setPhone(userDTO.getUserName());
         dubboUser.saveUser(userDTO);
         return result;
     }

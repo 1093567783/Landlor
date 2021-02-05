@@ -178,7 +178,8 @@
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
-
+            var token = $.cookie('TOKEN');
+            alert(token)
 			//文件上传
             upload.render({
                 elem: '#layuiadmin-upload-useradmin'
@@ -195,7 +196,7 @@
 				elem:'#hiredate',
 				type:'datetime'
 			});
-
+			
 				//示范一个公告层
 			  layer.open({
 				type: 1

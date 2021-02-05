@@ -66,7 +66,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/Landlor/landlord/user/login.html");
         //首页
        // shiroFilterFactoryBean.setSuccessUrl("/index");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -86,6 +86,7 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/user/sendMsg", "anon");
         filterChainDefinitionMap.put("/user/login", "anon");
+        filterChainDefinitionMap.put("/user/saveUser", "anon");
 
         filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/*/*", "authc");

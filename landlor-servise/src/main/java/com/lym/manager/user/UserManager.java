@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.lym.model.user.vo.UserVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ public class UserManager{
      * @param userDTO
      */
     public void saveUser(UserDTO userDTO){
+        userDTO.setJoinTime(new Date());
+        userDTO.setUpdateTime(new Date());
         userMapper.saveUser(userDTO);
     };
 

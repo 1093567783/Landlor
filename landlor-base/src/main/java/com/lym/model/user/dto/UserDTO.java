@@ -1,5 +1,6 @@
 package com.lym.model.user.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
 import com.lym.model.common.BaseEntityDTO;
 import com.lym.model.shiro.Role;
 import lombok.Data;
@@ -31,11 +32,17 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
     /**
      * 用户账户
      */
+    @NotBlank(message = "用户名不能为空")
     private String userName;
     /**
      * 用户密码
      */
+    @NotBlank(message = "密码不能为空")
     private String password;
+    /**
+     * 确认密码
+     */
+    private String rePass;
     /**
      * 用户真实姓名
      */
