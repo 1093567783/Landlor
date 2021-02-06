@@ -1,4 +1,5 @@
 package com.lym.dubbo;
+import com.lym.model.process.DeployeeDTO;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Comment;
@@ -17,7 +18,7 @@ import java.util.Map;
 public interface DubboActivity {
     List<Deployment> findDeploymentList();
 
-    void addNewProcess(InputStream in, String processName);
+    void addNewProcess(DeployeeDTO deployeeDTO) throws Exception;
 
     List<ProcessDefinition> findProcessDefinitionList();
 

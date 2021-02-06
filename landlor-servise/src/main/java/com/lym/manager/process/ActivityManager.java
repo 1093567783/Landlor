@@ -1,5 +1,6 @@
 package com.lym.manager.process;
 
+import com.lym.model.process.DeployeeDTO;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,10 +64,12 @@ public class ActivityManager{
     /**
      * 部署流程
      */
-    public void addNewProcess(InputStream in, String processName){
-        ZipInputStream zipInputStream=new ZipInputStream(in);
+    public void addNewProcess(DeployeeDTO deployeeDTO){
+        byte[] byt = new byte[1024];
+        InputStream input = new ByteArrayInputStream(deployeeDTO.getInputStream());
+        ZipInputStream zipInputStream=new ZipInputStream(input);
         Deployment deployment = repositoryService.createDeployment()
-                .name(processName)
+                .name(deployeeDTO.getProcessName())
                 .addZipInputStream(zipInputStream)
                 .deploy();
     }

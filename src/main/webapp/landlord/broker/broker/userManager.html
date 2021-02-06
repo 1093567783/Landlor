@@ -178,7 +178,7 @@
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
-
+			alert($.cookie('TOKEN'));
 			//文件上传
             upload.render({
                 elem: '#layuiadmin-upload-useradmin'
@@ -210,16 +210,12 @@
 				,moveType: 1 //拖拽模式，0或者1
 				,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲如表格数据 加载慢请点击刷新试一试呢！！！<br><p>我们此后的征途是星辰大海 ^_^</p></div>'
 			  });
-			
-			
-
 			var tableIns = table.render({
 				elem: '#userTable',
 				url: api + 'user/findAllUser',
 				toolbar: "#userToolBar",
 				cellMinWidth: true,
 				height: 'full-200',
-
 				cols: [[
 					{ field: 'id', title: 'ID', align: "center", width: 80 },
 					{ field: 'realName', title: '用户姓名', align: "center", width: 120 },

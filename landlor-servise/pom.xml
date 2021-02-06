@@ -60,7 +60,16 @@
             　　<groupId>org.springframework.boot</groupId>
             　　<artifactId>spring-boot-starter-web</artifactId>　
         </dependency>
-
+        <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>4.0.7</version>
+        </dependency>
+        <dependency>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+                <version>6.1.26</version>
+        </dependency>
     </dependencies>
 
 

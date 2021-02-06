@@ -3,6 +3,7 @@ package com.lym.service.process.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lym.dubbo.DubboActivity;
 import com.lym.manager.process.ActivityManager;
+import com.lym.model.process.DeployeeDTO;
 import com.lym.service.process.ActivityService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -36,12 +37,14 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * 部署流程
-     * @param in
-     * @param processName
+     * @param
+     * @param deployeeDTO
      */
     @Override
-    public void addNewProcess(InputStream in, String processName) {
-
+    public void addNewProcess(DeployeeDTO deployeeDTO) throws Exception{
+        if (deployeeDTO != null){
+            activityManager.addNewProcess(deployeeDTO);
+        }
     }
 
     @Override
