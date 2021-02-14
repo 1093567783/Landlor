@@ -5,6 +5,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public interface DubboActivity {
 
     Map<String, Object> findCoordingByTask(String taskId);
 
-    InputStream findImageInputStream(String deploymentId, String imageName);
+    byte[] findImageInputStream(String deploymentId, String imageName) throws IOException;
 
     Task findTaskByBussinessKey(String businessKey);
 

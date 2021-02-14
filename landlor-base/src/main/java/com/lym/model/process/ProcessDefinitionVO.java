@@ -13,29 +13,19 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class ProcessDefinitionDTO implements ProcessDefinition,Serializable {
+public class ProcessDefinitionVO implements Serializable {
 
     private String id;
     private String name;
     private String key;
     private String category;
     private String description;
-    private String version;
+    private int version;
     private String tenantId;
     private String resourceName;
     private String diagramResourceName;
     private String deploymentId;
     private boolean startFormKey;
     private boolean suspended;
-    @Override
-    public boolean hasStartFormKey() {
-        return false;
-    }
-
-    @Override
-    public boolean isSuspended() {
-        return false;
-    }
-
 
 }

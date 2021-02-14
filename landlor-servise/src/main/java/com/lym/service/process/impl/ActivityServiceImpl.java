@@ -11,6 +11,7 @@ import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<ProcessDefinition> findProcessDefinitionList() {
-        return null;
+        return activityManager.findProcessDefinitionList();
     }
 
     /**
@@ -104,8 +105,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public InputStream findImageInputStream(String deploymentId, String imageName) {
-        return null;
+    public byte[] findImageInputStream(String deploymentId, String imageName) throws IOException{
+        return activityManager.findImageInputStream(deploymentId,imageName);
     }
 
     @Override
@@ -115,6 +116,6 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void deleteProcessDefinitionByDeploymentId(String deploymentId) {
-
+        activityManager.deleteProcessDefinitionByDeploymentId(deploymentId);
     }
 }

@@ -1,5 +1,6 @@
 package com.lym.manager.process;
 
+import com.lym.model.common.TypeUtil;
 import com.lym.model.process.DeployeeDTO;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,8 +67,8 @@ public class ActivityManager{
      * 部署流程
      */
     public void addNewProcess(DeployeeDTO deployeeDTO){
-        byte[] byt = new byte[1024];
         InputStream input = new ByteArrayInputStream(deployeeDTO.getInputStream());
+        System.out.println(input);
         ZipInputStream zipInputStream=new ZipInputStream(input);
         Deployment deployment = repositoryService.createDeployment()
                 .name(deployeeDTO.getProcessName())
@@ -242,10 +244,9 @@ public class ActivityManager{
         return map;
     }
 
-    public InputStream findImageInputStream(String deploymentId, String imageName) {
+    public byte[] findImageInputStream(String deploymentId, String imageName) throws IOException {
         InputStream stream = repositoryService.getResourceAsStream(deploymentId, imageName);
-
-        return stream;
+        return TypeUtil.toByteArray(stream);
     }
 
 

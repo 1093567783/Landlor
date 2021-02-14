@@ -37,13 +37,12 @@
                                 <input type="text" name="endTime" id="endTime" readonly="readonly" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-block" style="text-align: center;">
+                        <div class="layui-inline" style="text-align: center;">
                             <a class="layui-btn " lay-submit=""  lay-filter="data-search-btn"><label class="layui-icon layui-icon-search"></label>搜索</a>
                             <a class="layui-btn layui-btn-warm" onclick="javascript:$('#searchFrm')[0].reset()" lay-filter="data-search-btn"><label class="layui-icon layui-icon-refresh"></label>重置</a>
                         </div>
                     </div>
+
                 </form>
             </div>
         </fieldset>
@@ -55,7 +54,7 @@
             <a class="layui-btn layui-btn-sm layui-btn-danger data-count-delete" lay-event="batchdelete">批量删除</a>
         </script>
         <script type="text/html" id="systemLogTableBar">
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="process_img">查看流程定义图</a>
         </script>
 
         <!--表格结束-->
@@ -89,14 +88,18 @@
 
         var tableIns=table.render({
             elem: '#systemLogTable',
-            url: api+'process/deploymentList',
+            url: api+'process/processDefinitionList',
             toolbar:"#systemLogToolBar",
             cellMinWidth:true,
             cols: [[
                 {type: "checkbox",  fixed: "left"},
                 {field: 'id', title: 'ID', align: "center"},
                 {field: 'name',  title: '流程名称', align: "center"},
-                {field: 'deploymentTime',  title: '发布时间', align: "center"},
+                {field: 'key',  title: '流程定义的KEY', align: "center"},
+                {field: 'version',  title: '流程定义的版本', align: "center"},
+                {field: 'resourceName',  title: '流程定义的规则文件名称', align: "center"},
+                {field: 'diagramResourceName',  title: '流程定义的规则图片名称', align: "center"},
+                {field: 'deploymentId',  title: '部署ID', align: "center"},
                 {title: '操作', templet: '#systemLogTableBar', fixed: "right", align: "center"}
             ]],
             page: true
@@ -114,85 +117,16 @@
             });
             return false;
         });
-
-        //监听表头的事件
-        table.on('toolbar(systemLogTable)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'batchdelete':
-                    var checkStatus = table.checkStatus('systemLogTable'); //idTest 即为基础参数 id 对应的值
-                    var data=checkStatus.data;
-                    var length=checkStatus.data.length;
-                    console.log(checkStatus.data) //获取选中行的数据
-                    console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-                    if(length==0){
-                        layer.msg("请选中要删除的行数据");
-                    }else{
-
-                        layer.prompt({
-                            formType: 1,
-                            value: '',
-                            maxlength: 6, //可输入文本的最大长度，默认500
-                            title: '敏感操作，请输入口令'
-                        }, function(value, index, elem){
-                            if(value == 'yby123'){
-                                var params="";
-                                $.each(data,function(index,item){
-                                    if(index==0){
-                                        params+="ids="+item.id;
-                                    }else{
-                                        params+="&ids="+item.id;
-                                    }
-                                });
-                                $.post(api+"systemLog/batchDeleteSystemLog",params,function(res){
-                                    layer.msg(res.msg);
-                                    // 刷新表格
-                                    tableIns.reload();
-                                    layer.close(index);
-                                })
-                            }else{
-                                layer.msg("口令错误");
-                            }
-                        });
-                    }
-                    //layer.msg('批量删除');
-                    break;
-            };
-        });
-
         //监听行数据的事件
         table.on('tool(systemLogTable)', function (obj) {
             var data = obj.data;
-            if (obj.event === 'delete') {
-
-                layer.prompt({
-                    formType: 1,
-                    value: '',
-                    maxlength: 6, //可输入文本的最大长度，默认500
-                    title: '敏感操作，请输入口令'
-                }, function(value, index, elem){
-                    if(value == 'yby123'){
-                        var params="";
-                        $.each(data,function(index,item){
-                            if(index==0){
-                                params+="ids="+item.id;
-                            }else{
-                                params+="&ids="+item.id;
-                            }
-                        });
-                        $.post(api+"systemLog/deleteSystemLog",{id:data.id},function(res){
-                            layer.msg(res.msg);
-                            // 删除表格数据 假删除
-                            obj.del();
-                            layer.close(index);
-                        })
-                    }else{
-                        layer.msg("口令错误");
-                    }
-                });
-
+            if (obj.event === 'process_img') {
+                $.post(api + "process/viewImage", {deploymentId: data.deploymentId,imageName:data.diagramResourceName}, function (res) {
+                    layer.msg(res.msg);
+                    // 删除表格数据 假删除
+                })
             }
-        });
+        })
 
     });
 </script>

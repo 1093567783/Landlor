@@ -37,13 +37,14 @@
                                 <input type="text" name="endTime" id="endTime" readonly="readonly" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-block" style="text-align: center;">
+                        <div class="layui-inline" style="text-align: center;">
                             <a class="layui-btn " lay-submit=""  lay-filter="data-search-btn"><label class="layui-icon layui-icon-search"></label>搜索</a>
                             <a class="layui-btn layui-btn-warm" onclick="javascript:$('#searchFrm')[0].reset()" lay-filter="data-search-btn"><label class="layui-icon layui-icon-refresh"></label>重置</a>
                         </div>
                     </div>
+
+
+
                 </form>
             </div>
         </fieldset>
@@ -135,7 +136,8 @@
                             maxlength: 6, //可输入文本的最大长度，默认500
                             title: '敏感操作，请输入口令'
                         }, function(value, index, elem){
-                            if(value == 'yby123'){
+                            alert(value)
+                            if(value == '123'){
                                 var params="";
                                 $.each(data,function(index,item){
                                     if(index==0){
@@ -144,13 +146,14 @@
                                         params+="&ids="+item.id;
                                     }
                                 });
-                                $.post(api+"systemLog/batchDeleteSystemLog",params,function(res){
+                                $.post(api+"process/deleteDeployment",params,function(res){
                                     layer.msg(res.msg);
                                     // 刷新表格
                                     tableIns.reload();
                                     layer.close(index);
                                 })
                             }else{
+
                                 layer.msg("口令错误");
                             }
                         });
@@ -171,16 +174,8 @@
                     maxlength: 6, //可输入文本的最大长度，默认500
                     title: '敏感操作，请输入口令'
                 }, function(value, index, elem){
-                    if(value == 'yby123'){
-                        var params="";
-                        $.each(data,function(index,item){
-                            if(index==0){
-                                params+="ids="+item.id;
-                            }else{
-                                params+="&ids="+item.id;
-                            }
-                        });
-                        $.post(api+"systemLog/deleteSystemLog",{id:data.id},function(res){
+                    if(value == '123'){
+                        $.post(api+"process/deleteDeployment",{ids:data.id},function(res){
                             layer.msg(res.msg);
                             // 删除表格数据 假删除
                             obj.del();

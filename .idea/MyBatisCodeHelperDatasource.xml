@@ -3,6 +3,7 @@
   <component name="MyBatisCodeHelperDatasource">
     <option name="projectProfile">
       <ProjectProfile>
+        <option name="addSerializeUid" value="true" />
         <option name="javaMapperPackage" value="com.lym.user" />
         <option name="javaMapperPath" value="$PROJECT_DIR$/landlor-servise/src/main/java" />
         <option name="javaModelPackage" value="com.lym.user" />
@@ -31,6 +32,56 @@
                 <TableGenerateConfig>
                   <option name="generatedKey" value="id" />
                   <option name="javaModelName" value="Role" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_contract">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="TContract" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_customer">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="TCustomer" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_house">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="THouse" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_landlord">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="TLandlord" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="landlord:t_lease">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="TLease" />
                   <option name="moduleName" value="landlor-servise" />
                   <option name="useActualColumnName" value="false" />
                 </TableGenerateConfig>
