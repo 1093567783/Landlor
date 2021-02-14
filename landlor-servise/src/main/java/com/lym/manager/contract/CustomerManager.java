@@ -1,5 +1,12 @@
 package com.lym.manager.contract;
 
+import com.lym.mapper.contract.CustomerMapper;
+import com.lym.model.contract.dto.CustomerDTO;
+import com.lym.model.contract.vo.CustomerVO;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 /**
  * @Author LYM
  * @Description 租客管理
@@ -7,4 +14,16 @@ package com.lym.manager.contract;
  * @Version v1.0.0
  **/
 public class CustomerManager {
+
+    @Autowired
+    private CustomerMapper customerMapper;
+    /**
+     * 获取所有租客
+     * @param customerDTO
+     * @return
+     */
+    public List<CustomerVO> findAllCustomer(CustomerDTO customerDTO) {
+        List<CustomerVO> allCustomer = customerMapper.findAllCustomer(customerDTO);
+        return allCustomer;
+    }
 }

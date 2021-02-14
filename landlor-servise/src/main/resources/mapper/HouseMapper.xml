@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lym.mapper.contract.HouseMapper">
+  <resultMap id="BaseResultMap" type="com.lym.model.contract.vo.HouseVO">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="landlord_id" jdbcType="INTEGER" property="landlordId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="area" jdbcType="DOUBLE" property="area" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="province_code" jdbcType="INTEGER" property="provinceCode" />
+    <result column="city_code" jdbcType="INTEGER" property="cityCode" />
+    <result column="district_code" jdbcType="INTEGER" property="districtCode" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="statu" jdbcType="INTEGER" property="statu" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="join_time" jdbcType="TIMESTAMP" property="joinTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, house_code, landlord_id, address, area, picture, province_code, city_code, district_code, 
+    price, statu, remark, join_time, user_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_house
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_house
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lym.model.contract.dto.HouseDTO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_house (house_code, landlord_id, address, 
+      area, picture, province_code, 
+      city_code, district_code, price, 
+      statu, remark, join_time, 
+      user_id, update_time)
+    values (#{houseCode,jdbcType=VARCHAR}, #{landlordId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{area,jdbcType=DOUBLE}, #{picture,jdbcType=VARCHAR}, #{provinceCode,jdbcType=INTEGER}, 
+      #{cityCode,jdbcType=INTEGER}, #{districtCode,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{statu,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{joinTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lym.model.contract.dto.HouseDTO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseCode != null">
+        house_code,
+      </if>
+      <if test="landlordId != null">
+        landlord_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="districtCode != null">
+        district_code,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="statu != null">
+        statu,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseCode != null">
+        #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landlordId != null">
+        #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=DOUBLE},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null">
+        #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="statu != null">
+        #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lym.model.contract.dto.HouseDTO">
+    <!--@mbg.generated-->
+    update t_house
+    <set>
+      <if test="houseCode != null">
+        house_code = #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landlordId != null">
+        landlord_id = #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=DOUBLE},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null">
+        district_code = #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="statu != null">
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lym.model.contract.dto.HouseDTO">
+    <!--@mbg.generated-->
+    update t_house
+    set house_code = #{houseCode,jdbcType=VARCHAR},
+      landlord_id = #{landlordId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      area = #{area,jdbcType=DOUBLE},
+      picture = #{picture,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=INTEGER},
+      city_code = #{cityCode,jdbcType=INTEGER},
+      district_code = #{districtCode,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      statu = #{statu,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

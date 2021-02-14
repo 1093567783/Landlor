@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lym.mapper.contract.ContractMapper">
+  <resultMap id="BaseResultMap" type="com.lym.model.contract.vo.ContractVO">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="landlord_card" jdbcType="VARCHAR" property="landlordCard" />
+    <result column="landlord_id" jdbcType="INTEGER" property="landlordId" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="customer_card" jdbcType="VARCHAR" property="customerCard" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="pay_day" jdbcType="VARCHAR" property="payDay" />
+    <result column="join_time" jdbcType="TIMESTAMP" property="joinTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, landlord_card, landlord_id, start_time, customer_card, customer_id, end_time, 
+    price, pay_day, join_time, user_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lym.model.contract.dto.ContractDTO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_contract (landlord_card, landlord_id, start_time, 
+      customer_card, customer_id, end_time, 
+      price, pay_day, join_time, 
+      user_id, update_time)
+    values (#{landlordCard,jdbcType=VARCHAR}, #{landlordId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{customerCard,jdbcType=VARCHAR}, #{customerId,jdbcType=INTEGER}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=DOUBLE}, #{payDay,jdbcType=VARCHAR}, #{joinTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lym.model.contract.dto.ContractDTO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="landlordCard != null">
+        landlord_card,
+      </if>
+      <if test="landlordId != null">
+        landlord_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="customerCard != null">
+        customer_card,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="payDay != null">
+        pay_day,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="landlordCard != null">
+        #{landlordCard,jdbcType=VARCHAR},
+      </if>
+      <if test="landlordId != null">
+        #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerCard != null">
+        #{customerCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="payDay != null">
+        #{payDay,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lym.model.contract.dto.ContractDTO">
+    <!--@mbg.generated-->
+    update t_contract
+    <set>
+      <if test="landlordCard != null">
+        landlord_card = #{landlordCard,jdbcType=VARCHAR},
+      </if>
+      <if test="landlordId != null">
+        landlord_id = #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerCard != null">
+        customer_card = #{customerCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="payDay != null">
+        pay_day = #{payDay,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lym.model.contract.dto.ContractDTO">
+    <!--@mbg.generated-->
+    update t_contract
+    set landlord_card = #{landlordCard,jdbcType=VARCHAR},
+      landlord_id = #{landlordId,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      customer_card = #{customerCard,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DOUBLE},
+      pay_day = #{payDay,jdbcType=VARCHAR},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

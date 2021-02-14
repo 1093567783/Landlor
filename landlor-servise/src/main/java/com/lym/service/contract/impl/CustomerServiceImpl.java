@@ -3,7 +3,13 @@ package com.lym.service.contract.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lym.dubbo.DubboContract;
 import com.lym.dubbo.DubboCustomer;
+import com.lym.manager.contract.CustomerManager;
+import com.lym.model.contract.dto.CustomerDTO;
+import com.lym.model.contract.vo.CustomerVO;
 import com.lym.service.contract.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @Author LYM
@@ -13,4 +19,17 @@ import com.lym.service.contract.CustomerService;
  **/
 @Service(interfaceClass = DubboCustomer.class, delay = -1, retries = 0)
 public class CustomerServiceImpl implements CustomerService{
+
+    @Autowired
+    private CustomerManager customerManager;
+
+    /**
+     * 获取所有租客
+     * @param customerDTO
+     * @return
+     */
+    @Override
+    public List<CustomerVO> findAllCustomer(CustomerDTO customerDTO) {
+        return customerManager.findAllCustomer(customerDTO);
+    }
 }
