@@ -5,12 +5,16 @@ import com.lym.dubbo.DubboHouse;
 import com.lym.model.common.Result;
 import com.lym.model.contract.dto.HouseDTO;
 import com.lym.model.contract.vo.HouseVO;
+import com.lym.model.user.vo.UserVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +45,11 @@ public class HouseController {
     @RequestMapping("saveHouse")
     public Result saveHouse(@RequestBody @Valid HouseDTO houseDTO,BindingResult validMsg){
         Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        houseDTO.setJoinTime(new Date());
+        houseDTO.setUserId(userVO.getId().intValue());
+        houseDTO.setUpdateTime(new Date());
         dubboHouse.saveHouse(houseDTO);
         return result;
     }

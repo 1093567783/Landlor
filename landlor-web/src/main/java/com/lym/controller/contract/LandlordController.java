@@ -5,12 +5,16 @@ import com.lym.dubbo.DubboLandlord;
 import com.lym.model.common.Result;
 import com.lym.model.contract.dto.LandlordDTO;
 import com.lym.model.contract.vo.LandlordVO;
+import com.lym.model.user.vo.UserVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +51,10 @@ public class LandlordController {
     @RequestMapping("saveLandlord")
     public Result saveLandlord(@RequestBody @Valid LandlordDTO landlordDTO,BindingResult validMsg){
         Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        landlordDTO.setJoinTime(new Date());
+        landlordDTO.setUserId(userVO.getId().intValue());
         dubboLandlord.saveLandlord(landlordDTO);
         return result;
     }

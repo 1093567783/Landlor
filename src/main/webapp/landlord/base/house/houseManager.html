@@ -20,29 +20,22 @@
 				<div style="margin: 10px 10px 10px 10px">
 					<form class="layui-form layui-form-pane" action="" id="searchFrm">
 						<div class="layui-form-item">
-							<label class="layui-form-label">所属部门</label>
-							<div class="layui-input-inline">
-								<!-- 隐藏部门ID  修改操作 -->
-								<input type="hidden" name="deptId" id="p_deptid" />
-								<input type="text" id="p_deptname" readonly="readonly" autocomplete="off"
-									placeholder="请选择所属部门" class="layui-input">
-							</div>
-							<!--  选中部门树  -->
-							<div class="layui-input-inline">
-								<a class="layui-btn layui-btn-warm" id="doSelectDept"><label
-										class="layui-icon layui-icon-male"></label>选择</a>
-							</div>
-
 							<div class="layui-inline">
-								<label class="layui-form-label">用户名称</label>
+								<label class="layui-form-label">编号</label>
 								<div class="layui-input-inline">
-									<input type="text" name="name" autocomplete="off" class="layui-input">
+									<input type="text" name="houseCode" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">用户备注</label>
+								<label class="layui-form-label">地址</label>
 								<div class="layui-input-inline">
-									<input type="text" name="remark" autocomplete="off" class="layui-input">
+									<input type="text" name="address" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">价格</label>
+								<div class="layui-input-inline">
+									<input type="text" name="price" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
@@ -83,12 +76,12 @@
 			<div id="addOrUpdateDiv" style="display: none;padding: 0.3125rem">
 				<form method="post" class="layui-form layui-form-pane" lay-filter="dataFrm" id="dataFrm">
 					<div class="layui-form-item" id="div_pid">
-						<label class="layui-form-label">所属部门</label>
+						<label class="layui-form-label">房东</label>
 						<div class="layui-input-inline">
 							<!-- 存储部门id 修改等操作 --> 
 							<input type="hidden" name="deptid" id="deptid" />
 							<input type="text" id="deptid_name" readonly="readonly" autocomplete="off"
-								placeholder="请选择所属部门" class="layui-input">
+								placeholder="请选择所属房东" class="layui-input">
 						</div>
 						<div class="layui-input-inline">
 							<a class="layui-btn layui-btn-warm" id="doDataFromSelectDept"><label
@@ -97,51 +90,68 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">用户姓名</label>
+							<label class="layui-form-label">编号</label>
 							<div class="layui-input-inline">
 								<input type="hidden" name="id" />
-								<input type="text" name="realName" id="realName" lay-verify="required" autocomplete="off"
-									placeholder="请输入用户姓名" class="layui-input">
+								<input type="text" name="houseCode" id="houseCode" lay-verify="required" autocomplete="off"
+									placeholder="请输入房屋编号" class="layui-input">
 							</div>
 						</div>
 						<div class="layui-inline">
-							<label class="layui-form-label">登陆名称</label>
+							<label class="layui-form-label">价格</label>
 							<div class="layui-input-inline">
-								<input type="text" name="userName" id="userName" lay-verify="required"
-									autocomplete="off" placeholder="请输入登陆名称" class="layui-input">
+								<input type="text" name="price" id="price" lay-verify="required"
+									autocomplete="off" placeholder="请输入每月房租" class="layui-input">
 							</div>
 						</div>
 					</div>
+					<div class="layui-form-item" id="area-picker">
+						<div class="layui-form-label">租房地址</div>
+						<div class="layui-input-inline" style="width: 200px;">
+							<select name="province" class="province-selector" data-value="广东省" lay-filter="province-1">
+								<option value="">请选择省</option>
+							</select>
+						</div>
+						<div class="layui-input-inline" style="width: 200px;">
+							<select name="city" class="city-selector" data-value="深圳市" lay-filter="city-1">
+								<option value="">请选择市</option>
+							</select>
+						</div>
+						<div class="layui-input-inline" style="width: 200px;">
+							<select name="county" class="county-selector" data-value="宝安区" lay-filter="county-1">
+								<option value="">请选择区</option>
+							</select>
+						</div>
+					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">电子邮箱</label>
+						<label class="layui-form-label">详细地址</label>
 						<div class="layui-input-block">
-							<input type="text" name="email" autocomplete="off" placeholder="请输入电子邮箱"
+							<input type="text" name="address" autocomplete="off" placeholder="请输入电子邮箱"
 								class="layui-input">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">手机号码</label>
-						<div class="layui-input-block">
-							<input type="text" placeholder="请输入手机号码" name="phone"
-								   class="layui-input">
-						</div>
-					</div>
-					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">用户性别</label>
+							<label class="layui-form-label">房屋状态</label>
 							<div class="layui-input-inline">
-								<input type="radio" name="sex" value="1" title="男" checked="checked"
+								<input type="radio" name="statu" value="1" title="未租" checked="checked"
 									class="layui-input">
-								<input type="radio" name="sex" value="0" title="女" class="layui-input">
+								<input type="radio" name="statu" value="0" title="已租" class="layui-input">
 							</div>
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">头像</label>
+						<label class="layui-form-label">房屋图片</label>
 						<div class="layui-input-inline">
 							<input type="text" name="picture" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
 						</div>
 						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">租客备注</label>
+						<div class="layui-input-block">
+							<textarea placeholder="请输入租客备注" name="remark" class="layui-textarea"></textarea>
+						</div>
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block" style="text-align: center;">
@@ -171,15 +181,74 @@
 	<script src="../../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
 	<script src="../../../layuiadmin/lib/common/selectLayer.js" charset="utf-8"></script>
 	<script>
-		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload'], function () {
+		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload', 'layarea'], function () {
 			var form = layui.form;
 			var table = layui.table;
 			var laydate = layui.laydate;
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
-			alert($.cookie('TOKEN'));
+            var layarea = layui.layarea ;
+			//alert($.cookie('TOKEN'));
 			//文件上传
+            function openLandlord() {
+                var tableSelectIns;
+                selDeptIndex = layer.open({
+                    type: 1,
+                    title: '选择部门',
+                    content: '<div style="padding:10px" ><table class="layui-hide" id="deptSelectTable" lay-filter="deptSelectTable"></table></div>',
+                    area: ['700px', '600px'],
+                    btn: ['<span class="layui-icon layui-icon-ok"></span>确定'],
+                    yes: function (index) {
+                        // 获取单选选中信息
+                        var ckDate = tableSelectIns.checkStatus();
+                        // 回调数据出去  得到选中的id和名称
+                        callBack(ckDate[0].id, ckDate[0].name);
+                        // 关闭弹出层
+                        layer.close(selDeptIndex)
+                    },
+                    success: function (index) {
+                        tableSelectIns = treeTable.render({
+                            elem: '#deptSelectTable',
+                            cellMinWidth: true,
+                            cols: [{
+                                type: "numbers"
+                            },
+                                {
+                                    type: "radio"
+                                },
+                                {
+                                    field: 'name',
+                                    title: '房东名称'
+                                },
+                                {
+                                    field: 'id',
+                                    title: 'ID'
+                                },
+                            ],
+                            reqData: function (data, callback) {
+                                // 在这里写ajax请求，通过callback方法回调数据
+                                $.get(api + 'landlord/findAllLandlord', function (res) {
+
+                                    // 异步加载 回调
+                                    callback(res.data); // 参数是数组类型
+
+                                    // 设置初始化 选中的部门
+                                    tableSelectIns.setChecked(id);
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            layarea.render({
+                elem: '#area-picker',
+                change: function (res) {
+                    //选择结果
+                    console.log(res);
+                }
+            });
+
             upload.render({
                 elem: '#layuiadmin-upload-useradmin'
                 ,url: api + 'file/upload'
@@ -197,40 +266,29 @@
 			});
 
 				//示范一个公告层
-			  layer.open({
-				type: 1
-				,title: false //不显示标题栏
-				,closeBtn: false
-				,area: 'auto'
-				,shade: 0.8
-				,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-				// ,btn: ['火速围观', '残忍拒绝']
-				,btn: ['好哒我知道啦!!!']
-				,btnAlign: 'c'
-				,moveType: 1 //拖拽模式，0或者1
-				,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲如表格数据 加载慢请点击刷新试一试呢！！！<br><p>我们此后的征途是星辰大海 ^_^</p></div>'
-			  });
 			var tableIns = table.render({
 				elem: '#userTable',
-				url: api + 'user/findAllUser',
+				url: api + 'house/findAllHouse',
 				toolbar: "#userToolBar",
 				cellMinWidth: true,
 				height: 'full-200',
 				cols: [[
 					{ field: 'id', title: 'ID', align: "center", width: 80 },
-					{ field: 'realName', title: '用户姓名', align: "center", width: 120 },
-					{ field: 'userName', title: '登陆名称', align: "center", width: 120 },
-					{ field: 'deptName', title: '所属部门', align: "center", width: 120 },
-					{ field: 'phone', title: '手机号码', align: "center", width: 120 },
+					{ field: 'houseCode', title: '房屋编号', align: "center", width: 120 },
+					{ field: 'name', title: '房东名称', align: "center", width: 120 },
+					{ field: 'price', title: '价格', align: "center", width: 120 },
+					{ field: 'province', title: '省', align: "center", width: 120 },
+					{ field: 'city', title: '市', align: "center", width: 120 },
+                    { field: 'district', title: '区', align: "center", width: 120 },
 					{
-						field: 'sex', title: '性别', align: "center", templet: function (d) {
-							return d.sex == 1 ? '男' : '女';
+						field: 'statu', title: '出租状态', align: "center", templet: function (d) {
+							return d.sex == 1 ? '未出租' : '已出租';
 						}, width: 80
 					},
-					{ field: 'email', title: '电子邮箱', align: "center", width: 120 },
+
 					{ field: 'joinTime', title: '创建时间', align: "center", width: 200 },
 					{
-						field: 'picture', title: '用户头像', align: "center", width: 100, templet: function (d) {
+						field: 'picture', title: '房屋图片', align: "center", width: 100, templet: function (d) {
 							return "<img width=30 height=30 src='" + baseUrl + d.picture + "' />"
 						}
 					},
@@ -247,7 +305,7 @@
 					page: {
 						curr: 1
 					},
-					url: api + 'user/loadAllUser?' + params
+					url: api + 'house/houseManager?' + params
 				});
 				return false;
 			});
@@ -270,7 +328,7 @@
 			$("#doDataFromSelectDept").click(function () {
 				var f_id = $("#deptid").val();
 				// 参数一 回调信息
-				openDeptSelecter(null, f_id, function (id, name) {
+                openLandlord(null, f_id, function (id, name) {
 					$("#deptid").val(id);
 					$("#deptid_name").val(name);
 				});
@@ -281,7 +339,7 @@
 			$("#doSelectDept").click(function () {
 				var f_id = $("#deptid").val();
 				// 参数一 回调信息
-				openDeptSelecter(null, f_id, function (id, name) {
+                openLandlord(null, f_id, function (id, name) {
 					$("#p_deptid").val(id);
 					$("#p_deptname").val(name);
 				});
@@ -293,7 +351,7 @@
 				var data = obj.data;
 				if (obj.event === 'delete') {
 					layer.confirm('真的删除【' + data.realName + '】这个用户吗么', function (index) {
-                        $.get(api + "user/deleteUser", { id: data.id }, function (res) {
+                        $.get(api + "house/deleteHouse", { id: data.id }, function (res) {
                             layer.msg(res.msg);
                             obj.del();
                             layer.close(index);
@@ -320,7 +378,7 @@
 					content:$("#addOrUpdateDiv"),
 					area:['800px','500px'],
 					success:function(index){
-						url=api+"user/saveUser";
+						url=api+"house/saveHouse";
 						// 重置表单
 						$("#dataFrm")[0].reset();
 						// 查询最大排序码
@@ -336,12 +394,12 @@
 					content: $("#addOrUpdateDiv"),
 					area: ['800px', '600px'],
 					success: function (index) {
-						url = api + "user/updateUser";
+						url = api + "house/updateHouse";
 						//装载数据表格
 						form.val("dataFrm", data);
 						//根据部门ID查询部门名称
-						$.get(api + "dept/getDeptById", { id: data.deptid }, function (res) {
-							$("#deptid_name").val(res.data.title);
+						$.get(api + "landlord/getLandlordById", { id: data.deptid }, function (res) {
+                            $("#deptid_name").val(res.data.title);
 						});
 					}
 				});
@@ -375,7 +433,7 @@
                 mainIndex = layer.open({
 
                     type: 1,
-                    title: '分配【' + data_table.name + '】用户和角色',
+                    title: '分配【' + data_table.houseCode + '】房东',
                     content: $("#selectRoleDiv"),
                     area: ['800px', '600px'],
                     btn: ['<span class="layui-icon layui-icon-ok">确认分配</span>'],
@@ -404,10 +462,10 @@
                             cellMinWidth: true,
 
                             cols: [[
-                                { type: "checkbox", fixed: "left" },
-                                { field: 'id', title: 'ID', align: "center" },
-                                { field: 'name', title: '角色标题', align: "center" },
-                                { field: 'remark', title: '角色备注', align: "center" }
+                                {type: "checkbox", fixed: "left"},
+                                {field: 'id', title: 'ID', align: "center"},
+                                {field: 'name', title: '角色标题', align: "center"},
+                                {field: 'remark', title: '角色备注', align: "center"}
                             ]]
 
                         });
@@ -415,7 +473,7 @@
                     }
                 });
             }
-	
+
 		});
 	</script>
 

@@ -3,7 +3,9 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>房东管理</title>
+	<title>房东
+
+		管理</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,19 +22,6 @@
 				<div style="margin: 10px 10px 10px 10px">
 					<form class="layui-form layui-form-pane" action="" id="searchFrm">
 						<div class="layui-form-item">
-							<label class="layui-form-label">所属部门</label>
-							<div class="layui-input-inline">
-								<!-- 隐藏部门ID  修改操作 -->
-								<input type="hidden" name="deptId" id="p_deptid" />
-								<input type="text" id="p_deptname" readonly="readonly" autocomplete="off"
-									placeholder="请选择所属部门" class="layui-input">
-							</div>
-							<!--  选中部门树  -->
-							<div class="layui-input-inline">
-								<a class="layui-btn layui-btn-warm" id="doSelectDept"><label
-										class="layui-icon layui-icon-male"></label>选择</a>
-							</div>
-
 							<div class="layui-inline">
 								<label class="layui-form-label">用户名称</label>
 								<div class="layui-input-inline">
@@ -82,73 +71,71 @@
 			<!--添加和修改的弹出层开始-->
 			<div id="addOrUpdateDiv" style="display: none;padding: 0.3125rem">
 				<form method="post" class="layui-form layui-form-pane" lay-filter="dataFrm" id="dataFrm">
-					<div class="layui-form-item" id="div_pid">
-						<label class="layui-form-label">所属部门</label>
-						<div class="layui-input-inline">
-							<!-- 存储部门id 修改等操作 --> 
-							<input type="hidden" name="deptid" id="deptid" />
-							<input type="text" id="deptid_name" readonly="readonly" autocomplete="off"
-								placeholder="请选择所属部门" class="layui-input">
-						</div>
-						<div class="layui-input-inline">
-							<a class="layui-btn layui-btn-warm" id="doDataFromSelectDept"><label
-									class="layui-icon layui-icon-male"></label>选择</a>
-						</div>
-					</div>
 					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">用户姓名</label>
+							<label class="layui-form-label">姓名</label>
 							<div class="layui-input-inline">
 								<input type="hidden" name="id" />
-								<input type="text" name="realName" id="realName" lay-verify="required" autocomplete="off"
-									placeholder="请输入用户姓名" class="layui-input">
+								<input type="text" name="name" id="name" lay-verify="required" autocomplete="off"
+									   placeholder="请输入姓名" class="layui-input">
 							</div>
 						</div>
 						<div class="layui-inline">
-							<label class="layui-form-label">登陆名称</label>
+							<label class="layui-form-label">身份证号</label>
 							<div class="layui-input-inline">
-								<input type="text" name="userName" id="userName" lay-verify="required"
-									autocomplete="off" placeholder="请输入登陆名称" class="layui-input">
+								<input type="text" name="cardId" id="cardId" lay-verify="required"
+									   autocomplete="off" placeholder="身份证号" class="layui-input">
 							</div>
 						</div>
 					</div>
+
 					<div class="layui-form-item">
-						<label class="layui-form-label">电子邮箱</label>
-						<div class="layui-input-block">
-							<input type="text" name="email" autocomplete="off" placeholder="请输入电子邮箱"
-								class="layui-input">
+						<div class="layui-inline">
+							<label class="layui-form-label">职务</label>
+							<div class="layui-input-inline">
+								<input type="text" name="work" id="work" lay-verify="required"
+									   autocomplete="off" placeholder="请输入职务" class="layui-input">
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">手机号码</label>
-						<div class="layui-input-block">
-							<input type="text" placeholder="请输入手机号码" name="phone"
-								   class="layui-input">
+						<div class="layui-inline">
+							<label class="layui-form-label">手机号码</label>
+							<div class="layui-input-block">
+								<input type="text" placeholder="请输入手机号码" name="phone"
+									   class="layui-input">
+							</div>
 						</div>
+
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-inline">
 							<label class="layui-form-label">用户性别</label>
 							<div class="layui-input-inline">
 								<input type="radio" name="sex" value="1" title="男" checked="checked"
-									class="layui-input">
+									   class="layui-input">
 								<input type="radio" name="sex" value="0" title="女" class="layui-input">
 							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">头像</label>
-						<div class="layui-input-inline">
-							<input type="text" name="picture" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
+						<div class="layui-form-item">
+							<label class="layui-form-label">地址</label>
+							<div class="layui-input-block">
+								<input type="text" name="address" autocomplete="off" placeholder="请输入居住地址"
+									   class="layui-input">
+							</div>
 						</div>
-						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
+						<div class="layui-form-item">
+							<label class="layui-form-label">租客备注</label>
+							<div class="layui-input-block">
+								<textarea placeholder="请输入租客备注" name="remark" class="layui-textarea"></textarea>
+							</div>
+						</div>
 					</div>
+
 					<div class="layui-form-item">
 						<div class="layui-input-block" style="text-align: center;">
 							<a class="layui-btn " lay-submit="" lay-filter="doSubmit"><label
 									class="layui-icon layui-icon-release"></label>提交</a>
 							<a class="layui-btn layui-btn-warm" onclick="javascript:$('#dataFrm')[0].reset()"
-								lay-filter="data-search-btn"><label class="layui-icon layui-icon-refresh"></label>重置</a>
+							   lay-filter="data-search-btn"><label class="layui-icon layui-icon-refresh"></label>重置</a>
 						</div>
 					</div>
 				</form>
@@ -178,7 +165,7 @@
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
-			alert($.cookie('TOKEN'));
+			//alert($.cookie('TOKEN'));
 			//文件上传
             upload.render({
                 elem: '#layuiadmin-upload-useradmin'
@@ -196,46 +183,29 @@
 				type:'datetime'
 			});
 
-				//示范一个公告层
-			  layer.open({
-				type: 1
-				,title: false //不显示标题栏
-				,closeBtn: false
-				,area: 'auto'
-				,shade: 0.8
-				,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-				// ,btn: ['火速围观', '残忍拒绝']
-				,btn: ['好哒我知道啦!!!']
-				,btnAlign: 'c'
-				,moveType: 1 //拖拽模式，0或者1
-				,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲如表格数据 加载慢请点击刷新试一试呢！！！<br><p>我们此后的征途是星辰大海 ^_^</p></div>'
-			  });
+
 			var tableIns = table.render({
 				elem: '#userTable',
-				url: api + 'user/findAllUser',
+				url: api + 'landlord/findAllLandlord',
 				toolbar: "#userToolBar",
 				cellMinWidth: true,
 				height: 'full-200',
-				cols: [[
-					{ field: 'id', title: 'ID', align: "center", width: 80 },
-					{ field: 'realName', title: '用户姓名', align: "center", width: 120 },
-					{ field: 'userName', title: '登陆名称', align: "center", width: 120 },
-					{ field: 'deptName', title: '所属部门', align: "center", width: 120 },
-					{ field: 'phone', title: '手机号码', align: "center", width: 120 },
-					{
-						field: 'sex', title: '性别', align: "center", templet: function (d) {
-							return d.sex == 1 ? '男' : '女';
-						}, width: 80
-					},
-					{ field: 'email', title: '电子邮箱', align: "center", width: 120 },
-					{ field: 'joinTime', title: '创建时间', align: "center", width: 200 },
-					{
-						field: 'picture', title: '用户头像', align: "center", width: 100, templet: function (d) {
-							return "<img width=30 height=30 src='" + baseUrl + d.picture + "' />"
-						}
-					},
-					{ title: '操作', width: 300, templet: '#userTableBar', fixed: "right", align: "center" }
-				]],
+                cols: [[
+                    { field: 'id', title: 'ID', align: "center", width: 80 },
+                    { field: 'cardId', title: '身份证号', align: "center", width: 120 },
+                    { field: 'name', title: '名字', align: "center", width: 120 },
+                    { field: 'address', title: '地址', align: "center", width: 120 },
+                    { field: 'phone', title: '手机号码', align: "center", width: 120 },
+                    {
+                        field: 'sex', title: '性别', align: "center", templet: function (d) {
+                            return d.sex == 1 ? '男' : '女';
+                        }, width: 80
+                    },
+                    { field: 'work', title: '职务', align: "center", width: 120 },
+                    { field: 'joinTime', title: '创建时间', align: "center", width: 200 },
+                    { field: 'remark', title: '备注', align: "center", width: 100},
+                    { title: '操作', width: 300, templet: '#userTableBar', fixed: "right", align: "center" }
+                ]],
 				page: true
 			});
 
@@ -247,7 +217,7 @@
 					page: {
 						curr: 1
 					},
-					url: api + 'user/loadAllUser?' + params
+					url: api + 'landlord/findAllLandlord?' + params
 				});
 				return false;
 			});
@@ -293,7 +263,7 @@
 				var data = obj.data;
 				if (obj.event === 'delete') {
 					layer.confirm('真的删除【' + data.realName + '】这个用户吗么', function (index) {
-                        $.get(api + "user/deleteUser", { id: data.id }, function (res) {
+                        $.get(api + "landlord/deleteLandlord", { id: data.id }, function (res) {
                             layer.msg(res.msg);
                             obj.del();
                             layer.close(index);
@@ -320,7 +290,7 @@
 					content:$("#addOrUpdateDiv"),
 					area:['800px','500px'],
 					success:function(index){
-						url=api+"user/saveUser";
+						url=api+"landlord/saveLandlord";
 						// 重置表单
 						$("#dataFrm")[0].reset();
 						// 查询最大排序码
@@ -336,7 +306,7 @@
 					content: $("#addOrUpdateDiv"),
 					area: ['800px', '600px'],
 					success: function (index) {
-						url = api + "user/updateUser";
+						url = api + "user/updateLandlord";
 						//装载数据表格
 						form.val("dataFrm", data);
 						//根据部门ID查询部门名称
