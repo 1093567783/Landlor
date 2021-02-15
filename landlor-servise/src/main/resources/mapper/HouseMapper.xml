@@ -12,6 +12,9 @@
     <result column="province_code" jdbcType="INTEGER" property="provinceCode" />
     <result column="city_code" jdbcType="INTEGER" property="cityCode" />
     <result column="district_code" jdbcType="INTEGER" property="districtCode" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
     <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="statu" jdbcType="INTEGER" property="statu" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -22,7 +25,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, house_code, landlord_id, address, area, picture, province_code, city_code, district_code, 
-    price, statu, remark, join_time, user_id, update_time
+    price, statu, remark, join_time, user_id, update_time, province, city, district
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -77,6 +80,15 @@
       <if test="districtCode != null">
         district_code,
       </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
       <if test="price != null">
         price,
       </if>
@@ -120,6 +132,15 @@
       </if>
       <if test="districtCode != null">
         #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=INTEGER},
       </if>
       <if test="price != null">
         #{price,jdbcType=DOUBLE},
@@ -168,6 +189,15 @@
       </if>
       <if test="districtCode != null">
         district_code = #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=INTEGER},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DOUBLE},

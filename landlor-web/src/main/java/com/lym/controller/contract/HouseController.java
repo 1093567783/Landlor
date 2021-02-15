@@ -47,6 +47,7 @@ public class HouseController {
         Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
         UserVO userVO = (UserVO) subject.getPrincipal();
+        houseDTO.setAddress(houseDTO.getProvince()+houseDTO.getCity()+houseDTO.getDistrict()+houseDTO.getAddress());
         houseDTO.setJoinTime(new Date());
         houseDTO.setUserId(userVO.getId().intValue());
         houseDTO.setUpdateTime(new Date());

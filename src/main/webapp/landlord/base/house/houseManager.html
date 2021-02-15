@@ -79,7 +79,7 @@
 						<label class="layui-form-label">房东</label>
 						<div class="layui-input-inline">
 							<!-- 存储部门id 修改等操作 --> 
-							<input type="hidden" name="deptid" id="deptid" />
+							<input type="hidden" name="landlordId" id="landlordId" />
 							<input type="text" id="deptid_name" readonly="readonly" autocomplete="off"
 								placeholder="请选择所属房东" class="layui-input">
 						</div>
@@ -118,7 +118,7 @@
 							</select>
 						</div>
 						<div class="layui-input-inline" style="width: 200px;">
-							<select name="county" class="county-selector" data-value="宝安区" lay-filter="county-1">
+							<select name="district" class="county-selector" data-value="宝安区" lay-filter="county-1">
 								<option value="">请选择区</option>
 							</select>
 						</div>
@@ -191,7 +191,7 @@
             var layarea = layui.layarea ;
 			//alert($.cookie('TOKEN'));
 			//文件上传
-            function openLandlord() {
+            function openLandlord(pid, callBack) {
                 var tableSelectIns;
                 selDeptIndex = layer.open({
                     type: 1,
@@ -209,6 +209,10 @@
                     },
                     success: function (index) {
                         tableSelectIns = treeTable.render({
+                            tree: {
+                                idName: 'id', // 自定义id字段的名称
+                                openName: 'spread',   // 自定义默认展开的字段名   默认为 open
+                            },
                             elem: '#deptSelectTable',
                             cellMinWidth: true,
                             cols: [{
@@ -326,10 +330,10 @@
 
 			// 监听添加和修改弹出层的部门选中
 			$("#doDataFromSelectDept").click(function () {
-				var f_id = $("#deptid").val();
+				var f_id = $("#landlordId").val();
 				// 参数一 回调信息
-                openLandlord(null, f_id, function (id, name) {
-					$("#deptid").val(id);
+                openLandlord( f_id, function (id, name) {
+					$("#landlordId").val(id);
 					$("#deptid_name").val(name);
 				});
 			});
@@ -337,10 +341,10 @@
 			
 			// 监听搜索  选中部门
 			$("#doSelectDept").click(function () {
-				var f_id = $("#deptid").val();
+				var f_id = $("#landlordId").val();
 				// 参数一 回调信息
-                openLandlord(null, f_id, function (id, name) {
-					$("#p_deptid").val(id);
+                openLandlord( f_id, function (id, name) {
+					$("#landlordId").val(id);
 					$("#p_deptname").val(name);
 				});
 			});

@@ -47,17 +47,17 @@ public class HouseVO implements Serializable{
      * 省编码
      */
     private Integer provinceCode;
-
+    private String province;
     /**
      * 城市编码
      */
     private Integer cityCode;
-
+    private String city;
     /**
      * 县编码
      */
     private Integer districtCode;
-
+    private String district;
     /**
      * 租金
      */
