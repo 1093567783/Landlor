@@ -4,6 +4,7 @@ import com.lym.mapper.contract.CustomerMapper;
 import com.lym.model.contract.dto.CustomerDTO;
 import com.lym.model.contract.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Date 2021/2/8
  * @Version v1.0.0
  **/
+@Component
 public class CustomerManager {
 
     @Autowired
@@ -25,5 +27,13 @@ public class CustomerManager {
     public List<CustomerVO> findAllCustomer(CustomerDTO customerDTO) {
         List<CustomerVO> allCustomer = customerMapper.findAllCustomer(customerDTO);
         return allCustomer;
+    }
+
+    /**
+     * 保存租客
+     * @param customerDTO
+     */
+    public void saveCustomer(CustomerDTO customerDTO) {
+        customerMapper.insertSelective(customerDTO);
     }
 }

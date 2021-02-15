@@ -12,4 +12,10 @@ public interface DubboCustomer {
      * @return
      */
     List<CustomerVO> findAllCustomer(CustomerDTO customerDTO);
+
+    /**
+     * 保存租客
+     * @param customerDTO
+     */
+    void saveCustomer(CustomerDTO customerDTO);
 }

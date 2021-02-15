@@ -32,4 +32,9 @@ public class CustomerServiceImpl implements CustomerService{
     public List<CustomerVO> findAllCustomer(CustomerDTO customerDTO) {
         return customerManager.findAllCustomer(customerDTO);
     }
+
+    @Override
+    public void saveCustomer(CustomerDTO customerDTO) {
+        customerManager.saveCustomer(customerDTO);
+    }
 }

@@ -5,9 +5,16 @@ import com.lym.dubbo.DubboCustomer;
 import com.lym.model.common.Result;
 import com.lym.model.contract.dto.CustomerDTO;
 import com.lym.model.contract.vo.CustomerVO;
+import com.lym.model.user.vo.UserVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,10 +29,28 @@ public class CustomerController {
     @Reference
     private DubboCustomer dubboCustomer;
 
+    /**
+     * 获取所有租客
+     * @param customerDTO
+     * @return
+     */
     @RequestMapping("findAllCustomer")
     public Result findAllCustomer(CustomerDTO customerDTO){
         Result result = new Result();
         List<CustomerVO> list = dubboCustomer.findAllCustomer(customerDTO);
+        result.setData(list);
+        result.setCode(0);
+        return result;
+    }
+    @RequestMapping("saveCustomer")
+    public Result saveCustomer(@RequestBody @Valid CustomerDTO customerDTO,BindingResult validMsg){
+        Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        customerDTO.setJoinTime(new Date());
+        customerDTO.setUserId(userVO.getId().intValue());
+        customerDTO.setUpdateTime(new Date());
+        dubboCustomer.saveCustomer(customerDTO);
         return result;
     }
 }

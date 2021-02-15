@@ -209,4 +209,20 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllHouse" resultMap="BaseResultMap" parameterType="com.lym.model.contract.dto.HouseDTO">
+    SELECT
+    <include refid="Base_Column_List" />
+    from t_house
+    <where>
+      <if test="houseCode != null">
+        house_code = #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="statu != null">
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+    </where>
+  </select>
 </mapper>
