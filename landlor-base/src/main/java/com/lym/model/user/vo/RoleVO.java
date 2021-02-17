@@ -13,7 +13,7 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class RoleVO extends BaseEntityDTO implements Serializable {
+public class RoleVO extends  BaseEntityDTO implements Serializable {
     /**角色id*/
     private Integer id;
     /**角色名称*/

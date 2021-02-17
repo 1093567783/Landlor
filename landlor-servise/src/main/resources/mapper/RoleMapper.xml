@@ -15,7 +15,7 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
+    select
     <include refid="Base_Column_List" />
     from sys_role
     where id = #{id,jdbcType=INTEGER}
@@ -28,10 +28,10 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lym.model.user.dto.RoleDTO" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into sys_role (`name`, remark, available, 
-      createtime)
-    values (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{available,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=TIMESTAMP})
+    insert into sys_role (`name`, remark, available,
+    createtime)
+    values (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{available,jdbcType=INTEGER},
+    #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lym.model.user.dto.RoleDTO" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -88,20 +88,65 @@
     <!--@mbg.generated-->
     update sys_role
     set `name` = #{name,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      available = #{available,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+    remark = #{remark,jdbcType=VARCHAR},
+    available = #{available,jdbcType=INTEGER},
+    createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="findAvailable" resultMap="BaseResultMap">
-  SELECT
-  <include refid="Base_Column_List" />
+    SELECT
+    <include refid="Base_Column_List" />
     from sys_role
     <if test="available!= null">
-    where available = #{available,jdbcType=INTEGER}
+      where available = #{available,jdbcType=INTEGER}
     </if>
   </select>
   <select id="queryRoleIdsByUserId" resultType="java.lang.Integer">
     select rid from sys_role_user where uid=#{userId}
   </select>
+  <select id="queryMenuIdsByRid" resultType="java.lang.Integer">
+    select mid from sys_role_menu where rid = #{id}
+    </select>
+  <!-- 根据角色id 删除角色和菜单权限 -->
+  <delete id="deleteRoleMenuByRid">
+    delete from sys_role_menu where rid=#{value}
+  </delete>
+
+
+  <!-- 根据菜单id 删除 角色和菜单权限 -->
+  <delete id="deleteRoleMenuByMid">
+    delete from sys_role_menu where mid=#{value}
+  </delete>
+
+  <!-- 根据角色id 删除 用户角色 -->
+  <delete id="deleteRoleUserByRid">
+    delete from sys_role_user where rid=#{value}
+  </delete>
+
+  <!-- 根据用户id 删除 用户角色 -->
+  <delete id="deleteRoleUserByUid">
+    delete from sys_role_user where uid=#{value}
+  </delete>
+
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="com.lym.model.user.dto.RoleDTO">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    <where>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertRoleMenu">
+    insert into sys_role_menu
+    (rid, mid) values
+    <foreach collection="mids" item="item" index="index" separator=",">
+      (#{rid},#{item.value})
+    </foreach>
+  </insert>
 </mapper>

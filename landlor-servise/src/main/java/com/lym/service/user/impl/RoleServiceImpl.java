@@ -28,4 +28,44 @@ public class RoleServiceImpl implements RoleService{
     public DataGridView loadAllAvailableRoleNoPage(RoleDTO roleDTO) {
         return roleManager.loadAllAvailableRoleNoPage(roleDTO);
     }
+
+    @Override
+    public List<RoleVO> queryAllRole(RoleDTO roleDTO) {
+        return roleManager.queryAllRole(roleDTO);
+    }
+
+    @Override
+    public RoleVO saveRole(RoleDTO role) {
+        return null;
+    }
+
+    @Override
+    public RoleVO updateRole(RoleDTO role) {
+        return null;
+    }
+
+    @Override
+    public List<Integer> queryMenuIdsByRid(Integer id) {
+        return null;
+    }
+
+    @Override
+    public void saveRoleMenu(Integer rid, Integer[] mids) {
+
+    }
+
+    @Override
+    public DataGridView queryAllAvailableRoleNoPage(RoleDTO roleVo) {
+        return null;
+    }
+
+    @Override
+    public List<String> queryRoleNamesByUid(Integer id) {
+        return null;
+    }
+
+    @Override
+    public void deleteRole(Integer id) {
+
+    }
 }

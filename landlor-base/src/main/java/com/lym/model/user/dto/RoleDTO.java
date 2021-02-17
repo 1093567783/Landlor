@@ -1,5 +1,6 @@
 package com.lym.model.user.dto;
 
+import com.lym.model.common.BaseEntityDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class RoleDTO implements Serializable {
+public class RoleDTO extends BaseEntityDTO implements Serializable {
 
     /**角色id*/
     private Integer id;

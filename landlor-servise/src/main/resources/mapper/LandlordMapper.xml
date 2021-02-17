@@ -163,7 +163,7 @@
           #{address,jdbcType=VARCHAR},
         </if>
         <if test="phone != null">
-          #{phone,jdbcType=VARCHAR},
+          #{phone,jdbcType=VARCHAR}
         </if>
       </where>
     </select>

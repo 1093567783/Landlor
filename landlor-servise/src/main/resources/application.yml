@@ -49,5 +49,10 @@ redis:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  supportMethodsArguments: true
 # 创建流程表
 

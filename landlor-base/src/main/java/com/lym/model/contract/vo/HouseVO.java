@@ -27,7 +27,7 @@ public class HouseVO implements Serializable{
      * 房东id
      */
     private Integer landlordId;
-
+    private String landlordName;
     /**
      * 地址
      */

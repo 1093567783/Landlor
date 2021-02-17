@@ -42,6 +42,13 @@ public class HouseController {
         result.setCode(0);
         return result;
     };
+
+    /**
+     * 保存房源
+     * @param houseDTO
+     * @param validMsg
+     * @return
+     */
     @RequestMapping("saveHouse")
     public Result saveHouse(@RequestBody @Valid HouseDTO houseDTO,BindingResult validMsg){
         Result result = new Result();
@@ -54,4 +61,22 @@ public class HouseController {
         dubboHouse.saveHouse(houseDTO);
         return result;
     }
+
+    /**
+     * 删除房源
+     * @param houseDTO
+     * @return
+     */
+    @RequestMapping("deleteHouse")
+    public Result deleteHouse(HouseDTO houseDTO){
+        Result result = new Result();
+        dubboHouse.deleteHouse(houseDTO);
+        return result;
+    }
+
+    public Result updateHouse(HouseDTO houseDTO){
+        Result result = new Result();
+        dubboHouse.updateHouse(houseDTO);
+        return result;
+    };
 }

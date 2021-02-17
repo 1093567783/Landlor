@@ -58,4 +58,21 @@ public class LandlordController {
         dubboLandlord.saveLandlord(landlordDTO);
         return result;
     }
+
+    /**
+     * 删除房东
+     * @param landlordDTO
+     * @return
+     */
+    @RequestMapping("deleteLandlord")
+    public Result deleteLandlord(LandlordDTO landlordDTO){
+        Result result = new Result();
+        dubboLandlord.deleteLandlord(landlordDTO);
+        return result;
+    }
+    public Result updateLandlord(LandlordDTO landlordDTO){
+        Result result = new Result();
+        dubboLandlord.updateLandlord(landlordDTO);
+        return result;
+    };
 }

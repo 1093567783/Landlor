@@ -35,4 +35,29 @@ public class LandlordManager {
     public void saveLandlord(LandlordDTO landlordDTO) {
         landlordMapper.insertSelective(landlordDTO);
     }
+
+    /**
+     * 根据id获取房东
+     * @param id
+     * @return
+     */
+    public LandlordVO getLandlordById(Integer id){
+       return landlordMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 删除房东
+     * @param landlordDTO
+     */
+    public void deleteLandlord(LandlordDTO landlordDTO) {
+        landlordMapper.deleteByPrimaryKey(landlordDTO.getId());
+    }
+
+    /**
+     * 修改房东
+     * @param landlordDTO
+     */
+    public void updateLandlord(LandlordDTO landlordDTO) {
+        landlordMapper.updateByPrimaryKeySelective(landlordDTO);
+    }
 }

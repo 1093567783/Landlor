@@ -36,4 +36,20 @@ public class CustomerManager {
     public void saveCustomer(CustomerDTO customerDTO) {
         customerMapper.insertSelective(customerDTO);
     }
+
+    /**
+     * 删除租客
+     * @param customerDTO
+     */
+    public void deleteCustomer(CustomerDTO customerDTO) {
+        customerMapper.deleteByPrimaryKey(customerDTO.getId());
+    }
+
+    /**
+     * 修改租客
+     * @param customerDTO
+     */
+    public void updateCustomer(CustomerDTO customerDTO) {
+        customerMapper.updateByPrimaryKeySelective(customerDTO);
+    }
 }

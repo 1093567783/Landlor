@@ -18,4 +18,16 @@ public interface DubboLandlord {
      * @param landlordDTO
      */
     void saveLandlord(LandlordDTO landlordDTO);
+
+    /**
+     * 删除房东
+     * @param landlordDTO
+     */
+    void deleteLandlord(LandlordDTO landlordDTO);
+
+    /**
+     * 修改房东
+     * @param landlordDTO
+     */
+    void updateLandlord(LandlordDTO landlordDTO);
 }

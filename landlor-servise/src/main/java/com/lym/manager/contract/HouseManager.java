@@ -35,4 +35,20 @@ public class HouseManager {
     public void saveHouse(HouseDTO houseDTO) {
         houseMapper.insertSelective(houseDTO);
     }
+
+    /**
+     * 删除房源
+     * @param houseDTO
+     */
+    public void deleteHouse(HouseDTO houseDTO) {
+        houseMapper.deleteByPrimaryKey(houseDTO.getId());
+    }
+
+    /**
+     * 修改房源
+     * @param houseDTO
+     */
+    public void updateHouse(HouseDTO houseDTO) {
+        houseMapper.updateByPrimaryKeySelective(houseDTO);
+    }
 }

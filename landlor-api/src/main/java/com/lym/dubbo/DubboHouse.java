@@ -19,4 +19,16 @@ public interface DubboHouse {
      * @param houseDTO
      */
     void saveHouse(HouseDTO houseDTO);
+
+    /**
+     * 删除房源
+     * @param houseDTO
+     */
+    void deleteHouse(HouseDTO houseDTO);
+
+    /**
+     * 修改房源
+     * @param houseDTO
+     */
+    void updateHouse(HouseDTO houseDTO);
 }

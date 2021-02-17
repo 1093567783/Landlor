@@ -18,4 +18,16 @@ public interface DubboCustomer {
      * @param customerDTO
      */
     void saveCustomer(CustomerDTO customerDTO);
+
+    /**
+     * 删除租客
+     * @param customerDTO
+     */
+    void deleteCustomer(CustomerDTO customerDTO);
+
+    /**
+     * 修改租客
+     * @param customerDTO
+     */
+    void updateCustomer(CustomerDTO customerDTO);
 }

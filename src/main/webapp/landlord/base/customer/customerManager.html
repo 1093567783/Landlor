@@ -259,8 +259,8 @@
         table.on('tool(userTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'delete') {
-                layer.confirm('真的删除【' + data.realName + '】这个用户吗么', function (index) {
-                    $.get(api + "user/deleteUser", { id: data.id }, function (res) {
+                layer.confirm('真的删除【' + data.name + '】这个用户吗么', function (index) {
+                    $.get(api + "customer/deleteCustomer", { id: data.id }, function (res) {
                         layer.msg(res.msg);
                         obj.del();
                         layer.close(index);
@@ -336,52 +336,6 @@
             return false;
         });
         // 打开分配角色窗口 roleTable
-        function openSelectRole(data_table) {
-            var table_RolesIns;
-            mainIndex = layer.open({
-
-                type: 1,
-                title: '分配【' + data_table.name + '】用户和角色',
-                content: $("#selectRoleDiv"),
-                area: ['800px', '600px'],
-                btn: ['<span class="layui-icon layui-icon-ok">确认分配</span>'],
-                btnAlign: 'c',
-                yes: function () {
-                    // 获取选中的数据行
-                    var checkStatus = table.checkStatus('roleTable');
-                    var m = checkStatus.data;
-                    // 获取当前行点击的用户id
-                    var uid = data_table.id;
-                    var params = "uid=" + uid;
-                    $.each(m, function (x, item) {
-                        params += "&rids=" + item.id;
-                    });
-                    $.post(api + "user/saveUserRole", params, function (res) {
-                        layer.msg(res.msg);
-                        layer.close(mainIndex)
-                    })
-                },
-                success: function (index) {
-                    // 加载角色数据    根据用户id查询该用户拥有的角色id
-                    table_RolesIns = table.render({
-                        elem: '#roleTable',
-                        url: api + 'role/loadAllAvailableRoleNoPage?userId=' + data_table.id,
-                        toolbar: false,
-                        cellMinWidth: true,
-
-                        cols: [[
-                            { type: "checkbox", fixed: "left" },
-                            { field: 'id', title: 'ID', align: "center" },
-                            { field: 'name', title: '角色标题', align: "center" },
-                            { field: 'remark', title: '角色备注', align: "center" }
-                        ]]
-
-                    });
-
-                }
-            });
-        }
-
     });
 </script>
 

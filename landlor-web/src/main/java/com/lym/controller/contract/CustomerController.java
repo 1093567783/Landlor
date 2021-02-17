@@ -42,6 +42,13 @@ public class CustomerController {
         result.setCode(0);
         return result;
     }
+
+    /**
+     * 保存租客
+     * @param customerDTO
+     * @param validMsg
+     * @return
+     */
     @RequestMapping("saveCustomer")
     public Result saveCustomer(@RequestBody @Valid CustomerDTO customerDTO,BindingResult validMsg){
         Result result = new Result();
@@ -51,6 +58,24 @@ public class CustomerController {
         customerDTO.setUserId(userVO.getId().intValue());
         customerDTO.setUpdateTime(new Date());
         dubboCustomer.saveCustomer(customerDTO);
+        return result;
+    }
+
+    /**
+     * 删除租户
+     * @param customerDTO
+     * @return
+     */
+    @RequestMapping("deleteCustomer")
+    public Result deleteCustomer(CustomerDTO customerDTO){
+        Result result = new Result();
+        dubboCustomer.deleteCustomer(customerDTO);
+        return result;
+    };
+
+    public Result updateCustomer(CustomerDTO customerDTO){
+        Result result = new Result();
+        dubboCustomer.updateCustomer(customerDTO);
         return result;
     }
 }

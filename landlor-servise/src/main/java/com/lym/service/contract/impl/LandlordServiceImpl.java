@@ -41,4 +41,18 @@ public class LandlordServiceImpl implements LandlordService{
     public void saveLandlord(LandlordDTO landlordDTO) {
         landlordManager.saveLandlord(landlordDTO);
     }
+
+    /**
+     * 删除房东
+     * @param landlordDTO
+     */
+    @Override
+    public void deleteLandlord(LandlordDTO landlordDTO) {
+        landlordManager.deleteLandlord(landlordDTO);
+    }
+
+    @Override
+    public void updateLandlord(LandlordDTO landlordDTO) {
+        landlordManager.updateLandlord(landlordDTO);
+    }
 }

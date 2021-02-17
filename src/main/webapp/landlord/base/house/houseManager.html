@@ -60,8 +60,6 @@
 			<script type="text/html" id="userTableBar">
 						<a class="layui-btn layui-btn-xs layui-btn-warm data-count-delete" lay-event="update">修改</a>
 					    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-						<a class="layui-btn layui-btn-xs layui-btn-warm data-count-delete" lay-event="selectRole">分配角色</a>
-					    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="resetPwd">重置密码</a>
 					</script>
 
 
@@ -279,7 +277,7 @@
 				cols: [[
 					{ field: 'id', title: 'ID', align: "center", width: 80 },
 					{ field: 'houseCode', title: '房屋编号', align: "center", width: 120 },
-					{ field: 'name', title: '房东名称', align: "center", width: 120 },
+					{ field: 'landlordName', title: '房东名称', align: "center", width: 120 },
 					{ field: 'price', title: '价格', align: "center", width: 120 },
 					{ field: 'province', title: '省', align: "center", width: 120 },
 					{ field: 'city', title: '市', align: "center", width: 120 },
@@ -296,7 +294,7 @@
 							return "<img width=30 height=30 src='" + baseUrl + d.picture + "' />"
 						}
 					},
-					{ title: '操作', width: 300, templet: '#userTableBar', fixed: "right", align: "center" }
+					{ title: '操作', width: 240, templet: '#userTableBar', fixed: "right", align: "center" }
 				]],
 				page: true
 			});
@@ -354,7 +352,7 @@
 			table.on('tool(userTable)', function (obj) {
 				var data = obj.data;
 				if (obj.event === 'delete') {
-					layer.confirm('真的删除【' + data.realName + '】这个用户吗么', function (index) {
+					layer.confirm('真的删除【' + data.houseCode + '】这个用户吗么', function (index) {
                         $.get(api + "house/deleteHouse", { id: data.id }, function (res) {
                             layer.msg(res.msg);
                             obj.del();

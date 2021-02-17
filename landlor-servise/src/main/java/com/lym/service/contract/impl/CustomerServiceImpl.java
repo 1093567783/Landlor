@@ -33,8 +33,30 @@ public class CustomerServiceImpl implements CustomerService{
         return customerManager.findAllCustomer(customerDTO);
     }
 
+    /**
+     * 保存租客
+     * @param customerDTO
+     */
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
         customerManager.saveCustomer(customerDTO);
+    }
+
+    /**
+     * 删除房东
+     * @param customerDTO
+     */
+    @Override
+    public void deleteCustomer(CustomerDTO customerDTO){
+        customerManager.deleteCustomer(customerDTO);
+    }
+
+    /**
+     * 修改租客
+     * @param customerDTO
+     */
+    @Override
+    public void updateCustomer(CustomerDTO customerDTO) {
+        customerManager.updateCustomer(customerDTO);
     }
 }
