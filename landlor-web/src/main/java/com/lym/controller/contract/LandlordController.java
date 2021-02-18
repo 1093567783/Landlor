@@ -70,6 +70,13 @@ public class LandlordController {
         dubboLandlord.deleteLandlord(landlordDTO);
         return result;
     }
+
+    /**
+     * 修改房东
+     * @param landlordDTO
+     * @return
+     */
+    @RequestMapping("updateLandlord")
     public Result updateLandlord(LandlordDTO landlordDTO){
         Result result = new Result();
         dubboLandlord.updateLandlord(landlordDTO);

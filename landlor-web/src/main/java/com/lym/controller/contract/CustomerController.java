@@ -73,6 +73,12 @@ public class CustomerController {
         return result;
     };
 
+    /**
+     * 修改租客
+     * @param customerDTO
+     * @return
+     */
+    @RequestMapping("updateCustomer")
     public Result updateCustomer(CustomerDTO customerDTO){
         Result result = new Result();
         dubboCustomer.updateCustomer(customerDTO);

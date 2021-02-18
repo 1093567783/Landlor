@@ -174,4 +174,14 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllContract" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_contract
+    <where>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE}
+      </if>
+    </where>
+  </select>
 </mapper>

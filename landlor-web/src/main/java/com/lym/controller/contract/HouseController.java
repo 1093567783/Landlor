@@ -74,9 +74,21 @@ public class HouseController {
         return result;
     }
 
+    /**
+     * 修改房源
+     * @param houseDTO
+     * @return
+     */
+    @RequestMapping("updateHouse")
     public Result updateHouse(HouseDTO houseDTO){
         Result result = new Result();
         dubboHouse.updateHouse(houseDTO);
         return result;
     };
+
+    @RequestMapping("getHouseById")
+    public Result getHouseById(HouseDTO houseDTO){
+        Result result = new Result();
+        return result;
+    }
 }

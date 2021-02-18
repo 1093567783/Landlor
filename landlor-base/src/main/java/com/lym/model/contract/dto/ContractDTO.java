@@ -32,7 +32,7 @@ public class ContractDTO implements Serializable{
      * 起租时间
      */
     private Date startTime;
-
+    private String startTimeStr;
     /**
      * 租客身份证号
      */
@@ -47,7 +47,7 @@ public class ContractDTO implements Serializable{
      * 退租时间
      */
     private Date endTime;
-
+    private String endTimeStr;
     /**
      * 租金
      */
