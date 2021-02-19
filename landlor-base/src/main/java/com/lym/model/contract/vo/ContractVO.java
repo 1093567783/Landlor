@@ -22,7 +22,7 @@ public class ContractVO implements Serializable{
      * 房东身份证号
      */
     private String landlordCard;
-
+    private LandlordVO landlordVO;
     /**
      * 房东id
      */
@@ -37,7 +37,7 @@ public class ContractVO implements Serializable{
      * 租客身份证号
      */
     private String customerCard;
-
+    private CustomerVO customerVO;
     /**
      * 租客id
      */

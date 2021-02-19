@@ -27,4 +27,5 @@ public interface ContractMapper {
     int updateByPrimaryKey(ContractDTO record);
 
     List<ContractVO> findAllContract(ContractDTO contractDTO);
+
 }

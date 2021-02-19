@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lym.mapper.contract.LeaseMapper">
+  <resultMap id="ResultVO" type="com.lym.model.contract.vo.LeaseVO">
+    <result column="id" property="id"/>
+    <result column="house_id" property="houseId"/>
+    <result column="house_code" property="houseCode"/>
+    <result column="customer_id" property="customerId"/>
+    <result column="customer_name" property="customerName"/>
+    <result column="customer_card" property="customerCard"/>
+    <result column="customer_phone" property="customerPhone"/>
+    <result column="customer_address" property="customerAddress"/>
+    <result column="price" property="price"/>
+    <result column="statu" property="statu"/>
+    <result column="contract_id" property="contractId"/>
+    <result column="address" property="address"/>
+    <result column="remark" property="remark"/>
+    <result column="join_time" property="joinTime"/>
+    <result column="user_id" property="userId"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
   <resultMap id="BaseResultMap" type="com.lym.model.contract.vo.LeaseVO">
     <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -138,4 +156,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllLease" resultMap="ResultVO" parameterType="com.lym.model.contract.dto.LeaseDTO">
+    SELECT
+    tl.id,tc.address customer_address,tc.name customer_name,tc.card_id customer_card,tc.phone customer_phone
+    ,th.house_code,th.price,tl.contract_id,th.statu
+    from t_lease tl LEFT JOIN t_customer tc ON tl.customer_id=tc.id LEFT JOIN t_house th ON th.id=tl.house_id
+  </select>
 </mapper>

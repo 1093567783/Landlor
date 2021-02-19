@@ -4,6 +4,8 @@ import com.lym.model.contract.dto.LeaseDTO;
 import com.lym.model.contract.vo.LeaseVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface LeaseMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,4 +19,6 @@ public interface LeaseMapper {
     int updateByPrimaryKeySelective(LeaseDTO record);
 
     int updateByPrimaryKey(LeaseDTO record);
+
+    List<LeaseVO> findAllLease(LeaseDTO leaseDTO);
 }

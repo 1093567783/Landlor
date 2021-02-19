@@ -1,9 +1,12 @@
 package com.lym.model.common;
 
+import com.lym.model.contract.dto.LeaseDTO;
+import com.lym.model.contract.vo.LeaseVO;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +92,7 @@ public class Result <T> implements Serializable {
         map.put("count",this.count);
         return map;
     }
+
 
 }
 

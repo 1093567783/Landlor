@@ -22,7 +22,10 @@ public class LeaseDTO implements Serializable{
      * 房子id
      */
     private Integer houseId;
-
+    /**
+     * 房子id
+     */
+    private String houseCode;
     /**
      * 租客id
      */

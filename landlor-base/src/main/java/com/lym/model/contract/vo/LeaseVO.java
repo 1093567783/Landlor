@@ -23,6 +23,7 @@ public class LeaseVO implements Serializable{
      */
     private Integer houseId;
 
+    private String houseCode;
     /**
      * 租客id
      */
@@ -32,7 +33,12 @@ public class LeaseVO implements Serializable{
      * 合同id
      */
     private Integer contractId;
-
+    private String customerName;
+    private String customerCard;
+    private String customerPhone;
+    private String customerAddress;
+    private Integer price;
+    private Integer statu;
     /**
      * 地址
      */

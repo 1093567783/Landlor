@@ -26,8 +26,8 @@ public class ContractServiceImpl implements ContractService{
      * @param contractDTO
      */
     @Override
-    public void saveContract(ContractDTO contractDTO) {
-        contractManager.saveContract(contractDTO);
+    public ContractDTO saveContract(ContractDTO contractDTO) {
+       return contractManager.saveContract(contractDTO);
     }
 
     /**
@@ -46,6 +46,16 @@ public class ContractServiceImpl implements ContractService{
      */
     @Override
     public void deleteContract(ContractDTO contractDTO) {
+        contractManager.deleteContract(contractDTO);
+    }
 
+    /**
+     *
+     * @param contractDTO
+     * @return
+     */
+    @Override
+    public ContractVO getContractById(ContractDTO contractDTO) {
+        return contractManager.getContractById(contractDTO);
     }
 }

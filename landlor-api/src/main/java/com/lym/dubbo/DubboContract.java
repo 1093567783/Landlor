@@ -6,9 +6,11 @@ import com.lym.model.contract.vo.ContractVO;
 import java.util.List;
 
 public interface DubboContract {
-    void saveContract(ContractDTO contractDTO);
+    ContractDTO saveContract(ContractDTO contractDTO);
 
     List<ContractVO> findAllContract(ContractDTO contractDTO);
 
     void deleteContract(ContractDTO contractDTO);
+
+    ContractVO getContractById(ContractDTO contractDTO);
 }

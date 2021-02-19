@@ -19,12 +19,24 @@ public class ContractManager {
     @Autowired
    private ContractMapper contractMapper;
 
-    public void saveContract(ContractDTO contractDTO) {
+    public ContractDTO saveContract(ContractDTO contractDTO) {
         contractMapper.insertSelective(contractDTO);
+        System.out.println(contractDTO);
+        return contractDTO;
     }
 
     public List<ContractVO> findAllContract(ContractDTO contractDTO) {
         List<ContractVO> list = contractMapper.findAllContract(contractDTO);
         return list;
+    }
+
+    public ContractVO getContractById(ContractDTO contractDTO) {
+        ContractVO contractVO = contractMapper.selectByPrimaryKey(contractDTO.getId());
+        System.out.println(contractVO);
+        return contractVO;
+    }
+
+    public void deleteContract(ContractDTO contractDTO) {
+        contractMapper.deleteByPrimaryKey(contractDTO.getId());
     }
 }

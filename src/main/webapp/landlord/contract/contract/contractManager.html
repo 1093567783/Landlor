@@ -76,6 +76,20 @@
 						</div>
 
 					</div>
+					<div class="layui-form-item" id="div_hid">
+						<label class="layui-form-label">房源</label>
+						<div class="layui-input-inline">
+							<!-- 存储部门id 修改等操作 -->
+							<input type="hidden" name="houseId" id="houseId" />
+							<input type="text" id="houseName" readonly="readonly" autocomplete="off"
+								   placeholder="请选择所属房源" class="layui-input">
+						</div>
+						<div class="layui-input-inline">
+							<a class="layui-btn layui-btn-warm" id="doDataFromSelectHouse"><label
+									class="layui-icon layui-icon-male"></label>选择</a>
+						</div>
+
+					</div>
 					<div class="layui-form-item" id="div_yid">
 						<label class="layui-form-label">租客</label>
 						<div class="layui-input-inline">
@@ -226,7 +240,7 @@
                                     callback(res.data); // 参数是数组类型
 
                                     // 设置初始化 选中的部门
-                                    tableSelectIns.setChecked(id);
+
                                 });
                             }
                         });
@@ -284,7 +298,62 @@
                                     callback(res.data); // 参数是数组类型
 
                                     // 设置初始化 选中的部门
-                                    tableSelectIns.setChecked(id);
+
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            function openHouse(pid, callBack) {
+                var tableSelectIns;
+                var l_id = $("#landlordId").val();
+                selDeptIndex = layer.open({
+                    type: 1,
+                    title: '选择房源',
+                    content: '<div style="padding:10px" ><table class="layui-hide" id="deptSelectTable" lay-filter="deptSelectTable"></table></div>',
+                    area: ['700px', '600px'],
+                    btn: ['<span class="layui-icon layui-icon-ok"></span>确定'],
+                    yes: function (index) {
+                        // 获取单选选中信息
+                        var ckDate = tableSelectIns.checkStatus();
+                        // 回调数据出去  得到选中的id和名称
+                        callBack(ckDate[0].id, ckDate[0].houseCode);
+                        // 关闭弹出层
+                        layer.close(selDeptIndex)
+                    },
+                    success: function (index) {
+                        tableSelectIns = treeTable.render({
+                            tree: {
+                                idName: 'id', // 自定义id字段的名称
+                                openName: 'spread',   // 自定义默认展开的字段名   默认为 open
+                            },
+                            elem: '#deptSelectTable',
+                            cellMinWidth: true,
+                            cols: [{
+                                type: "numbers"
+                            },
+                                {
+                                    type: "radio"
+                                },
+                                {
+                                    field: 'id',
+                                    title: 'ID'
+                                },
+                                {
+                                    field: 'houseCode',
+                                    title: '房源编号'
+                                },
+                            ],
+                            reqData: function (data, callback) {
+                                // 在这里写ajax请求，通过callback方法回调数据
+                                $.get(api + 'house/findAllHouse?landlordId='+l_id, function (res) {
+
+                                    // 异步加载 回调
+                                    callback(res.data); // 参数是数组类型
+
+                                    // 设置初始化 选中的部门
+
                                 });
                             }
                         });
@@ -377,13 +446,20 @@
                     $("#customerName").val(name);
                 });
             });
-
+            $("#doDataFromSelectHouse").click(function () {
+                var f_id = $("#houseId").val();
+                // 参数一 回调信息
+                openHouse( f_id, function (id,name) {
+                    $("#houseId").val(id);
+                    $("#houseName").val(name);
+                });
+            });
 			//监听行数据的事件
 			table.on('tool(userTable)', function (obj) {
 				var data = obj.data;
 				if (obj.event === 'delete') {
 					layer.confirm('真的删除【' + data.houseCode + '】这个用户吗么', function (index) {
-                        $.get(api + "house/deleteHouse", { id: data.id }, function (res) {
+                        $.get(api + "contract/deleteContract", { id: data.id }, function (res) {
                             layer.msg(res.msg);
                             obj.del();
                             layer.close(index);

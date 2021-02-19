@@ -27,6 +27,16 @@
         </option>
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="landlord:sys_notice">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="SysNotice" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="landlord:sys_role">
               <value>
                 <TableGenerateConfig>

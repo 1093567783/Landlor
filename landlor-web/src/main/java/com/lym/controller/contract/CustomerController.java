@@ -58,6 +58,7 @@ public class CustomerController {
         customerDTO.setUserId(userVO.getId().intValue());
         customerDTO.setUpdateTime(new Date());
         dubboCustomer.saveCustomer(customerDTO);
+
         return result;
     }
 

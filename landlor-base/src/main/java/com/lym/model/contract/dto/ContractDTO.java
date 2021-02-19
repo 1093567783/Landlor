@@ -1,5 +1,7 @@
 package com.lym.model.contract.dto;
 
+import com.lym.model.contract.vo.CustomerVO;
+import com.lym.model.contract.vo.LandlordVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -28,6 +30,10 @@ public class ContractDTO implements Serializable{
      */
     private Integer landlordId;
 
+    /**
+     * 房源id
+     */
+    private Integer houseId;
     /**
      * 起租时间
      */

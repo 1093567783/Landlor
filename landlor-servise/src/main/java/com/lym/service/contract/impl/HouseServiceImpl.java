@@ -28,7 +28,6 @@ public class HouseServiceImpl implements HouseService{
 
     @Override
     public List<HouseVO> findAllHouse(HouseDTO houseDTO) {
-
         List<HouseVO> allHouse = houseManager.findAllHouse(houseDTO);
         for (HouseVO houseVO:allHouse) {
             LandlordVO landlord = landlordManager.getLandlordById(houseVO.getLandlordId());
