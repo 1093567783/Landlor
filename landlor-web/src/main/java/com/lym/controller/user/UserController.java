@@ -51,7 +51,7 @@ public class UserController {
     }
 
     /**
-     * 添加用户
+     * 用户注册
      * @param userDTO
      * @return
      */
@@ -77,6 +77,17 @@ public class UserController {
     }
 
     /**
+     * 保存用户
+     * @param userDTO
+     * @return
+     */
+    @RequestMapping("insertUser")
+    public Result insertUser(@RequestBody UserDTO userDTO) {
+        Result<Object> result = new Result<>();
+        dubboUser.saveUser(userDTO);
+        return result;
+    }
+    /**
      * 修改用户
      * @param userDTO
      * @return
@@ -87,8 +98,56 @@ public class UserController {
         dubboUser.updateUser(userDTO);
         return result;
     }
+
     /**
-     * 修改用户
+     * 修改个人信息
+     * @param userDTO
+     * @return
+     */
+    @RequestMapping("updateMyself")
+    public Result updateMyself(@RequestBody UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        userDTO.setId(userVO.getId());
+        dubboUser.updateUser(userDTO);
+        return result;
+    }
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
+    @RequestMapping("updatePassword")
+    public Result updatePassword(@RequestBody UserDTO userDTO){
+        Result<Object> result = new Result<>();
+        if (!StringUtils.isEmpty(userDTO.getPassword())&&!StringUtils.isEmpty(userDTO.getRePass())){
+            if (!userDTO.getPassword().equals(userDTO.getRePass())){
+                return result.setError(120,"密码不一致");
+            }
+        }
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        if (!userVO.getPassword().equals(userDTO.getOldPassword())){
+            return result.setError(120,"当前密码错误");
+        }
+        userDTO.setId(userVO.getId());
+        dubboUser.updateUser(userDTO);
+        return result;
+    }
+
+    @RequestMapping("detailUser")
+    public Result detailUser(){
+        Result<Object> result = new Result<>();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        result.setData(userVO);
+        result.setCode(0);
+        return result;
+    }
+
+    /**
+     * 删除用户
      * @param userDTO
      * @return
      */

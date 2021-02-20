@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lym.mapper.contract.NoticeMapper">
+<mapper namespace="com.lym.mapper.user.NoticeMapper">
   <resultMap id="BaseResultMap" type="com.lym.model.contract.vo.NoticeVO">
     <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -92,4 +92,14 @@
       opername = #{opername,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="queryAllNotice" resultMap="BaseResultMap" parameterType="com.lym.model.contract.dto.NoticeDTO">
+    select
+    <include refid="Base_Column_List" />
+    from sys_notice
+    <where>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -86,7 +86,7 @@
 						<label class="layui-form-label">所属部门</label>
 						<div class="layui-input-inline">
 							<!-- 存储部门id 修改等操作 --> 
-							<input type="hidden" name="deptid" id="deptid" />
+							<input type="hidden" name="deptId" id="deptid" />
 							<input type="text" id="deptid_name" readonly="readonly" autocomplete="off"
 								placeholder="请选择所属部门" class="layui-input">
 						</div>
@@ -178,7 +178,7 @@
 			var layer = layui.layer;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
-			alert($.cookie('TOKEN'));
+			//alert($.cookie('TOKEN'));
 			//文件上传
             upload.render({
                 elem: '#layuiadmin-upload-useradmin'
@@ -196,20 +196,7 @@
 				type:'datetime'
 			});
 
-				//示范一个公告层
-			  layer.open({
-				type: 1
-				,title: false //不显示标题栏
-				,closeBtn: false
-				,area: 'auto'
-				,shade: 0.8
-				,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-				// ,btn: ['火速围观', '残忍拒绝']
-				,btn: ['好哒我知道啦!!!']
-				,btnAlign: 'c'
-				,moveType: 1 //拖拽模式，0或者1
-				,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲如表格数据 加载慢请点击刷新试一试呢！！！<br><p>我们此后的征途是星辰大海 ^_^</p></div>'
-			  });
+
 			var tableIns = table.render({
 				elem: '#userTable',
 				url: api + 'user/findAllUser',
@@ -309,7 +296,15 @@
 				}
 			});
 
-
+			// 重置密码
+            function resetPwd(data) {
+                layer.confirm('真的重置【' + data.name + '】这个用户的密码吗?', function (index) {
+                    $.post(api + "user/resetUserPwd", { id: data.id }, function (res) {
+                        layer.msg(res.msg);
+                        layer.close(index);
+                    })
+                });
+            }
 			// 打开添加用户弹出层
 			var maxIndex;
 			var url;
@@ -320,7 +315,7 @@
 					content:$("#addOrUpdateDiv"),
 					area:['800px','500px'],
 					success:function(index){
-						url=api+"user/saveUser";
+						url=api+"user/insertUser";
 						// 重置表单
 						$("#dataFrm")[0].reset();
 						// 查询最大排序码
@@ -342,6 +337,7 @@
 						//根据部门ID查询部门名称
 						$.get(api + "dept/getDeptById", { id: data.deptid }, function (res) {
 							$("#deptid_name").val(res.data.title);
+
 						});
 					}
 				});
