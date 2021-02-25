@@ -1,6 +1,8 @@
 package com.lym.shiro;
 
 
+import com.lym.dubbo.DubboPermission;
+import com.lym.dubbo.DubboRole;
 import com.lym.dubbo.DubboUser;
 import com.lym.model.shiro.Permission;
 import com.lym.model.shiro.Role;
@@ -17,6 +19,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * @Author LYM
  * @Description 权限验证
@@ -30,23 +34,22 @@ public class CustomRealm extends AuthorizingRealm{
      * @Description 权限配置类
      * @Param [principalCollection]
      * @Return AuthorizationInfo
-     * @Author WangShiLin
+     * @Author
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         DubboUser dubboUser = SpringBeanFactoryUtils.getBean("dubboUser",DubboUser.class);
         //获取登录用户名
-        String name = (String) principalCollection.getPrimaryPrincipal();
-        System.out.println(name);
+        UserVO userVO = (UserVO) principalCollection.getPrimaryPrincipal();
         //查询用户名称
-        UserVO user = dubboUser.getUserByName(name);
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        for (Role role : user.getRoles()) {
+        for (Role role : userVO.getRoles()) {
             //添加角色
             simpleAuthorizationInfo.addRole(role.getRoleName());
             //添加权限
             for (Permission permissions : role.getPermissions()) {
+                System.out.println(permissions.getPermissionName());
                 simpleAuthorizationInfo.addStringPermission(permissions.getPermissionName());
             }
         }
@@ -63,12 +66,15 @@ public class CustomRealm extends AuthorizingRealm{
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         DubboUser dubboUser = SpringBeanFactoryUtils.getBean("dubboUser",DubboUser.class);
+        DubboRole dubboRole = SpringBeanFactoryUtils.getBean("dubboRole",DubboRole.class);
         if (StringUtils.isEmpty(authenticationToken.getPrincipal())) {
             return null;
         }
         //获取用户信息
         String name = authenticationToken.getPrincipal().toString();
         UserVO user = dubboUser.getUserByName(name);
+        List<Role> roles = dubboRole.getRoleByUid(user.getId());
+        user.setRoles(roles);
         if (user == null) {
             //这里返回后会报出对应异常
             return null;

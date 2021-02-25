@@ -3,7 +3,9 @@ package com.lym.service.process.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lym.dubbo.DubboActivity;
 import com.lym.manager.process.ActivityManager;
+import com.lym.model.contract.vo.ContractVO;
 import com.lym.model.process.DeployeeDTO;
+import com.lym.model.user.vo.UserVO;
 import com.lym.service.process.ActivityService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -23,7 +25,7 @@ import java.util.Map;
  * @Version v1.0.0
  **/
 @Service(interfaceClass = DubboActivity.class, delay = -1, retries = 0)
-public class ActivityServiceImpl implements ActivityService {
+public class ActivityServiceImpl implements ActivityService{
 
     @Autowired
     private ActivityManager activityManager;
@@ -61,13 +63,21 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Override
     public void saveStartProcess(String key, Integer id, String username) {
-
+        activityManager.saveStartProcess(key,id,username);
     }
 
+    /**
+     * 查看流程实例
+     * @param username
+     * @param processName
+     * @return
+     */
     @Override
-    public List<Task> findTaskListByName(String username) {
-        return null;
+    public List<Task> findTaskListByName(String username, String processName) {
+        return activityManager.findTaskListByName(username, processName);
     }
+
+    
 
     @Override
     public List<Task> findLeaveTaskListByName(String username) {
@@ -76,17 +86,17 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Comment> findCommentByTaskId(String taskId) {
-        return null;
+        return activityManager.findCommentByTaskId(taskId);
     }
 
     @Override
     public List<String> findOutComeListByTaskId(String taskId) {
-        return null;
+        return activityManager.findOutComeListByTaskId(taskId);
     }
 
     @Override
-    public void saveSubmitTask(long id, String taskId, String comment, String outcome, String username) {
-
+    public void saveSubmitTask(long id, String taskId, String comment, String outcome, UserVO userVO) {
+        activityManager.saveSubmitTask(id,taskId,comment,outcome,userVO);
     }
 
     @Override
@@ -117,5 +127,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void deleteProcessDefinitionByDeploymentId(String deploymentId) {
         activityManager.deleteProcessDefinitionByDeploymentId(deploymentId);
+    }
+
+    @Override
+    public ContractVO findByTaskId(String taskId) {
+        return activityManager.findByTaskId(taskId);
     }
 }

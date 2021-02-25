@@ -286,7 +286,7 @@
                 content:$("#addOrUpdateDiv"),
                 area:['800px','500px'],
                 success:function(index){
-                    url=api+"/customer/saveCustomer";
+                    url=api+"customer/saveCustomer";
                     // 重置表单
                     $("#dataFrm")[0].reset();
                     // 查询最大排序码
@@ -298,17 +298,14 @@
         function openUpdateUser(data){
             mainIndex = layer.open({
                 type: 1,
-                title: '修改【' + data.id + '】用户',
+                title: '修改【' + data.id + '】租客',
                 content: $("#addOrUpdateDiv"),
                 area: ['800px', '600px'],
                 success: function (index) {
-                    url = api + "user/updateUser";
+                    url = api + "customer/updateCustomer";
                     //装载数据表格
                     form.val("dataFrm", data);
                     //根据部门ID查询部门名称
-                    $.get(api + "dept/getDeptById", { id: data.deptid }, function (res) {
-                        $("#deptid_name").val(res.data.title);
-                    });
                 }
             });
         }

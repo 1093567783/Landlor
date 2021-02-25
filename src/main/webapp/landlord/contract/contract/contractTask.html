@@ -12,472 +12,332 @@
 </head>
 
 <body>
-	<div class="layuimini-container">
-		<div class="layuimini-main">
-			<!--搜索开始-->
-			<fieldset class="layui-elem-field layuimini-search">
-				<legend>搜索信息</legend>
-				<div style="margin: 10px 10px 10px 10px">
-					<form class="layui-form layui-form-pane" action="" id="searchFrm">
-						<div class="layui-form-item">
-							<div class="layui-inline">
-								<label class="layui-form-label">编号</label>
-								<div class="layui-input-inline">
-									<input type="text" name="houseCode" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">地址</label>
-								<div class="layui-input-inline">
-									<input type="text" name="address" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">价格</label>
-								<div class="layui-input-inline">
-									<input type="text" name="price" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<a class="layui-btn " lay-submit="" lay-filter="data-search-btn"><label
-										class="layui-icon layui-icon-search"></label>搜索</a>
-								<a class="layui-btn layui-btn-warm"
-									onclick="javascript:$('#searchFrm')[0].reset();$('#deptid').val('')"
-									lay-filter="data-search-btn">
-									<label class="layui-icon layui-icon-refresh"></label>重置</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</fieldset>
-			<!--搜索结束-->
-
-			<!--表格开始-->
-			<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
-			<script type="text/html" id="userToolBar">
-				        <a class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-				    </script>
-			<script type="text/html" id="userTableBar">
-						<a class="layui-btn layui-btn-xs layui-btn-warm data-count-delete" lay-event="update">修改</a>
-					    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-					</script>
-
-
-			<script type="text/html" id="availableTpl">
-					<!-- 这里的 checked 的状态只是演示 -->
-			<input type="checkbox" name="available" value="{{d.id}}" lay-skin="switch" lay-text="可用|不可用"
-				lay-filter="availableSwitch" {{ d.available == 1 ? 'checked' : '' }}>
-			</script>
-			<!--表格结束-->
-
-			<!--添加和修改的弹出层开始-->
-			<div id="addOrUpdateDiv" style="display: none;padding: 0.3125rem">
-				<form method="post" class="layui-form layui-form-pane" lay-filter="dataFrm" id="dataFrm">
-					<div class="layui-form-item" id="div_pid">
-						<label class="layui-form-label">房东</label>
-						<div class="layui-input-inline">
-							<!-- 存储部门id 修改等操作 --> 
-							<input type="hidden" name="landlordId" id="landlordId" />
-							<input type="text" id="deptid_name" readonly="readonly" autocomplete="off"
-								placeholder="请选择所属房东" class="layui-input">
-						</div>
-						<div class="layui-input-inline">
-							<a class="layui-btn layui-btn-warm" id="doDataFromSelectDept"><label
-									class="layui-icon layui-icon-male"></label>选择</a>
-						</div>
-					</div>
+<div class="layuimini-container">
+	<div class="layuimini-main">
+		<!--搜索开始-->
+		<fieldset class="layui-elem-field layuimini-search">
+			<legend>搜索信息</legend>
+			<div style="margin: 10px 10px 10px 10px">
+				<form class="layui-form layui-form-pane" action="" id="searchFrm">
 					<div class="layui-form-item">
 						<div class="layui-inline">
 							<label class="layui-form-label">编号</label>
 							<div class="layui-input-inline">
-								<input type="hidden" name="id" />
-								<input type="text" name="houseCode" id="houseCode" lay-verify="required" autocomplete="off"
-									placeholder="请输入房屋编号" class="layui-input">
+								<input type="text" name="houseCode" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">地址</label>
+							<div class="layui-input-inline">
+								<input type="text" name="address" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 						<div class="layui-inline">
 							<label class="layui-form-label">价格</label>
 							<div class="layui-input-inline">
-								<input type="text" name="price" id="price" lay-verify="required"
-									autocomplete="off" placeholder="请输入每月房租" class="layui-input">
+								<input type="text" name="price" autocomplete="off" class="layui-input">
 							</div>
 						</div>
-					</div>
-					<div class="layui-form-item" id="area-picker">
-						<div class="layui-form-label">租房地址</div>
-						<div class="layui-input-inline" style="width: 200px;">
-							<select name="province" class="province-selector" data-value="广东省" lay-filter="province-1">
-								<option value="">请选择省</option>
-							</select>
-						</div>
-						<div class="layui-input-inline" style="width: 200px;">
-							<select name="city" class="city-selector" data-value="深圳市" lay-filter="city-1">
-								<option value="">请选择市</option>
-							</select>
-						</div>
-						<div class="layui-input-inline" style="width: 200px;">
-							<select name="district" class="county-selector" data-value="宝安区" lay-filter="county-1">
-								<option value="">请选择区</option>
-							</select>
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">详细地址</label>
-						<div class="layui-input-block">
-							<input type="text" name="address" autocomplete="off" placeholder="请输入电子邮箱"
-								class="layui-input">
-						</div>
-					</div>
-					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">房屋状态</label>
-							<div class="layui-input-inline">
-								<input type="radio" name="statu" value="1" title="未租" checked="checked"
-									class="layui-input">
-								<input type="radio" name="statu" value="0" title="已租" class="layui-input">
-							</div>
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">房屋图片</label>
-						<div class="layui-input-inline">
-							<input type="text" name="picture" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
-						</div>
-						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">租客备注</label>
-						<div class="layui-input-block">
-							<textarea placeholder="请输入租客备注" name="remark" class="layui-textarea"></textarea>
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<div class="layui-input-block" style="text-align: center;">
-							<a class="layui-btn " lay-submit="" lay-filter="doSubmit"><label
-									class="layui-icon layui-icon-release"></label>提交</a>
-							<a class="layui-btn layui-btn-warm" onclick="javascript:$('#dataFrm')[0].reset()"
-								lay-filter="data-search-btn"><label class="layui-icon layui-icon-refresh"></label>重置</a>
+							<a class="layui-btn " lay-submit="" lay-filter="data-search-btn"><label
+									class="layui-icon layui-icon-search"></label>搜索</a>
+							<a class="layui-btn layui-btn-warm"
+							   onclick="javascript:$('#searchFrm')[0].reset();$('#deptid').val('')"
+							   lay-filter="data-search-btn">
+								<label class="layui-icon layui-icon-refresh"></label>重置</a>
 						</div>
 					</div>
 				</form>
 			</div>
-			<!--添加和修改的弹出层结束-->
+		</fieldset>
+		<!--搜索结束-->
 
-			<!--选择菜单和权限的弹出层开始-->
-			<div id="selectuserDiv" style="display: none;padding: 0.3125rem;">
-				<table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
-			</div>
-			<!--选择菜单和权限的弹出层结束-->
+		<!--表格开始-->
+		<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+		<script type="text/html" id="userToolBar">
+
+				    </script>
+		<script type="text/html" id="userTableBar">
+			<a class="layui-btn layui-btn-xs layui-btn-warm data-count-delete" lay-event="update">审核流程</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">查看当前流程图</a>
+		</script>
+
+
+		<script type="text/html" id="availableTpl">
+			<!-- 这里的 checked 的状态只是演示 -->
+			<input type="checkbox" name="available" value="{{d.id}}" lay-skin="switch" lay-text="可用|不可用"
+				   lay-filter="availableSwitch" {{ d.available == 1 ? 'checked' : '' }}>
+		</script>
+		<!--表格结束-->
+		<div id="addOrUpdateDiv" style="display: none;padding: 0.3125rem">
+			<form method="post" class="layui-form layui-form-pane" lay-filter="dataFrm" id="dataFrm">
+				<input type="hidden" name="id" id="contractId" />
+				<input type="hidden" name="taskId" id="taskId"/>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">房主姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" id="landlordName" readonly="readonly" autocomplete="off" class="layui-input">
+					</div>
+					<label class="layui-form-label">房主身份证号</label>
+					<div class="layui-input-inline">
+						<input type="text" id="landlordCard" readonly="readonly" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">租客姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" id="customerName" readonly="readonly" autocomplete="off" class="layui-input">
+					</div>
+					<label class="layui-form-label">租客身份证号</label>
+					<div class="layui-input-inline">
+						<input type="text" id="customerCard" readonly="readonly" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">批注</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入批注" name="comment" class="layui-textarea"></textarea>
+					</div>
+				</div>
+
+				<div class="layui-input-block" style="text-align: center;">
+					<input type="submit" class="layui-btn layui-btn-normal" lay-submit lay-filter="doSubmit" id="LAY-submit1" value="提交" name="outcome">
+					<input type="submit" class="layui-btn " lay-submit lay-filter="doSubmit" id="LAY-submit2" value="提交" name="outcome">
+				</div>
+			</form>
 
 		</div>
 	</div>
-	<script src="../../../layuiadmin/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-	<script src="../../../layuiadmin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-	<script src="../../../layuiadmin/layui/lay-config.js?v=1.0.4" charset="utf-8"></script>
-	<script src="../../../layuiadmin/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
-	<script src="../../../layuiadmin/lib/common/jquery.cookie.min.js" charset="utf-8"></script>
-	<script src="../../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
-	<script src="../../../layuiadmin/lib/common/selectLayer.js" charset="utf-8"></script>
-	<script>
-		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload', 'layarea'], function () {
-			var form = layui.form;
-			var table = layui.table;
-			var laydate = layui.laydate;
-			var layer = layui.layer;
-			var treeTable = layui.treeTable;
-            var upload = layui.upload ;
-            var layarea = layui.layarea ;
-			//alert($.cookie('TOKEN'));
-			//文件上传
-            function openLandlord(pid, callBack) {
-                var tableSelectIns;
-                selDeptIndex = layer.open({
-                    type: 1,
-                    title: '选择部门',
-                    content: '<div style="padding:10px" ><table class="layui-hide" id="deptSelectTable" lay-filter="deptSelectTable"></table></div>',
-                    area: ['700px', '600px'],
-                    btn: ['<span class="layui-icon layui-icon-ok"></span>确定'],
-                    yes: function (index) {
-                        // 获取单选选中信息
-                        var ckDate = tableSelectIns.checkStatus();
-                        // 回调数据出去  得到选中的id和名称
-                        callBack(ckDate[0].id, ckDate[0].name);
-                        // 关闭弹出层
-                        layer.close(selDeptIndex)
-                    },
-                    success: function (index) {
-                        tableSelectIns = treeTable.render({
-                            tree: {
-                                idName: 'id', // 自定义id字段的名称
-                                openName: 'spread',   // 自定义默认展开的字段名   默认为 open
-                            },
-                            elem: '#deptSelectTable',
-                            cellMinWidth: true,
-                            cols: [{
-                                type: "numbers"
-                            },
-                                {
-                                    type: "radio"
-                                },
-                                {
-                                    field: 'name',
-                                    title: '房东名称'
-                                },
-                                {
-                                    field: 'id',
-                                    title: 'ID'
-                                },
-                            ],
-                            reqData: function (data, callback) {
-                                // 在这里写ajax请求，通过callback方法回调数据
-                                $.get(api + 'landlord/findAllLandlord', function (res) {
+</div>
+<script src="../../../layuiadmin/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../../layuiadmin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../../../layuiadmin/layui/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../../../layuiadmin/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="../../../layuiadmin/lib/common/jquery.cookie.min.js" charset="utf-8"></script>
+<script src="../../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
+<script src="../../../layuiadmin/lib/common/selectLayer.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload', 'layarea'], function () {
+        var form = layui.form;
+        var table = layui.table;
+        var laydate = layui.laydate;
+        var layer = layui.layer;
+        var treeTable = layui.treeTable;
+        var upload = layui.upload ;
+        var layarea = layui.layarea ;
+        //alert($.cookie('TOKEN'));
+        //文件上传
 
-                                    // 异步加载 回调
-                                    callback(res.data); // 参数是数组类型
-
-                                    // 设置初始化 选中的部门
-                                    tableSelectIns.setChecked(id);
-                                });
-                            }
-                        });
-                    }
-                });
+        layarea.render({
+            elem: '#area-picker',
+            change: function (res) {
+                //选择结果
+                console.log(res);
             }
-            layarea.render({
-                elem: '#area-picker',
-                change: function (res) {
-                    //选择结果
-                    console.log(res);
+        });
+
+        upload.render({
+            elem: '#layuiadmin-upload-useradmin'
+            ,url: api + 'file/upload'
+            ,accept: 'images'
+            ,method: 'get'
+            ,acceptMime: 'image/*'
+            ,done: function(res){
+                $(this.item).prev("div").children("input").val(res.data)
+            }
+        });
+
+        laydate.render({
+            elem:'#hiredate',
+            type:'datetime'
+        });
+
+        //示范一个公告层
+        var tableIns = table.render({
+            elem: '#userTable',
+            url: api + 'contract/selectContractTask',
+            toolbar: "#userToolBar",
+            cellMinWidth: true,
+            height: 'full-200',
+            cols: [[
+                { field: 'id', title: '任务ID', align: "center", width: "15%" },
+                { field: 'processDefinitionId', title: '定义id', align: "center", width: "10%" },
+                { field: 'name', title: '任务名称', align: "center", width: "15%" },
+                { field: 'createTime', title: '创建时间', align: "center", width: "20%" },
+                { field: 'assignee', title: '办理人', align: "center", width: "20%" },
+                { title: '操作', width: "20%", templet: '#userTableBar', fixed: "right", align: "center" }
+            ]],
+            page: true
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var params = $("#searchFrm").serialize();
+            //执行搜索重载
+            table.reload('userTable', {
+                page: {
+                    curr: 1
+                },
+                url: api + 'house/houseManager?' + params
+            });
+            return false;
+        });
+
+        //监听表头的事件
+        table.on('toolbar(userTable)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'batchdelete':
+                    batchdelete();
+                    break;
+                case 'add':
+                    openAddUser();
+                    break;
+            };
+        });
+
+
+        // 监听添加和修改弹出层的部门选中
+        $("#doDataFromSelectDept").click(function () {
+            var f_id = $("#landlordId").val();
+            // 参数一 回调信息
+            openLandlord( f_id, function (id, name) {
+                $("#landlordId").val(id);
+                $("#deptid_name").val(name);
+            });
+        });
+
+
+        // 监听搜索  选中部门
+        $("#doSelectDept").click(function () {
+            var f_id = $("#landlordId").val();
+            // 参数一 回调信息
+            openLandlord( f_id, function (id, name) {
+                $("#landlordId").val(id);
+                $("#p_deptname").val(name);
+            });
+        });
+
+
+        //监听行数据的事件
+        table.on('tool(userTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'delete') {
+                layer.confirm('真的删除【' + data.houseCode + '】这个用户吗么', function (index) {
+                    $.get(api + "house/deleteHouse", { id: data.id }, function (res) {
+                        layer.msg(res.msg);
+                        obj.del();
+                        layer.close(index);
+                    })
+
+                });
+            } else if (obj.event === 'update') {
+                openUpdateUser(data);
+            } else if (obj.event === 'resetPwd') {
+                resetPwd(data);
+            } else if (obj.event === 'selectRole') {
+                openSelectRole(data);
+            }
+        });
+        // 打开修改用户的弹出层
+        function openUpdateUser(data){
+            mainIndex = layer.open({
+                type: 1,
+                title: '办理【' + data.id + '】流程',
+                content: $("#addOrUpdateDiv"),
+                area: ['800px', '600px'],
+                success: function (index) {
+                    url = api + "process/submitTask";
+                    //装载数据表格
+
+                    //根据部门ID查询部门名称
+                    $.get(api + "process/viewTaskForm", { taskId: data.id,pdId: data.processDefinitionId }, function (res) {
+                        form.val("dataFrm", res.data);
+                        $("#LAY-submit1").val(res.data.outcomeList[0])
+                        $("#LAY-submit2").val(res.data.outcomeList[1])
+                        $("#contractId").val(res.data.contractVO.id)
+                        $("#landlordName").val(res.data.contractVO.landlordVO.name)
+                        $("#landlordCard").val(res.data.contractVO.landlordVO.cardId)
+                        $("#customerName").val(res.data.contractVO.customerVO.name)
+                        $("#customerCard").val(res.data.contractVO.customerVO.cardId)
+                    });
                 }
             });
-
-            upload.render({
-                elem: '#layuiadmin-upload-useradmin'
-                ,url: api + 'file/upload'
-                ,accept: 'images'
-                ,method: 'get'
-                ,acceptMime: 'image/*'
-                ,done: function(res){
-                    $(this.item).prev("div").children("input").val(res.data)
+        }
+        // 监听 添加和修改的提交
+        form.on("submit(doSubmit)", function (data) {
+            // 提交数据
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(data.field),
+                dataType: "json",
+                contentType:'application/json;charset=UTF-8',  //设置后
+                success: function (result) {
+                    layer.msg(result.msg);
+                    if (result.code == 200) {
+                        layer.msg("办理成功");
+                    }
+                    layer.close(mainIndex);
+                },
+                error: function () {
+                    alert("提交请求失败！");
                 }
             });
+            return false;
+        });
+        // 打开分配角色窗口 roleTable
+        function openSelectRole(data_table) {
+            var table_RolesIns;
+            mainIndex = layer.open({
 
-			laydate.render({
-				elem:'#hiredate',
-				type:'datetime'
-			});
+                type: 1,
+                title: '分配【' + data_table.houseCode + '】房东',
+                content: $("#selectRoleDiv"),
+                area: ['800px', '600px'],
+                btn: ['<span class="layui-icon layui-icon-ok">确认分配</span>'],
+                btnAlign: 'c',
+                yes: function () {
+                    // 获取选中的数据行
+                    var checkStatus = table.checkStatus('roleTable');
+                    var m = checkStatus.data;
+                    // 获取当前行点击的用户id
+                    var uid = data_table.id;
+                    var params = "uid=" + uid;
+                    $.each(m, function (x, item) {
+                        params += "&rids=" + item.id;
+                    });
+                    $.post(api + "user/saveUserRole", params, function (res) {
+                        layer.msg(res.msg);
+                        layer.close(mainIndex)
+                    })
+                },
+                success: function (index) {
+                    // 加载角色数据    根据用户id查询该用户拥有的角色id
+                    table_RolesIns = table.render({
+                        elem: '#roleTable',
+                        url: api + 'role/loadAllAvailableRoleNoPage?userId=' + data_table.id,
+                        toolbar: false,
+                        cellMinWidth: true,
 
-				//示范一个公告层
-			var tableIns = table.render({
-				elem: '#userTable',
-				url: api + 'house/findAllHouse',
-				toolbar: "#userToolBar",
-				cellMinWidth: true,
-				height: 'full-200',
-				cols: [[
-					{ field: 'id', title: 'ID', align: "center", width: 80 },
-					{ field: 'houseCode', title: '房屋编号', align: "center", width: 120 },
-					{ field: 'landlordName', title: '房东名称', align: "center", width: 120 },
-					{ field: 'price', title: '价格', align: "center", width: 120 },
-					{ field: 'province', title: '省', align: "center", width: 120 },
-					{ field: 'city', title: '市', align: "center", width: 120 },
-                    { field: 'district', title: '区', align: "center", width: 120 },
-					{
-						field: 'statu', title: '出租状态', align: "center", templet: function (d) {
-							return d.sex == 1 ? '未出租' : '已出租';
-						}, width: 80
-					},
+                        cols: [[
+                            {type: "checkbox", fixed: "left"},
+                            {field: 'id', title: 'ID', align: "center"},
+                            {field: 'name', title: '角色标题', align: "center"},
+                            {field: 'remark', title: '角色备注', align: "center"}
+                        ]]
 
-					{ field: 'joinTime', title: '创建时间', align: "center", width: 200 },
-					{
-						field: 'picture', title: '房屋图片', align: "center", width: 100, templet: function (d) {
-							return "<img width=30 height=30 src='" + baseUrl + d.picture + "' />"
-						}
-					},
-					{ title: '操作', width: 240, templet: '#userTableBar', fixed: "right", align: "center" }
-				]],
-				page: true
-			});
+                    });
 
-			// 监听搜索操作
-			form.on('submit(data-search-btn)', function (data) {
-				var params = $("#searchFrm").serialize();
-				//执行搜索重载
-				table.reload('userTable', {
-					page: {
-						curr: 1
-					},
-					url: api + 'house/houseManager?' + params
-				});
-				return false;
-			});
+                }
+            });
+        }
 
-			//监听表头的事件
-			table.on('toolbar(userTable)', function (obj) {
-				var checkStatus = table.checkStatus(obj.config.id);
-				switch (obj.event) {
-					case 'batchdelete':
-						batchdelete();
-						break;
-					case 'add':
-						openAddUser();
-						break;
-				};
-			});
-
-
-			// 监听添加和修改弹出层的部门选中
-			$("#doDataFromSelectDept").click(function () {
-				var f_id = $("#landlordId").val();
-				// 参数一 回调信息
-                openLandlord( f_id, function (id, name) {
-					$("#landlordId").val(id);
-					$("#deptid_name").val(name);
-				});
-			});
-			
-			
-			// 监听搜索  选中部门
-			$("#doSelectDept").click(function () {
-				var f_id = $("#landlordId").val();
-				// 参数一 回调信息
-                openLandlord( f_id, function (id, name) {
-					$("#landlordId").val(id);
-					$("#p_deptname").val(name);
-				});
-			});
-
-
-			//监听行数据的事件
-			table.on('tool(userTable)', function (obj) {
-				var data = obj.data;
-				if (obj.event === 'delete') {
-					layer.confirm('真的删除【' + data.houseCode + '】这个用户吗么', function (index) {
-                        $.get(api + "house/deleteHouse", { id: data.id }, function (res) {
-                            layer.msg(res.msg);
-                            obj.del();
-                            layer.close(index);
-                        })
-
-					});
-				} else if (obj.event === 'update') {
-					openUpdateUser(data);
-				} else if (obj.event === 'resetPwd') {
-					resetPwd(data);
-				} else if (obj.event === 'selectRole') {
-					openSelectRole(data);
-				}
-			});
-
-
-			// 打开添加用户弹出层
-			var maxIndex;
-			var url;
-			function openAddUser(){
-				mainIndex=layer.open({
-					type:1,
-					title:'添加用户',
-					content:$("#addOrUpdateDiv"),
-					area:['800px','500px'],
-					success:function(index){
-						url=api+"house/saveHouse";
-						// 重置表单
-						$("#dataFrm")[0].reset();
-						// 查询最大排序码
-
-					}
-				});
-			}
-			// 打开修改用户的弹出层
-			function openUpdateUser(data){
-				mainIndex = layer.open({
-					type: 1,
-					title: '修改【' + data.id + '】用户',
-					content: $("#addOrUpdateDiv"),
-					area: ['800px', '600px'],
-					success: function (index) {
-						url = api + "house/updateHouse";
-						//装载数据表格
-						form.val("dataFrm", data);
-						//根据部门ID查询部门名称
-						$.get(api + "landlord/getLandlordById", { id: data.deptid }, function (res) {
-                            $("#deptid_name").val(res.data.title);
-						});
-					}
-				});
-			}
-            var token = $.cookie('TOKEN');
-			// 监听 添加和修改的提交
-			form.on("submit(doSubmit)", function (data) {
-				// 提交数据
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: JSON.stringify(data.field),
-                    dataType: "json",
-                    contentType:'application/json;charset=UTF-8',  //设置后
-					success: function (result) {
-                        layer.msg(result.msg);
-                        if (result.code == 200) {
-                            tableIns.reload();
-                        }
-                        layer.close(mainIndex);
-                    },
-                    error: function () {
-                        alert("提交请求失败！");
-                    }
-                });
-				return false;
-			});
-            // 打开分配角色窗口 roleTable
-            function openSelectRole(data_table) {
-                var table_RolesIns;
-                mainIndex = layer.open({
-
-                    type: 1,
-                    title: '分配【' + data_table.houseCode + '】房东',
-                    content: $("#selectRoleDiv"),
-                    area: ['800px', '600px'],
-                    btn: ['<span class="layui-icon layui-icon-ok">确认分配</span>'],
-                    btnAlign: 'c',
-                    yes: function () {
-                        // 获取选中的数据行
-                        var checkStatus = table.checkStatus('roleTable');
-                        var m = checkStatus.data;
-                        // 获取当前行点击的用户id
-                        var uid = data_table.id;
-                        var params = "uid=" + uid;
-                        $.each(m, function (x, item) {
-                            params += "&rids=" + item.id;
-                        });
-                        $.post(api + "user/saveUserRole", params, function (res) {
-                            layer.msg(res.msg);
-                            layer.close(mainIndex)
-                        })
-                    },
-                    success: function (index) {
-                        // 加载角色数据    根据用户id查询该用户拥有的角色id
-                        table_RolesIns = table.render({
-                            elem: '#roleTable',
-                            url: api + 'role/loadAllAvailableRoleNoPage?userId=' + data_table.id,
-                            toolbar: false,
-                            cellMinWidth: true,
-
-                            cols: [[
-                                {type: "checkbox", fixed: "left"},
-                                {field: 'id', title: 'ID', align: "center"},
-                                {field: 'name', title: '角色标题', align: "center"},
-                                {field: 'remark', title: '角色备注', align: "center"}
-                            ]]
-
-                        });
-
-                    }
-                });
-            }
-
-		});
-	</script>
+    });
+</script>
 
 </body>
 

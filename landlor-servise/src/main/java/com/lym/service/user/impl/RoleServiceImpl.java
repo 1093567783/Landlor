@@ -5,6 +5,7 @@ import com.lym.dubbo.DubboRole;
 import com.lym.dubbo.DubboUser;
 import com.lym.manager.user.RoleManager;
 import com.lym.model.common.DataGridView;
+import com.lym.model.shiro.Role;
 import com.lym.model.user.dto.RoleDTO;
 import com.lym.model.user.vo.RoleVO;
 import com.lym.service.user.RoleService;
@@ -67,5 +68,10 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public void deleteRole(Integer id) {
 
+    }
+
+    @Override
+    public List<Role> getRoleByUid(Byte id) {
+        return roleManager.getRoleByUid(id);
     }
 }

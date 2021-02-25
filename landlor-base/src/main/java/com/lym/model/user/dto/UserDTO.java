@@ -25,6 +25,7 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
      * 角色id
      */
     private Byte roleId;
+    private Byte managerId;
     /**部门id*/
     private Byte deptId;
     /**部门名称*/

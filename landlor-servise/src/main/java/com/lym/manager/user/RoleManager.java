@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.lym.mapper.user.RoleMapper;
 import com.lym.model.common.Constant;
 import com.lym.model.common.DataGridView;
+import com.lym.model.shiro.Role;
 import com.lym.model.user.dto.RoleDTO;
 import com.lym.model.user.vo.RoleVO;
 import org.apache.commons.lang3.StringUtils;
@@ -166,5 +167,9 @@ public class RoleManager {
         this.roleMapper.deleteRoleUserByRid(id);
         // 删除角色表数据
         return roleMapper.deleteByPrimaryKey(id) >0?true:false;
+    }
+
+    public List<Role> getRoleByUid(Byte id) {
+       return roleMapper.getRoleByUid(id);
     }
 }

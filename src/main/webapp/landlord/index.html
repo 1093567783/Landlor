@@ -132,37 +132,22 @@
               </dl>
             </li>
             <li data-name="template" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="页面" lay-direction="2">
+              <a href="javascript:;" lay-tips="个人页面" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
-                <cite>页面</cite>
+                <cite>个人页面</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="template/personalpage.html">个人主页</a></dd>
-                <dd><a lay-href="template/addresslist.html">通讯录</a></dd>
-                <dd><a lay-href="template/goodslist.html">商品列表</a></dd>
-                <dd><a lay-href="template/msgboard.html">留言板</a></dd>
-                <dd><a lay-href="template/search.html">搜索结果</a></dd>
-                <dd><a href="user/reg.html" target="_blank">注册</a></dd>
-                <dd><a href="login.html" target="_blank">登入</a></dd>
-                <dd><a href="user/forget.html" target="_blank">忘记密码</a></dd>
-                <dd><a lay-href="template/tips/404.html">404页面不存在</a></dd>
-                <dd><a lay-href="template/tips/error.html">错误提示</a></dd>
-                <dd><a lay-href="http://www.baidu.com/">百度一下</a></dd>
-                <dd><a lay-href="http://www.layui.com/">layui官网</a></dd>
-                <dd><a lay-href="http://www.layui.com/admin/">layuiAdmin官网</a></dd>
+                <dd><a lay-href="person/personalpage.html">个人主页</a></dd>
               </dl>
             </li>
             <li data-name="app" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="应用" lay-direction="2">
+              <a href="javascript:;" lay-tips="应用管理" lay-direction="2">
                 <i class="layui-icon layui-icon-app"></i>
-                <cite>应用</cite>
+                <cite>应用管理</cite>
               </a>
               <dl class="layui-nav-child">
                 <dd>
                   <a lay-href="base/notify/notifyManager.html">通知管理</a>
-                </dd>
-                <dd data-name="workorder">
-                  <a lay-href="app/workorder/list.html">工单系统</a>
                 </dd>
               </dl>
             </li>
@@ -180,6 +165,23 @@
                 </dd>
                 <dd>
                   <a lay-href="contract/contract/leaseManager.html" >租赁管理</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="senior" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="请假管理" lay-direction="2">
+                <i class="layui-icon layui-icon-senior"></i>
+                <cite>请假管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd>
+                  <a lay-href="contract/contract/contractManager.html" >请假申请</a>
+                </dd>
+                <dd>
+                  <a lay-href="contract/contract/contractTask.html" >我的假单</a>
+                </dd>
+                <dd>
+                  <a lay-href="contract/contract/leaseManager.html" >待审假单</a>
                 </dd>
               </dl>
             </li>
@@ -218,12 +220,6 @@
                   </dl>
                 </dd>
               </dl>
-            </li>
-            <li data-name="get" class="layui-nav-item">
-              <a href="javascript:;" lay-href="http://www.layui.com/admin/#get" lay-tips="授权" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>授权</cite>
-              </a>
             </li>
           </ul>
         </div>

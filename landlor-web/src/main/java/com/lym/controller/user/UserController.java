@@ -2,6 +2,8 @@ package com.lym.controller.user;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.lym.dubbo.DubboPermission;
+import com.lym.dubbo.DubboRole;
 import com.lym.dubbo.DubboUser;
 import com.lym.model.common.Result;
 import com.lym.model.user.dto.UserDTO;
@@ -11,6 +13,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpRequest;
@@ -25,10 +28,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.Serializable;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author LYM
@@ -43,11 +43,17 @@ public class UserController {
 
     @Reference
     private DubboUser dubboUser;
-
+    @Reference
+    private DubboRole dubboRole;
 
     @Bean(name = "dubboUser")
     public DubboUser getDubboUser(){
         return dubboUser;
+    }
+
+    @Bean(name = "dubboRole")
+    public DubboRole getDubboRole(){
+        return dubboRole;
     }
 
     /**
@@ -84,7 +90,10 @@ public class UserController {
     @RequestMapping("insertUser")
     public Result insertUser(@RequestBody UserDTO userDTO) {
         Result<Object> result = new Result<>();
+        userDTO.setPassword("123456");
         dubboUser.saveUser(userDTO);
+        userDTO.setJoinTime(new Date());
+        userDTO.setUpdateTime(new Date());
         return result;
     }
     /**
@@ -93,6 +102,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("updateUser")
+    @RequiresPermissions("updateUser")
     public Result updateUser(@RequestBody UserDTO userDTO){
         Result<Object> result = new Result<>();
         dubboUser.updateUser(userDTO);
@@ -223,7 +233,7 @@ public class UserController {
     @RequestMapping("getUserById")
     public Result<Object> getUserById(UserDTO userDTO){
         Result<Object> result = new Result<>();
-        UserVO userVO = dubboUser.getUserById(userDTO);
+        UserVO userVO = dubboUser.getUserById(userDTO.getId());
         result.setData(userVO);
         log.info(userVO.toString());
         result.setCode(0);

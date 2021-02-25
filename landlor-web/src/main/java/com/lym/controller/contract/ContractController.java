@@ -1,13 +1,18 @@
 package com.lym.controller.contract;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.lym.dubbo.DubboActivity;
 import com.lym.dubbo.DubboContract;
 import com.lym.dubbo.DubboLease;
+import com.lym.model.common.Constant;
 import com.lym.model.common.Result;
 import com.lym.model.contract.dto.ContractDTO;
 import com.lym.model.contract.dto.LeaseDTO;
 import com.lym.model.contract.vo.ContractVO;
+import com.lym.model.process.TaskVO;
 import com.lym.model.user.vo.UserVO;
+import org.activiti.engine.task.Comment;
+import org.activiti.engine.task.Task;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.util.StringUtils;
@@ -15,10 +20,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +44,9 @@ public class ContractController {
 
     @Reference
     private DubboLease dubboLease;
+
+    @Reference
+    private DubboActivity dubboActivity;
     /**
      * 保存合同实例
      * @param contractDTO
@@ -60,8 +70,34 @@ public class ContractController {
         ContractDTO contract = dubboContract.saveContract(contractDTO);
         LeaseDTO leaseDTO = setLease(contract);
         dubboLease.saveLease(leaseDTO);
+        dubboActivity.saveStartProcess(Constant.CONTRACT_KEY,contract.getId(),userVO.getRealName());
         return result;
     }
+
+    /**
+     * 查看合同流程实例
+     * @return
+     */
+    @RequestMapping("selectContractTask")
+    public Result selectContractTask(){
+        Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        List<Task> list = dubboActivity.findTaskListByName(userVO.getRealName(), Constant.CONTRACT_KEY);
+        List<TaskVO> taskVOS = new ArrayList<>();
+        for (Task task:list) {
+            TaskVO taskVO = new TaskVO();
+            taskVO.setId(task.getId());
+            taskVO.setAssignee(task.getAssignee());
+            taskVO.setCreateTime(task.getCreateTime());
+            taskVO.setName(task.getName());
+            taskVO.setProcessDefinitionId(task.getProcessDefinitionId());
+            taskVOS.add(taskVO);
+        }
+        result.setData(taskVOS);
+        result.setCode(0);
+        return result;
+    };
 
     /**
      * 设置租赁信息
@@ -104,6 +140,13 @@ public class ContractController {
         return result;
     }
 
+
+
+    /**
+     * 通过合同id获取合同
+     * @param contractDTO
+     * @return
+     */
     @RequestMapping("getContractById")
     public Result getContractById(ContractDTO contractDTO){
         Result result = new Result();

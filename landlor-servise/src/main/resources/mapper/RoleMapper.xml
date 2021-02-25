@@ -9,6 +9,19 @@
     <result column="available" jdbcType="INTEGER" property="available" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
+  <resultMap id="ResultRole" type="com.lym.model.shiro.Role">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="roleName" />
+    <collection property="permissions" ofType="com.lym.model.shiro.Permission">
+      <id column="Pid" jdbcType="INTEGER" property="id" />
+      <result column="permissionName" jdbcType="VARCHAR" property="permissionName" />
+    </collection>
+  </resultMap>
+<select id="getRoleByUid" resultMap="ResultRole" parameterType="byte">
+    SELECT r.id id, r.name, p.id Pid, p.permission_name permissionName FROM sys_role r INNER JOIN sys_role_user ru ON r.id = ru.rid
+    INNER JOIN t_user u ON ru.uid = u.id INNER JOIN t_permission p ON p.role_id = r.id WHERE u.id = #{id}
+</select>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, `name`, remark, available, createtime

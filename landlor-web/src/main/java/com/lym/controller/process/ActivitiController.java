@@ -6,12 +6,18 @@ import com.lym.dubbo.DubboActivity;
 import com.lym.model.common.BaseEntityDTO;
 import com.lym.model.common.Result;
 import com.lym.model.common.TypeUtil;
+import com.lym.model.contract.vo.ContractVO;
 import com.lym.model.process.DeployeeDTO;
 import com.lym.model.process.DeploymentVO;
 import com.lym.model.process.ProcessDefinitionVO;
+import com.lym.model.process.SubmitDTO;
+import com.lym.model.user.vo.UserVO;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Comment;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +28,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipInputStream;
 
 @RestController
@@ -32,6 +40,13 @@ public class ActivitiController {
     @Reference
     private DubboActivity dubboActivity;
 
+    /**
+     * 部署流程
+     * @param file
+     * @param processName
+     * @return
+     * @throws Exception
+     */
     @PostMapping("deployProcess")
     public Result deployProcess(@RequestParam("file") MultipartFile file, String processName) throws Exception{
         Result result = new Result();
@@ -56,7 +71,6 @@ public class ActivitiController {
         Result result = new Result();
         List<ProcessDefinition> definitionList = dubboActivity.findProcessDefinitionList();
         List<ProcessDefinitionVO> processDefinitionDTOS = new ArrayList<>();
-        System.out.println(definitionList.toString());
         for (ProcessDefinition processDefinition:definitionList){
             ProcessDefinitionVO processDefinitionVO = new ProcessDefinitionVO();
             processDefinitionVO.setId(processDefinition.getId());
@@ -133,4 +147,37 @@ public class ActivitiController {
         baos.close();
         os.close();
     }
+
+    /**
+     * 推进流程
+
+     * @return
+     */
+    @RequestMapping("submitTask")
+    public Result saveSubmitTask(@RequestBody SubmitDTO submitDTO){
+        Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        dubboActivity.saveSubmitTask(Long.valueOf(submitDTO.getId()),submitDTO.getTaskId(),submitDTO.getComment(),submitDTO.getOutcome(),userVO);
+        return result;
+    }
+
+    @RequestMapping("/viewTaskForm")
+    public Result viewTaskForm(String taskId, String pdId){
+        Result result = new Result();
+        Map<String,Object> resultMap = new HashMap<>();
+        List<Comment> comment = dubboActivity.findCommentByTaskId(taskId);
+        List<String> lines = dubboActivity.findOutComeListByTaskId(taskId);
+        resultMap.put("commentList",comment);
+        resultMap.put("outcomeList",lines);
+        resultMap.put("taskId",taskId);
+        if (pdId.indexOf("CONTRACT")!=-1){
+            ContractVO contractVO = dubboActivity.findByTaskId(taskId);
+            resultMap.put("contractVO",contractVO);
+        }
+        result.setData(resultMap);
+        result.setCode(0);
+        return result;
+    }
+
 }

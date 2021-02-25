@@ -75,6 +75,6 @@ public class ContractDTO implements Serializable{
     private Integer userId;
 
     private Date updateTime;
-
+    private Integer status;
     private static final long serialVersionUID = 1L;
 }

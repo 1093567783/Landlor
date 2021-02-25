@@ -12,12 +12,11 @@ import java.io.Serializable;
  * @Version v1.0.0
  **/
 @Data
-@AllArgsConstructor
 public class Permission implements Serializable{
     /**
      * 权限id
      */
-    private String id;
+    private Integer id;
     /**
      * 权限名
      */

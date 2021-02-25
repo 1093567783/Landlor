@@ -1,5 +1,6 @@
 package com.lym.mapper.user;
 
+import com.lym.model.shiro.Role;
 import com.lym.model.user.dto.RoleDTO;
 import com.lym.model.user.vo.RoleVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -67,4 +68,6 @@ public interface RoleMapper {
      * @param id
      */
     void deleteRoleUserByUid(Serializable id);
+
+    List<Role> getRoleByUid(Byte id);
 }

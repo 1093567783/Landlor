@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,6 +31,10 @@ public class UserVO extends BaseEntityDTO implements Serializable {
     private Byte deptId;
     /**部门名称*/
     private String deptName;
+    /**
+     * 流程使用的上级id
+     */
+    private Byte managerId;
     /**
      * 用户账户
      */
@@ -65,5 +70,5 @@ public class UserVO extends BaseEntityDTO implements Serializable {
     /**
      * 用户对应的角色集合
      */
-    private Set<Role> roles;
+    private List<Role> roles;
 }

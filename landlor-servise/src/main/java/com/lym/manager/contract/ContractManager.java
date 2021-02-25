@@ -32,11 +32,14 @@ public class ContractManager {
 
     public ContractVO getContractById(ContractDTO contractDTO) {
         ContractVO contractVO = contractMapper.selectByPrimaryKey(contractDTO.getId());
-        System.out.println(contractVO);
         return contractVO;
     }
 
     public void deleteContract(ContractDTO contractDTO) {
         contractMapper.deleteByPrimaryKey(contractDTO.getId());
+    }
+
+    public void updateByPrimaryKeySelective(ContractDTO contractDTO){
+        contractMapper.updateByPrimaryKeySelective(contractDTO);
     }
 }

@@ -7,6 +7,8 @@ import com.lym.dubbo.DubboUser;
 import com.lym.manager.user.UserManager;
 
 import com.lym.model.user.dto.UserDTO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lym.service.user.UserService;
 import com.lym.model.user.vo.UserVO;
@@ -37,6 +39,8 @@ public class UserServiceImpl implements UserService{
         return userManager.getUserByName(name);
     }
 
+
+
     /**
      * 获取所有用户
      * @param userDTO
@@ -49,12 +53,12 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 根据条件获取用户
-     * @param userDTO
+     * @param
      * @return
      */
     @Override
-    public UserVO getUserById(UserDTO userDTO) {
-        return null;
+    public UserVO getUserById(Byte id) {
+        return userManager.getUserById(id);
     }
 
     /**

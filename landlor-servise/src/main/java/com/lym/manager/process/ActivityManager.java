@@ -1,7 +1,12 @@
 package com.lym.manager.process;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.lym.manager.contract.ContractManager;
 import com.lym.model.common.TypeUtil;
+import com.lym.model.contract.dto.ContractDTO;
+import com.lym.model.contract.vo.ContractVO;
 import com.lym.model.process.DeployeeDTO;
+import com.lym.model.user.vo.UserVO;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -19,6 +24,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.LongArrayAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +56,13 @@ public class ActivityManager{
     @Resource
     private HistoryService historyService;
 
+    UserVO userVO = null;
+    @Autowired
+    private ContractManager contractManager;
 
+    public UserVO getUser(){
+        return userVO;
+    }
     /**
      * 查询流程
      * @return
@@ -91,11 +103,11 @@ public class ActivityManager{
      * @param username
      */
     public void saveStartProcess(String key,Integer id, String username) {
-        String businessKey=key+"."+id;
+        String taskKey=key+"."+id;
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("inputUser",username);
-        map.put("objId",businessKey);
-        runtimeService.startProcessInstanceByKey(key,businessKey,map);
+        map.put("objId",taskKey);
+        runtimeService.startProcessInstanceByKey(key,taskKey,map);
     }
 
     /**
@@ -103,7 +115,7 @@ public class ActivityManager{
      * @param username
      * @return
      */
-    public List<Task> findTaskListByName(String username) {
+    public List<Task> findTaskListByName(String username,String processName) {
         List<Task> list = taskService.createTaskQuery()
                 .taskAssignee(username)
                 .orderByTaskId()
@@ -113,7 +125,7 @@ public class ActivityManager{
         if (list!=null&&list.size()>0){
             for (Task task : list) {
                 String id = task.getProcessDefinitionId();
-                if (id.indexOf("baoxiao")!=-1){
+                if (id.indexOf(processName)!=-1){
                     baoxiaoList.add(task);
                 }
             }
@@ -260,4 +272,57 @@ public class ActivityManager{
         repositoryService.deleteDeployment(deploymentId,true);
     }
 
+    /**
+     * 推进流程
+     * @param id
+     * @param taskId
+     * @param comment
+     * @param outcome
+     * @param
+     */
+    public void saveSubmitTask(long id, String taskId, String comment, String outcome, UserVO userVO) {
+        this.userVO = userVO;
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        String pdid= task.getProcessDefinitionId();
+        Authentication.setAuthenticatedUserId(userVO.getRealName());
+        taskService.addComment(taskId,task.getProcessInstanceId(),comment);
+        Map<String,Object> map=new HashMap<String, Object>();
+
+        if (outcome!=null&&!"默认提交".equals(outcome)){
+            map.put("message",outcome);
+            taskService.complete(taskId,map);
+        }else {
+            taskService.complete(taskId);
+        }
+        //相当于回调函数
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+        if (processInstance==null&&pdid.indexOf("CONTRACT")!=-1){
+            ContractDTO contractDTO = new ContractDTO();
+            contractDTO.setId(Long.valueOf(id).intValue());
+            //ContractVO baoxiaobill = contractManager.getContractById(contractDTO);
+            contractDTO.setStatus(2);
+            contractManager.updateByPrimaryKeySelective(contractDTO);
+        }
+    }
+
+    /**
+     * 获取合同
+     * @param taskId
+     * @return
+     */
+    public ContractVO findByTaskId(String taskId) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(task.getProcessInstanceId()).singleResult();
+        String businessKey = processInstance.getBusinessKey();
+        String id=businessKey.substring(businessKey.indexOf(".")+1);
+        ContractDTO contractDTO = new ContractDTO();
+        contractDTO.setId(Integer.parseInt(id));
+        ContractVO contractVO= contractManager.getContractById(contractDTO);
+        if (contractVO!=null){
+            contractVO.setId(Integer.parseInt(id));
+            return contractVO;
+        }
+        return null;
+    }
 }

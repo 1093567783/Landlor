@@ -1,5 +1,7 @@
 package com.lym.dubbo;
+import com.lym.model.contract.vo.ContractVO;
 import com.lym.model.process.DeployeeDTO;
+import com.lym.model.user.vo.UserVO;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Comment;
@@ -25,7 +27,7 @@ public interface DubboActivity {
 
     void saveStartProcess(String key,Integer id, String username);
 
-    List<Task> findTaskListByName(String username);
+    List<Task> findTaskListByName(String username,String processName);
 
     List<Task> findLeaveTaskListByName(String username);
 
@@ -34,7 +36,7 @@ public interface DubboActivity {
 
     List<String> findOutComeListByTaskId(String taskId);
 
-    void saveSubmitTask(long id, String taskId, String comment, String outcome, String username);
+    void saveSubmitTask(long id, String taskId, String comment, String outcome, UserVO userVO);
 
 
     List<Comment> findCommentByBaoxiaoBillId(String key,long id);
@@ -48,4 +50,6 @@ public interface DubboActivity {
     Task findTaskByBussinessKey(String businessKey);
 
     void deleteProcessDefinitionByDeploymentId(String deploymentId);
+
+    ContractVO findByTaskId(String taskId);
 }

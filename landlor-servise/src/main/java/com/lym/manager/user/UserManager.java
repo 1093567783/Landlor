@@ -3,6 +3,8 @@ package com.lym.manager.user;
 
 import com.lym.mapper.user.UserMapper;
 import com.lym.model.user.dto.UserDTO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.lym.model.user.vo.UserVO;
@@ -32,6 +34,11 @@ public class UserManager{
         userMapper.saveUser(userDTO);
     };
 
+    public UserVO getUser() {
+        Subject subject = SecurityUtils.getSubject();
+        UserVO userVO = (UserVO) subject.getPrincipal();
+        return userVO;
+    }
     /**
      * 通过登录名获取用户
      * @param name
@@ -64,5 +71,14 @@ public class UserManager{
      */
     public void deleteUser(UserDTO userDTO) {
         userMapper.deleteByPrimaryKey(userDTO.getId().intValue());
+    }
+
+    /**
+     * 根据id选择用户
+     * @param id
+     * @return
+     */
+    public UserVO getUserById(Byte id) {
+       return userMapper.selectByPrimaryKey(id.intValue());
     }
 }

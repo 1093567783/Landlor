@@ -1,6 +1,7 @@
 package com.lym.dubbo;
 
 import com.lym.model.common.DataGridView;
+import com.lym.model.shiro.Role;
 import com.lym.model.user.dto.RoleDTO;
 import com.lym.model.user.vo.RoleVO;
 
@@ -66,4 +67,6 @@ public interface DubboRole {
      * @param id
      */
     void deleteRole(Integer id);
+
+    List<Role> getRoleByUid(Byte id);
 }

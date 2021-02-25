@@ -14,4 +14,7 @@ public class Constant implements Serializable {
      */
     public static final Integer AVAILABLE_TRUE = 1;
     public static final Integer AVAILABLE_FALSE = 0;
+
+    public static final String Leave_KEY = "leaveBill";
+    public static final String CONTRACT_KEY="CONTRACT";
 }

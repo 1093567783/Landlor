@@ -21,7 +21,6 @@ public interface DubboUser {
      * @return
      */
     UserVO getUserByName(String name);
-
     /**
      * 获取所有用户
      * @param userDTO
@@ -31,10 +30,10 @@ public interface DubboUser {
 
     /**
      * 获取用户
-     * @param userDTO
+     * @param id
      * @return
      */
-    UserVO getUserById(UserDTO userDTO);
+    UserVO getUserById(Byte id);
 
     /**
      * 修改用户

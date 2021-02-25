@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,12 +15,11 @@ import java.util.Set;
  * @Version v1.0.0
  **/
 @Data
-@AllArgsConstructor
 public class Role implements Serializable{
     /**
      * 角色id
      */
-    private String id;
+    private Integer id;
     /**
      * 角色名
      */
@@ -27,5 +27,5 @@ public class Role implements Serializable{
     /**
      * 角色对应权限集合
      */
-    private Set<Permission> permissions;
+    private List<Permission> permissions;
 }

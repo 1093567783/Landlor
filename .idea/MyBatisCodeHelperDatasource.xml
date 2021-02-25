@@ -97,6 +97,16 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="landlord:t_leave">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="LeaveDTO" />
+                  <option name="moduleName" value="landlor-servise" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="landlord:t_role">
               <value>
                 <TableGenerateConfig>
