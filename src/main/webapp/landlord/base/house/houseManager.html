@@ -124,7 +124,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">详细地址</label>
 						<div class="layui-input-block">
-							<input type="text" name="address" autocomplete="off" placeholder="请输入电子邮箱"
+							<input type="text" name="address" autocomplete="off" placeholder="请输入详细地址"
 								class="layui-input">
 						</div>
 					</div>
@@ -146,9 +146,9 @@
 						<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">租客备注</label>
+						<label class="layui-form-label">房屋备注</label>
 						<div class="layui-input-block">
-							<textarea placeholder="请输入租客备注" name="remark" class="layui-textarea"></textarea>
+							<textarea placeholder="请输入房屋备注" name="remark" class="layui-textarea"></textarea>
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -193,7 +193,7 @@
                 var tableSelectIns;
                 selDeptIndex = layer.open({
                     type: 1,
-                    title: '选择部门',
+                    title: '选择房东',
                     content: '<div style="padding:10px" ><table class="layui-hide" id="deptSelectTable" lay-filter="deptSelectTable"></table></div>',
                     area: ['700px', '600px'],
                     btn: ['<span class="layui-icon layui-icon-ok"></span>确定'],
@@ -284,7 +284,7 @@
                     { field: 'district', title: '区', align: "center", width: 120 },
 					{
 						field: 'statu', title: '出租状态', align: "center", templet: function (d) {
-							return d.sex == 1 ? '未出租' : '已出租';
+							return d.statu == 1 ? '未出租' : '已出租';
 						}, width: 80
 					},
 
@@ -376,9 +376,9 @@
 			function openAddUser(){
 				mainIndex=layer.open({
 					type:1,
-					title:'添加用户',
+					title:'添加房源',
 					content:$("#addOrUpdateDiv"),
-					area:['800px','500px'],
+					area:['800px','600px'],
 					success:function(index){
 						url=api+"house/saveHouse";
 						// 重置表单
@@ -392,7 +392,7 @@
 			function openUpdateUser(data){
 				mainIndex = layer.open({
 					type: 1,
-					title: '修改【' + data.id + '】用户',
+					title: '修改【' + data.id + '】房源',
 					content: $("#addOrUpdateDiv"),
 					area: ['800px', '600px'],
 					success: function (index) {

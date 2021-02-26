@@ -80,7 +80,7 @@ public class CustomerController {
      * @return
      */
     @RequestMapping("updateCustomer")
-    public Result updateCustomer(CustomerDTO customerDTO){
+    public Result updateCustomer(@RequestBody @Valid CustomerDTO customerDTO){
         Result result = new Result();
         dubboCustomer.updateCustomer(customerDTO);
         return result;

@@ -245,10 +245,10 @@
     from t_house
     <where>
       <if test="houseCode != null">
-        house_code = #{houseCode,jdbcType=VARCHAR},
+        house_code = #{houseCode,jdbcType=VARCHAR}
       </if>
       <if test="statu != null">
-       AND  statu = #{statu,jdbcType=INTEGER},
+       AND  statu = #{statu,jdbcType=INTEGER}
       </if>
       <if test="price != null">
         AND price = #{price,jdbcType=DOUBLE}

@@ -3,9 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>房东
-
-		管理</title>
+	<title>房东管理</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,13 +21,13 @@
 					<form class="layui-form layui-form-pane" action="" id="searchFrm">
 						<div class="layui-form-item">
 							<div class="layui-inline">
-								<label class="layui-form-label">用户名称</label>
+								<label class="layui-form-label">房主名称</label>
 								<div class="layui-input-inline">
 									<input type="text" name="name" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">用户备注</label>
+								<label class="layui-form-label">房主备注</label>
 								<div class="layui-input-inline">
 									<input type="text" name="remark" autocomplete="off" class="layui-input">
 								</div>
@@ -284,7 +282,7 @@
 			function openAddUser(){
 				mainIndex=layer.open({
 					type:1,
-					title:'添加用户',
+					title:'添加房东',
 					content:$("#addOrUpdateDiv"),
 					area:['800px','500px'],
 					success:function(index){

@@ -28,7 +28,12 @@
     <div class="layui-card">
         <div class="layui-card-header">发布流程</div>
         <form id="apk_add_form">
-            流程名称：<input type="text" id="processName" name="processName" placeholder="默认名称">
+            <div class="layui-inline">
+            <label class="layui-form-label">流程名称</label>
+                <div class="layui-input-block">
+            <input type="text" id="processName" name="processName" placeholder="请输入部署的流程名称" class="layui-input">
+                </div>
+            </div>
         </form>
         <div class="layui-card-body">
             <div class="layui-upload">

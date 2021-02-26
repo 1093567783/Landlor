@@ -71,7 +71,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">姓名</label>
 						<div class="layui-input-inline">
-							<input type="hidden" name="id" />
+							<input type="hidden" name="id" id="id" />
 							<input type="text" name="name" id="name" lay-verify="required" autocomplete="off"
 								   placeholder="请输入姓名" class="layui-input">
 						</div>
@@ -114,7 +114,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">地址</label>
 						<div class="layui-input-block">
-							<input type="text" name="address" autocomplete="off" placeholder="请输入居住地址"
+							<input type="text" name="address" autocomplete="off" placeholder="请输入期望租赁地址"
 								   class="layui-input">
 						</div>
 					</div>
@@ -290,7 +290,6 @@
                     // 重置表单
                     $("#dataFrm")[0].reset();
                     // 查询最大排序码
-
                 }
             });
         }
@@ -309,7 +308,6 @@
                 }
             });
         }
-        var token = $.cookie('TOKEN');
         // 监听 添加和修改的提交
         form.on("submit(doSubmit)", function (data) {
             // 提交数据
