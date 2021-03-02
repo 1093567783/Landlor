@@ -1,5 +1,7 @@
 package com.lym.controller.user;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.ShearCaptcha;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboPermission;
@@ -15,7 +17,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -27,8 +32,10 @@ import com.lym.model.user.vo.UserVO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author LYM
@@ -45,7 +52,8 @@ public class UserController {
     private DubboUser dubboUser;
     @Reference
     private DubboRole dubboRole;
-
+    @Autowired
+    private StringRedisTemplate redisTemplate;
     @Bean(name = "dubboUser")
     public DubboUser getDubboUser(){
         return dubboUser;
@@ -207,6 +215,36 @@ public class UserController {
         }
         System.out.println("登录成功" + result);
         return result;
+    }
+
+    /**
+     * 返回验证码
+     * 思路： 把验证码存入redis
+     * 登陆时候 在进行获取出来 进行相应的判断
+     * 接收的形式    key --- value
+     *
+     * @param response 返回出去的流
+     * @param codeKey  接收验证码的key
+     * @throws IOException
+     */
+    @RequestMapping("captcha")
+    public void captcha(HttpServletResponse response, String codeKey) throws IOException {
+        // 定义验证码
+        ShearCaptcha captcha = CaptchaUtil.
+                createShearCaptcha(100, 38, 4, 2);
+        String code = captcha.getCode();
+
+        System.out.println(code);
+
+        // 储存到redis
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        opsForValue.set(codeKey, code);
+        // 设置  缓存时间 60秒
+        opsForValue.getOperations().expire(codeKey, 60, TimeUnit.SECONDS);
+        // 返回流
+        captcha.write(response.getOutputStream());
+
+
     }
 
     /**

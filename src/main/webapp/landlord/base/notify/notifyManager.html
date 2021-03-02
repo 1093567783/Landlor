@@ -291,7 +291,7 @@
                     maxlength: 6, //可输入文本的最大长度，默认500
                     title: '敏感操作，请输入口令，防止杂毛'
                 }, function(value, index, elem) {
-                    if (value == 'yby123') {
+                    if (value == '123') {
                         var params = "";
                         $.each(data, function(index, item) {
                             if (index == 0) {
@@ -349,12 +349,12 @@
             return content ;
         }
 
-        editor.customConfig.uploadImgServer = api + "file/uploadFileWang";
+        editor.customConfig.uploadImgServer = api + "file/upload";
         editor.customConfig.uploadFileName = 'mf';
         editor.customConfig.uploadImgParams = {
             // 如果版本 <=v3.1.0 ，属性值会自动进行 encode ，此处无需 encode
             // 如果版本 >=v3.1.1 ，属性值不会自动 encode ，如有需要自己手动 encode
-            token: token
+            TOKEN: token
         }
         editor.customConfig.uploadImgHooks = {
             success: function(xhr, editor, result) {

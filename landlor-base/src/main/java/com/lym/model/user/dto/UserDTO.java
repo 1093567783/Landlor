@@ -46,6 +46,10 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
     @NotBlank(message = "密码不能为空")
     private String password;
     /**
+     * 验证码
+     */
+    private String vercode;
+    /**
      * 确认密码
      */
     private String rePass;

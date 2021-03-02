@@ -86,6 +86,7 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/user/sendMsg", "anon");
         filterChainDefinitionMap.put("/user/login", "anon");
+        filterChainDefinitionMap.put("/user/captcha", "anon");
         filterChainDefinitionMap.put("/user/saveUser", "anon");
 
         filterChainDefinitionMap.put("/**", "authc");
