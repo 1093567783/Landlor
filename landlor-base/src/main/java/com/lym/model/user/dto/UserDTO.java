@@ -25,6 +25,9 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
      * 角色id
      */
     private Byte roleId;
+    /**
+     * 上级id
+     */
     private Byte managerId;
     /**部门id*/
     private Byte deptId;
@@ -35,7 +38,10 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
      */
     @NotBlank(message = "用户名不能为空")
     private String userName;
-
+    /**
+     * 用户类型，0-管理员，1-普通用户
+     */
+    private Integer type;
     /**
      * 当前密码
      */
@@ -49,6 +55,10 @@ public class UserDTO extends BaseEntityDTO implements Serializable {
      * 验证码
      */
     private String vercode;
+    /**
+     * 前端生成的验证码，判断有没有过期
+     */
+    private String keyCode;
     /**
      * 确认密码
      */

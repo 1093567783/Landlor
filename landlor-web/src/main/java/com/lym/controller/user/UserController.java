@@ -86,12 +86,13 @@ public class UserController {
         }
         //用户名与电话一致
         userDTO.setPhone(userDTO.getUserName());
+        userDTO.setType(1);
         dubboUser.saveUser(userDTO);
         return result;
     }
 
     /**
-     * 保存用户
+     * 保存管理员
      * @param userDTO
      * @return
      */
@@ -99,9 +100,10 @@ public class UserController {
     public Result insertUser(@RequestBody UserDTO userDTO) {
         Result<Object> result = new Result<>();
         userDTO.setPassword("123456");
-        dubboUser.saveUser(userDTO);
+        userDTO.setType(0);
         userDTO.setJoinTime(new Date());
         userDTO.setUpdateTime(new Date());
+        dubboUser.saveUser(userDTO);
         return result;
     }
     /**
@@ -187,34 +189,47 @@ public class UserController {
         if (StringUtils.isEmpty(userDTO.getUserName()) || StringUtils.isEmpty(userDTO.getPassword())) {
             return result.setError(169, "请输入用户名和密码！");
         }
-        //用户认证信息
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                userDTO.getUserName(),
-                userDTO.getPassword()
-        );
-        try {
-            //进行验证，这里可以捕获异常，然后返回对应信息
-            subject.login(usernamePasswordToken);
-            String authToken = subject.getSession().getId().toString();
-            Map<String, Object> map = new HashMap<>();
-            map.put("token", authToken);
-            result.setData(map);
-            Cookie cookie = new Cookie("TOKEN",authToken);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-        } catch (UnknownAccountException e) {
-            log.error("用户名不存在！", e);
-            return result.setError(169, "用户名不存在！");
-        } catch (AuthenticationException e) {
-            log.error("账号或密码错误！", e);
-            return result.setError(169, "账号或密码错误！");
-        } catch (AuthorizationException e) {
-            log.error("没有权限！", e);
-            return result.setError(169, "没有权限");
+        ValueOperations<String, String> forValue = redisTemplate.opsForValue();
+        String code = forValue.get(userDTO.getKeyCode());
+        if (null == code) {
+            return result.setError(-1, "验证码错误！！！");
+        } else {
+            System.out.println(userDTO.getVercode());
+            // 进行比较 不考虑大小写
+            try {
+                if (code.equalsIgnoreCase(userDTO.getVercode())) {
+                    //用户认证信息
+                    Subject subject = SecurityUtils.getSubject();
+                    UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
+                            userDTO.getUserName(),
+                            userDTO.getPassword()
+                    );
+                    //进行验证，这里可以捕获异常，然后返回对应信息
+                    subject.login(usernamePasswordToken);
+                    String authToken = subject.getSession().getId().toString();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("token", authToken);
+                    result.setData(map);
+                    Cookie cookie = new Cookie("TOKEN", authToken);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                    System.out.println("登录成功" + result);
+                    return result;
+                }else {
+                    return result.setError(-1,"验证码错误");
+                }
+            } catch (UnknownAccountException e) {
+                log.error("用户名不存在！", e);
+                return result.setError(169, "用户名不存在！");
+            } catch (AuthenticationException e) {
+                log.error("账号或密码错误！", e);
+                return result.setError(169, "账号或密码错误！");
+            } catch (AuthorizationException e) {
+                log.error("没有权限！", e);
+                return result.setError(169, "没有权限");
+            }
         }
-        System.out.println("登录成功" + result);
-        return result;
+
     }
 
     /**

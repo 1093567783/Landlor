@@ -43,6 +43,7 @@
         <h2>房屋租赁管理系统</h2>
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+          <input type="hidden" name="keyCode" id="keyCode" >
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
           <input type="text" name="userName" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
@@ -104,11 +105,13 @@
 <script>
     var keyCode = Math.floor(Math.random() * 9000 + 1000);
     $("#captchaPic").attr("src", api + 'user/captcha?codeKey=' + keyCode);
+    $("#keyCode").val(keyCode)
     getCode();
 
     function getCode() {
         keyCode = Math.floor(Math.random() * 9000 + 1000);
         $("#captchaPic").attr("src", api + 'user/captcha?codeKey=' + keyCode)
+        $("#keyCode").val(keyCode)
     }
     layui.config({
         base: '../layuiadmin/' //静态资源所在路径
