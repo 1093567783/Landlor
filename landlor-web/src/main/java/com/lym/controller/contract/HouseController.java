@@ -59,6 +59,7 @@ public class HouseController {
         houseDTO.setUserId(userVO.getId().intValue());
         houseDTO.setUpdateTime(new Date());
         dubboHouse.saveHouse(houseDTO);
+        result.setMsg("保存成功");
         return result;
     }
 
@@ -71,6 +72,7 @@ public class HouseController {
     public Result deleteHouse(HouseDTO houseDTO){
         Result result = new Result();
         dubboHouse.deleteHouse(houseDTO);
+        result.setMsg("删除成功");
         return result;
     }
 
@@ -83,6 +85,7 @@ public class HouseController {
     public Result updateHouse(HouseDTO houseDTO){
         Result result = new Result();
         dubboHouse.updateHouse(houseDTO);
+        result.setMsg("修改成功");
         return result;
     };
 

@@ -71,6 +71,7 @@ public class ContractController {
         LeaseDTO leaseDTO = setLease(contract);
         dubboLease.saveLease(leaseDTO);
         dubboActivity.saveStartProcess(Constant.CONTRACT_KEY,contract.getId(),userVO.getRealName());
+        result.setMsg("发起成功");
         return result;
     }
 
@@ -137,6 +138,7 @@ public class ContractController {
     public Result deleteContract(ContractDTO contractDTO){
         Result result = new Result();
         dubboContract.deleteContract(contractDTO);
+        result.setMsg("删除成功");
         return result;
     }
 

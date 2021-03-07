@@ -156,6 +156,10 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 用户详情
+     * @return
+     */
     @RequestMapping("detailUser")
     public Result detailUser(){
         Result<Object> result = new Result<>();

@@ -58,7 +58,7 @@ public class CustomerController {
         customerDTO.setUserId(userVO.getId().intValue());
         customerDTO.setUpdateTime(new Date());
         dubboCustomer.saveCustomer(customerDTO);
-
+        result.setMsg("添加成功");
         return result;
     }
 
@@ -71,6 +71,7 @@ public class CustomerController {
     public Result deleteCustomer(CustomerDTO customerDTO){
         Result result = new Result();
         dubboCustomer.deleteCustomer(customerDTO);
+        result.setMsg("删除成功");
         return result;
     };
 
@@ -83,6 +84,7 @@ public class CustomerController {
     public Result updateCustomer(@RequestBody @Valid CustomerDTO customerDTO){
         Result result = new Result();
         dubboCustomer.updateCustomer(customerDTO);
+        result.setMsg("修改成功");
         return result;
     }
 }

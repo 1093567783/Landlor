@@ -56,6 +56,7 @@ public class LandlordController {
         landlordDTO.setJoinTime(new Date());
         landlordDTO.setUserId(userVO.getId().intValue());
         dubboLandlord.saveLandlord(landlordDTO);
+        result.setMsg("保存成功");
         return result;
     }
 
@@ -68,6 +69,7 @@ public class LandlordController {
     public Result deleteLandlord(LandlordDTO landlordDTO){
         Result result = new Result();
         dubboLandlord.deleteLandlord(landlordDTO);
+        result.setMsg("删除成功");
         return result;
     }
 
@@ -80,6 +82,7 @@ public class LandlordController {
     public Result updateLandlord(LandlordDTO landlordDTO){
         Result result = new Result();
         dubboLandlord.updateLandlord(landlordDTO);
+        result.setMsg("修改成功");
         return result;
     };
 }
