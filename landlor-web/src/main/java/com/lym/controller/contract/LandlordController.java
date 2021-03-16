@@ -2,6 +2,7 @@ package com.lym.controller.contract;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboLandlord;
+import com.lym.model.common.Constant;
 import com.lym.model.common.Result;
 import com.lym.model.contract.dto.LandlordDTO;
 import com.lym.model.contract.vo.LandlordVO;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author LYM
@@ -79,10 +82,20 @@ public class LandlordController {
      * @return
      */
     @RequestMapping("updateLandlord")
-    public Result updateLandlord(LandlordDTO landlordDTO){
+    public Result updateLandlord(@RequestBody @Valid LandlordDTO landlordDTO){
         Result result = new Result();
+        Pattern regex = Pattern.compile(Constant.PHONE_PATTERN);
+        Matcher matcher = regex.matcher(landlordDTO.getPhone());
+        boolean flag = matcher.matches();
+        if (!flag){
+            result.setError(169,"电话格式不正确");
+            return result;
+        }
+        if (!Pattern.compile(Constant.CARD_ID).matcher(landlordDTO.getCardId()).matches()){
+            result.setError(169,"身份证号码不正确");
+            return result;
+        }
         dubboLandlord.updateLandlord(landlordDTO);
-        result.setMsg("修改成功");
         return result;
     };
 }

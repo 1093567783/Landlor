@@ -7,6 +7,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboPermission;
 import com.lym.dubbo.DubboRole;
 import com.lym.dubbo.DubboUser;
+import com.lym.model.common.Constant;
 import com.lym.model.common.Result;
 import com.lym.model.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 /**
  * @Author LYM
@@ -115,6 +117,10 @@ public class UserController {
     @RequiresPermissions("updateUser")
     public Result updateUser(@RequestBody UserDTO userDTO){
         Result<Object> result = new Result<>();
+        if (!Pattern.compile(Constant.EMAIL_PATTERN).matcher(userDTO.getEmail()).matches()){
+            result.setError(169,"邮箱格式不正确");
+            return result;
+        }
         dubboUser.updateUser(userDTO);
         return result;
     }

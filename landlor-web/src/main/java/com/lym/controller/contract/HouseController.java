@@ -82,10 +82,15 @@ public class HouseController {
      * @return
      */
     @RequestMapping("updateHouse")
-    public Result updateHouse(HouseDTO houseDTO){
+    public Result updateHouse(@RequestBody @Valid HouseDTO houseDTO){
         Result result = new Result();
-        dubboHouse.updateHouse(houseDTO);
-        result.setMsg("修改成功");
+        if (houseDTO.getLandlordId() == null){
+            result.setError(169,"房主不能为空");
+        }else {
+            dubboHouse.updateHouse(houseDTO);
+            result.setMsg("修改成功");
+        }
+
         return result;
     };
 

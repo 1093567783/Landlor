@@ -159,6 +159,7 @@ public class ActivitiController {
         Subject subject = SecurityUtils.getSubject();
         UserVO userVO = (UserVO) subject.getPrincipal();
         dubboActivity.saveSubmitTask(Long.valueOf(submitDTO.getId()),submitDTO.getTaskId(),submitDTO.getComment(),submitDTO.getOutcome(),userVO);
+        result.setMsg("流程审批成功");
         return result;
     }
 
