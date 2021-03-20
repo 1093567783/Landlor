@@ -38,6 +38,7 @@ public class HouseController {
     public Result findAllHouse(HouseDTO houseDTO){
         Result result = new Result();
         List<HouseVO> list = dubboHouse.findAllHouse(houseDTO);
+        result.setCount(list.get(0).getCount());
         result.setData(list);
         result.setCode(0);
         return result;

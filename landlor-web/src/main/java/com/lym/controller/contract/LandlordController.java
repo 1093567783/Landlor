@@ -41,6 +41,7 @@ public class LandlordController {
     public Result findAllLandlord(LandlordDTO landlordDTO){
         Result result = new Result();
         List<LandlordVO> list = dubboLandlord.findAllLandlord(landlordDTO);
+        result.setCount(list.get(0).getCount());
         result.setData(list);
         result.setCode(0);
         return result;

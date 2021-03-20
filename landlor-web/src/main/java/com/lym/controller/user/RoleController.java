@@ -53,6 +53,7 @@ public class RoleController {
     public Result loadAllRole(RoleDTO roleDTO) {
         Result result = new Result();
         List<RoleVO> list = this.dubboRole.queryAllRole(roleDTO);
+        result.setCount(list.get(0).getCount());
         result.setCode(0);
         result.setData(list);
         return result;

@@ -26,6 +26,7 @@ public class LeaseController {
     public Result findAllLease(LeaseDTO leaseDTO){
         Result result = new Result();
         List<LeaseVO> leaseVOS = dubboLease.findAllLease(leaseDTO);
+        result.setCount(leaseVOS.get(0).getCount());
         result.setData(leaseVOS);
         result.setCode(0);
         return result;

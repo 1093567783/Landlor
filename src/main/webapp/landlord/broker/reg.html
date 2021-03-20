@@ -74,6 +74,13 @@
                 <input type="text" name="realName" id="LAY-user-login-nickname" lay-verify="nickname" placeholder="昵称" class="layui-input">
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">请选择注册类型：</label>
+                <div class="layui-input-block" id="IsPurchased">
+                    <input type="radio"  name="type" value="房主" title="房主" />
+                    <input type="radio"  name="type" value="租客" title="租客" />
+                </div>
+            </div>
+                <div class="layui-form-item">
                 <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked>
             </div>
             <div class="layui-form-item">

@@ -38,6 +38,7 @@ public class CustomerController {
     public Result findAllCustomer(CustomerDTO customerDTO){
         Result result = new Result();
         List<CustomerVO> list = dubboCustomer.findAllCustomer(customerDTO);
+        result.setCount(list.get(0).getCount());
         result.setData(list);
         result.setCode(0);
         return result;

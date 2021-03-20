@@ -37,6 +37,7 @@ public class NoticeController {
     public Result loadAllNotice(NoticeDTO noticeDTO) {
         Result result = new Result();
         List<NoticeVO> list = this.dubboNotice.queryAllNotice(noticeDTO);
+        result.setCount(list.get(0).getCount());
         result.setData(list);
         result.setCode(0);
         return result;

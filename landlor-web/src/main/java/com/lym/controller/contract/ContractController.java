@@ -124,6 +124,7 @@ public class ContractController {
     public Result findAllContract(ContractDTO contractDTO){
         Result result = new Result();
         List<ContractVO> list = dubboContract.findAllContract(contractDTO);
+        result.setCount(list.get(0).getCount());
         result.setCode(0);
         result.setData(list);
         return result;
