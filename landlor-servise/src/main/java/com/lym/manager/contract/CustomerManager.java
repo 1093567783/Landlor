@@ -1,8 +1,11 @@
 package com.lym.manager.contract;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.contract.CustomerMapper;
 import com.lym.model.contract.dto.CustomerDTO;
 import com.lym.model.contract.vo.CustomerVO;
+import com.lym.model.contract.vo.HouseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,11 @@ public class CustomerManager {
      * @return
      */
     public List<CustomerVO> findAllCustomer(CustomerDTO customerDTO) {
+        PageHelper.startPage(customerDTO.getPage(),customerDTO.getLimit());
         List<CustomerVO> allCustomer = customerMapper.findAllCustomer(customerDTO);
+
+        PageInfo<CustomerVO> pageInfo = new PageInfo<>(allCustomer);
+        allCustomer.get(0).setCount(pageInfo.getTotal());
         return allCustomer;
     }
 

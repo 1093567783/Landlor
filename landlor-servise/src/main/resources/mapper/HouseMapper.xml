@@ -245,16 +245,16 @@
     from t_house
     <where>
       <if test="houseCode != null">
-        house_code = #{houseCode,jdbcType=VARCHAR}
+        house_code LIKE '%${houseCode}%'
       </if>
       <if test="statu != null">
-       AND  statu = #{statu,jdbcType=INTEGER}
+       AND  statu LIKE '%${statu}%'
       </if>
       <if test="price != null">
-        AND price = #{price,jdbcType=DOUBLE}
+        AND price LIKE '%${price}%'
       </if>
       <if test="landlordId != null">
-        AND landlord_id = #{landlordId,jdbcType=DOUBLE}
+        AND landlord_id LIKE '%${landlordId}%'
       </if>
     </where>
   </select>

@@ -1,5 +1,6 @@
 package com.lym.model.contract.vo;
 
+import com.lym.model.common.BaseEntityDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class HouseVO implements Serializable{
+public class HouseVO extends BaseEntityDTO implements Serializable{
     /**
      * 房源id
      */

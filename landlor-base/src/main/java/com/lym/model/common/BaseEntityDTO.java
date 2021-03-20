@@ -17,6 +17,7 @@ public class BaseEntityDTO implements Serializable{
 
     private Integer limit;
 
+    private long count;
     //操作的userId
     private Long operateUserId;
 

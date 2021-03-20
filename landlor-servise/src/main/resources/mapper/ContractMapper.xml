@@ -206,7 +206,7 @@
     from t_contract
     <where>
       <if test="price != null">
-        price = #{price,jdbcType=DOUBLE}
+        price LIKE '%${price,jdbcType=DOUBLE}%'
       </if>
     </where>
   </select>

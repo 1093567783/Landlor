@@ -2,6 +2,7 @@ package com.lym.controller.user;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
+import cn.hutool.db.Page;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lym.dubbo.DubboPermission;
@@ -280,7 +281,9 @@ public class UserController {
     @RequestMapping("findAllUser")
     public Result<Object> findAllUser(UserDTO userDTO){
         Result<Object> result = new Result<>();
+
         List<UserVO> userVOS = dubboUser.findAllUser(userDTO);
+        result.setCount(userVOS.get(0).getCount());
         result.setData(userVOS);
         log.info(userVOS.toString());
         result.setCode(0);

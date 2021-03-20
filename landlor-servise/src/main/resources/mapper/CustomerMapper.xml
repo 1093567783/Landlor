@@ -168,16 +168,16 @@
       from t_customer
       <where>
         <if test="name != null">
-          `name` = #{name,jdbcType=VARCHAR}
+          `name` LIKE '%${name,jdbcType=VARCHAR}%'
         </if>
         <if test="sex != null">
-         AND sex = #{sex,jdbcType=INTEGER}
+         AND sex LIKE '%${sex,jdbcType=INTEGER}%'
         </if>
         <if test="address != null">
-          AND address = #{address,jdbcType=VARCHAR}
+          AND address LIKE '%${address,jdbcType=VARCHAR}%'
         </if>
         <if test="phone != null">
-          AND phone = #{phone,jdbcType=VARCHAR}
+          AND phone LIKE '%${phone,jdbcType=VARCHAR}%'
         </if>
       </where>
     </select>

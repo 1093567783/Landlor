@@ -1,8 +1,11 @@
 package com.lym.manager.contract;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.contract.LandlordMapper;
 import com.lym.model.contract.dto.LandlordDTO;
 import com.lym.model.contract.vo.LandlordVO;
+import com.lym.model.contract.vo.LeaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,12 @@ public class LandlordManager {
      * @return
      */
     public List<LandlordVO> findAllLandlord(LandlordDTO landlordDTO) {
-       return landlordMapper.findAllLandlord(landlordDTO);
+        PageHelper.startPage(landlordDTO.getPage(),landlordDTO.getLimit());
+        List<LandlordVO> allLandlord = landlordMapper.findAllLandlord(landlordDTO);
+
+        PageInfo<LandlordVO> pageInfo = new PageInfo<>(allLandlord);
+        allLandlord.get(0).setCount(pageInfo.getTotal());
+       return allLandlord;
     }
 
     /**

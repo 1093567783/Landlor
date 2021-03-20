@@ -1,8 +1,11 @@
 package com.lym.manager.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.user.NoticeMapper;
 import com.lym.model.contract.dto.NoticeDTO;
 import com.lym.model.contract.vo.NoticeVO;
+import com.lym.model.user.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +24,12 @@ public class NoticeManager {
 
 
     public List<NoticeVO> queryAllNotice(NoticeDTO noticeDTO) {
-       return noticeMapper.queryAllNotice(noticeDTO);
+        PageHelper.startPage(noticeDTO.getPage(),noticeDTO.getLimit());
+        List<NoticeVO> list = noticeMapper.queryAllNotice(noticeDTO);
+        PageInfo<NoticeVO> pageInfo = new PageInfo<>(list);
+        list.get(0).setCount(pageInfo.getTotal());
+        
+        return list;
     }
 
     public void save(NoticeDTO noticeDTO) {

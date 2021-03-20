@@ -39,6 +39,7 @@
                 <artifactId>hessian</artifactId>
                 <version>4.0.7</version>
         </dependency>
+
     </dependencies>
 
 </project>

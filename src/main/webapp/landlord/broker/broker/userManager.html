@@ -36,13 +36,13 @@
 							<div class="layui-inline">
 								<label class="layui-form-label">用户名称</label>
 								<div class="layui-input-inline">
-									<input type="text" name="name" autocomplete="off" class="layui-input">
+									<input type="text" name="realName" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">用户备注</label>
+								<label class="layui-form-label">登录名称</label>
 								<div class="layui-input-inline">
-									<input type="text" name="remark" autocomplete="off" class="layui-input">
+									<input type="text" name="userName" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
@@ -171,11 +171,12 @@
 	<script src="../../../layuiadmin/lib/common/common.js" charset="utf-8"></script>
 	<script src="../../../layuiadmin/lib/common/selectLayer.js" charset="utf-8"></script>
 	<script>
-		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload'], function () {
+		layui.use(['form', 'table', 'laydate', 'layer', 'treeTable','upload','laypage'], function () {
 			var form = layui.form;
 			var table = layui.table;
 			var laydate = layui.laydate;
 			var layer = layui.layer;
+            var laypage = layui.laypage;
 			var treeTable = layui.treeTable;
             var upload = layui.upload ;
 			//alert($.cookie('TOKEN'));
@@ -234,7 +235,7 @@
 					page: {
 						curr: 1
 					},
-					url: api + 'user/loadAllUser?' + params
+					url: api + 'user/findAllUser?' + params
 				});
 				return false;
 			});

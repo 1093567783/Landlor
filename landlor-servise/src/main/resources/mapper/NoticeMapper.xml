@@ -98,7 +98,7 @@
     from sys_notice
     <where>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+        title LIKE '%${title}%'
       </if>
     </where>
   </select>

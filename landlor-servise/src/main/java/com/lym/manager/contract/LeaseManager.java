@@ -1,8 +1,11 @@
 package com.lym.manager.contract;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.contract.LeaseMapper;
 import com.lym.model.contract.dto.LeaseDTO;
 import com.lym.model.contract.vo.LeaseVO;
+import com.lym.model.contract.vo.NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +36,10 @@ public class LeaseManager {
      * @return
      */
     public List<LeaseVO> findAllLease(LeaseDTO leaseDTO) {
-       return leaseMapper.findAllLease(leaseDTO);
+        PageHelper.startPage(leaseDTO.getPage(),leaseDTO.getLimit());
+        List<LeaseVO> allLease = leaseMapper.findAllLease(leaseDTO);
+        PageInfo<LeaseVO> pageInfo = new PageInfo<>(allLease);
+        allLease.get(0).setCount(pageInfo.getTotal());
+        return allLease;
     }
 }

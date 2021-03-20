@@ -1,5 +1,6 @@
 package com.lym.model.contract.dto;
 
+import com.lym.model.common.BaseEntityDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class CustomerDTO implements Serializable{
+public class CustomerDTO extends BaseEntityDTO implements Serializable{
     /**
      * 租客id
      */

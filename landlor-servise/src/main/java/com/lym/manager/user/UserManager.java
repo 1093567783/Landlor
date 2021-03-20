@@ -1,6 +1,8 @@
 package com.lym.manager.user;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.user.UserMapper;
 import com.lym.model.user.dto.UserDTO;
 import org.apache.shiro.SecurityUtils;
@@ -54,7 +56,11 @@ public class UserManager{
      * @return
      */
     public List<UserVO> findAllUser(UserDTO userDTO) {
-        return userMapper.findAllUser(userDTO);
+        PageHelper.startPage(userDTO.getPage(),userDTO.getLimit());
+        List<UserVO> userVOS = userMapper.findAllUser(userDTO);
+        PageInfo<UserVO> pageInfo = new PageInfo<>(userVOS);
+        userVOS.get(0).setCount(pageInfo.getTotal());
+        return userVOS;
     }
 
     /**

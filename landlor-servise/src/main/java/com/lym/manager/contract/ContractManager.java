@@ -1,8 +1,11 @@
 package com.lym.manager.contract;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.contract.ContractMapper;
 import com.lym.model.contract.dto.ContractDTO;
 import com.lym.model.contract.vo.ContractVO;
+import com.lym.model.contract.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +29,11 @@ public class ContractManager {
     }
 
     public List<ContractVO> findAllContract(ContractDTO contractDTO) {
+        PageHelper.startPage(contractDTO.getPage(),contractDTO.getLimit());
         List<ContractVO> list = contractMapper.findAllContract(contractDTO);
+
+        PageInfo<ContractVO> pageInfo = new PageInfo<>(list);
+        list.get(0).setCount(pageInfo.getTotal());
         return list;
     }
 

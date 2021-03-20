@@ -147,10 +147,10 @@
     from sys_role
     <where>
       <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
+        `name` LIKE '%${name}%',
       </if>
       <if test="remark != null">
-        AND remark = #{remark,jdbcType=VARCHAR}
+        AND remark LIKE '%${remark}%'
       </if>
     </where>
   </select>

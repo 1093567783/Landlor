@@ -1,8 +1,11 @@
 package com.lym.manager.contract;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.contract.HouseMapper;
 import com.lym.model.contract.dto.HouseDTO;
 import com.lym.model.contract.vo.HouseVO;
+import com.lym.model.contract.vo.LandlordVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,12 @@ public class HouseManager {
      * @return
      */
     public List<HouseVO> findAllHouse(HouseDTO houseDTO) {
-       return houseMapper.findAllHouse(houseDTO);
+        PageHelper.startPage(houseDTO.getPage(),houseDTO.getLimit());
+        List<HouseVO> allHouse = houseMapper.findAllHouse(houseDTO);
+
+        PageInfo<HouseVO> pageInfo = new PageInfo<>(allHouse);
+        allHouse.get(0).setCount(pageInfo.getTotal());
+        return allHouse;
     }
 
     /**

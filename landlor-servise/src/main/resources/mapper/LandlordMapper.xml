@@ -157,13 +157,13 @@
       from t_landlord
       <where>
         <if test="name != null">
-          `name` = #{name,jdbcType=VARCHAR}
+          `name` LIKE '%${name}'
         </if>
         <if test="address != null">
-         AND address = #{address,jdbcType=VARCHAR}
+         AND address LIKE '%${address,jdbcType=VARCHAR}%'
         </if>
         <if test="phone != null">
-         AND phone = #{phone,jdbcType=VARCHAR}
+         AND phone = '%${phone,jdbcType=VARCHAR}%'
         </if>
       </where>
     </select>

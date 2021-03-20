@@ -1,5 +1,6 @@
 package com.lym.model.contract.dto;
 
+import com.lym.model.common.BaseEntityDTO;
 import com.lym.model.contract.vo.CustomerVO;
 import com.lym.model.contract.vo.LandlordVO;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.Date;
  * @Version v1.0.0
  **/
 @Data
-public class ContractDTO implements Serializable{
+public class ContractDTO extends BaseEntityDTO implements Serializable{
     /**
      * 合同表id
      */

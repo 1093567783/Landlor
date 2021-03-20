@@ -1,12 +1,14 @@
 package com.lym.manager.user;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lym.mapper.user.RoleMapper;
 import com.lym.model.common.Constant;
 import com.lym.model.common.DataGridView;
 import com.lym.model.shiro.Role;
 import com.lym.model.user.dto.RoleDTO;
 import com.lym.model.user.vo.RoleVO;
+import com.lym.model.user.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -70,9 +72,11 @@ public class RoleManager {
      * @return
      */
     public List<RoleVO> queryAllRole(RoleDTO roleDTO) {
-       int page = roleDTO.getPage()-1;
-        PageHelper.startPage(page,roleDTO.getLimit());
-        return this.roleMapper.selectPage(roleDTO);
+        PageHelper.startPage(roleDTO.getPage(),roleDTO.getLimit());
+        List<RoleVO> list = this.roleMapper.selectPage(roleDTO);
+        PageInfo<RoleVO> pageInfo = new PageInfo<>(list);
+        list.get(0).setCount(pageInfo.getTotal());
+        return list;
     }
 
     /**

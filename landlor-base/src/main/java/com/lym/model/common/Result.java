@@ -18,7 +18,7 @@ import java.util.Map;
 @Data
 public class Result <T> implements Serializable {
     private Integer code;
-    private Integer count;
+    private long count;
     private String msg;
     private T data;
 
