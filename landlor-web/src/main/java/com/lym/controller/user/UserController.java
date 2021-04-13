@@ -102,6 +102,10 @@ public class UserController {
     @RequestMapping("insertUser")
     public Result insertUser(@RequestBody UserDTO userDTO) {
         Result<Object> result = new Result<>();
+        UserVO userByName = dubboUser.getUserByName(userDTO.getUserName());
+        if (userByName != null){
+            return result.setError(130,"用户名已存在!!!");
+        }
         userDTO.setPassword("123456");
         userDTO.setType(0);
         userDTO.setJoinTime(new Date());
