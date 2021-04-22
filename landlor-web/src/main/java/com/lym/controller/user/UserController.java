@@ -110,6 +110,7 @@ public class UserController {
         userDTO.setType(0);
         userDTO.setJoinTime(new Date());
         userDTO.setUpdateTime(new Date());
+
         dubboUser.saveUser(userDTO);
         return result;
     }
